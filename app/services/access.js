@@ -5,6 +5,7 @@ export default Ember.Service.extend({
   cookies: Ember.inject.service(),
   session: Ember.inject.service(),
   github:  Ember.inject.service(),
+  yunhong: Ember.inject.service(),
   shibbolethAuth: Ember.inject.service(),
   store: Ember.inject.service(),
   userStore: Ember.inject.service('user-store'),
@@ -51,6 +52,18 @@ export default Ember.Service.extend({
     });
   },
 
+  getUrlVars: function() {
+    let obj = {};
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    hashes.map(h => {
+      let key = h.split('=')[0];
+      let value = h.split('=')[1];
+      Object.assign(obj, {[key]: value});
+      // obj = {...obj, [key]: value};
+    });
+    return obj;
+  },
+
   detect() {
     if ( this.get('enabled') !== null ) {
       return Ember.RSVP.resolve();
@@ -77,6 +90,12 @@ export default Ember.Service.extend({
       } else if ( !token.security ) {
         this.clearSessionKeys();
       }
+      if (this.yunhongConfigures(token)) {
+        this.get('yunhong').set('hasToken', token);
+        this.get('session').set(C.SESSION.USER_TYPE, token.userType);
+      } else if ( !token.security ) {
+        this.clearSessionKeys();
+      }
 
       return Ember.RSVP.resolve(undefined,'API supports authentication'+(token.security ? '' : ', but is not enabled'));
     })
@@ -91,6 +110,14 @@ export default Ember.Service.extend({
   shibbolethConfigured(token) {
     let rv = false;
     if ((token.authProvider||'') === 'shibbolethconfig' && token.userIdentity) {
+      rv = true;
+    }
+    return rv;
+  },
+
+  yunhongConfigures(token) {
+    let rv = false;
+    if ((token.authProvider || '') === 'yunhongconfig' && token.userIdentity) {
       rv = true;
     }
     return rv;
@@ -131,6 +158,47 @@ export default Ember.Service.extend({
         err = {type: 'error', message: 'Error logging in'};
       }
       return Ember.RSVP.reject(err);
+    });
+  },
+
+  yunHongLogin(obj) {
+    var session = this.get('session');
+    Object.assign(obj, {authProvider: 'yunhongconfig'});
+    return this.get('userStore').rawRequest({
+      url: 'token',
+      method: 'POST',
+      data: {
+        code: JSON.stringify(obj),
+      },
+    }).then((xhr) => {
+      var auth = xhr.body;
+      var interesting = {};
+      C.TOKEN_TO_SESSION_KEYS.forEach((key) => {
+        if ( typeof auth[key] !== 'undefined' )
+        {
+          interesting[key] = auth[key];
+        }
+      });
+
+      this.get('cookies').setWithOptions(C.COOKIE.TOKEN, auth['jwt'], {
+        path: '/',
+        secure: window.location.protocol === 'https:'
+      });
+
+      session.setProperties(interesting);
+      return xhr;
+    }).catch((res) => {
+      let err;
+      try {
+        err = res.body;
+      } catch(e) {
+        err = {type: 'error', message: 'Error logging in'};
+      }
+      return Ember.RSVP.reject(err);
+      // return this.get('userStore').rawRequest({
+      //   url: 'token',
+      // }).then(() => {
+      // });
     });
   },
 

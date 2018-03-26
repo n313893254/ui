@@ -70,9 +70,15 @@
   <hr/>
   <div class="well">
     {{#if (and accessEnabled showEdit)}}
-      <div class="form-group">
-        {{input-identity action="checkMember" onError="error"}}
-      </div>
+      {{#if (eq access.token.authProvider 'yunhongconfig')}}
+        <div class="form-group">
+          {{input-identity-yunhong action="checkMember" onError="error"}}
+        </div>
+      {{else}}
+        <div class="form-group">
+          {{input-identity action="checkMember" onError="error"}}
+        </div>
+      {{/if}}
     {{/if}}
 
     {{#if accessEnabled}}

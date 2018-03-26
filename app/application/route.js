@@ -5,9 +5,11 @@ export default Ember.Route.extend({
   access         : Ember.inject.service(),
   cookies        : Ember.inject.service(),
   github         : Ember.inject.service(),
+  yunhong        : Ember.inject.service(),
   language       : Ember.inject.service('user-language'),
   modal          : Ember.inject.service(),
   settings       : Ember.inject.service(),
+  userStore      : Ember.inject.service(),
 
   previousParams : null,
   previousRoute  : null,
@@ -109,6 +111,11 @@ export default Ember.Route.extend({
           params.queryParams.errorMsg = errorMsg;
         }
 
+        if (this.get('access.token.authProvider') === 'yunhongconfig') {
+          let url = this.get('access.token.redirectUrl');
+          let logoutUrl = url.slice(0, url.indexOf('login')) + 'logout';
+          window.location.href = logoutUrl;
+        }
         this.transitionTo('login', params);
       });
     },
@@ -143,9 +150,22 @@ export default Ember.Route.extend({
     }
   },
 
+  getUrlVars: function() {
+    let obj = {};
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    hashes.map(h => {
+      let key = h.split('=')[0];
+      let value = h.split('=')[1];
+      Object.assign(obj, {[key]: value});
+    });
+    return obj;
+  },
+
   model(params, transition) {
     let github   = this.get('github');
     let stateMsg = 'Authorization state did not match, please try again.';
+    let token = this.get('access').token;
+    let queryParams = this.getUrlVars();
 
     this.get('language').initLanguage();
 
@@ -167,6 +187,40 @@ export default Ember.Route.extend({
 
     if (params.isPopup) {
       this.controllerFor('application').set('isPopup', true);
+    }
+
+    if (params.isTest && token.authProvider === 'yunhongconfig') {
+      let queryParams = this.getUrlVars();
+      yunhongReply(params.error_description, queryParams);
+
+      transition.abort();
+
+      return Ember.RSVP.reject('isTest');
+    }
+
+    if (token.authProvider === 'yunhongconfig' && token.security) {
+      if (queryParams.ticket) {
+        return this.get('access').yunHongLogin(queryParams).then((res) => {
+          if (!res) {
+            window.location.href = this.get('access.token.redirectUrl');
+          }
+        }).catch(() => {
+          let url = this.get('access.token.redirectUrl');
+          let logoutUrl = url.slice(0, url.indexOf('login')) + 'logout';
+          window.location.href = logoutUrl;
+        }).finally(() => {
+          this.controllerFor('application').setProperties({
+            state: null,
+            code: null,
+          });
+        });
+      } else {
+        return this.get('userStore').find('schema').then((res) => {
+        }).catch(() => {
+          transition.abort();
+          window.location.href = token.redirectUrl;
+        })
+      }
     }
 
     if ( params.isTest ) {
@@ -213,6 +267,18 @@ export default Ember.Route.extend({
     function reply(err,code) {
       try {
         window.opener.window.onGithubTest(err,code);
+        setTimeout(function() {
+          window.close();
+        },250);
+        return new Ember.RSVP.promise();
+      } catch(e) {
+        window.close();
+      }
+    }
+
+    function yunhongReply(err,code) {
+      try {
+        window.opener.window.onYunhongTest(err,code);
         setTimeout(function() {
           window.close();
         },250);

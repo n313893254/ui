@@ -59,8 +59,20 @@ export default Ember.Component.extend(NewOrEdit, Sortable, {
       this.get('project.projectMembers').pushObject(member);
     },
 
+    addMember(member) {
+      member.set('role', (this.get('hasOwner') ? 'member' : 'owner'));
+
+      this.send('error',null);
+      console.log(this.get('project.projectMembers'))
+      this.get('project.projectMembers').pushObject(member);
+    },
+
     removeMember(item) {
       this.get('project.projectMembers').removeObject(item);
+    },
+
+    addAuthorized(principal) {
+      Ember.set(this, 'principal', principal);
     },
   },
 
@@ -212,4 +224,5 @@ export default Ember.Component.extend(NewOrEdit, Sortable, {
     this.sendAction('done');
     return out;
   },
+
 });
