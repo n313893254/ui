@@ -2010,6 +2010,8 @@ clusterNew:
         calico:
           cloudProvider:
             label: Cloud Provider
+      type:
+        label: Network Type
     ingress:
       label: Ingress Provider
       none: None
@@ -2064,6 +2066,9 @@ clusterNew:
       etcd: Please select 1, 3, or 5 nodes to use for etcd.
       controlPlane: Please select at least one node to use for for management.
       worker: Please select at least one node to use as a worker.
+    system:
+      title: Node Operating System
+      detail: choose what operating system the node will have in the cluster
   custom:
     label: Custom
     shortLabel: Custom
