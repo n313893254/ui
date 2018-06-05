@@ -23,21 +23,23 @@
             localizedLabel=true
             value=config.network.plugin
           }}
-          {{#if (eq config.network.plugin 'flannel')}}
-            <label class="acc-label">{{t 'clusterNew.rke.network.type.label'}}</label>
-            {{new-select
-              classNames="form-control"
-              content=networkTypes
-              value=config.network.options.flannel_backend_type
-            }}
-          {{/if}}
-          {{#if (eq config.network.plugin 'canal')}}
-            <label class="acc-label">{{t 'clusterNew.rke.network.type.label'}}</label>
-            {{new-select
-              classNames="form-control"
-              content=networkTypes
-              value=config.network.options.canal_flannel_backend_type
-            }}
+          {{#if windowsEnable}}
+            {{#if (eq config.network.plugin 'flannel')}}
+              <label class="acc-label">{{t 'clusterNew.rke.network.type.label'}}</label>
+              {{new-select
+                classNames="form-control"
+                content=networkTypes
+                value=config.network.options.flannel_backend_type
+              }}
+            {{/if}}
+            {{#if (eq config.network.plugin 'canal')}}
+              <label class="acc-label">{{t 'clusterNew.rke.network.type.label'}}</label>
+              {{new-select
+                classNames="form-control"
+                content=networkTypes
+                value=config.network.options.canal_flannel_backend_type
+              }}
+            {{/if}}
           {{/if}}
         </div>
         <div class="col span-4">
@@ -60,7 +62,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col span-6">
+        <div class="col span-4">
           <label class="acc-label">{{t 'clusterNew.rke.ignoreDockerVersion.label'}}</label>
           <div class="radio">
             <label>
@@ -76,7 +78,7 @@
           </div>
         </div>
 
-        <div class="col span-6">
+        <div class="col span-4">
           {{#if config.services.kubeApi.podSecurityPolicy}}
             <label class="acc-label">{{t 'clusterNew.psp.label'}}{{field-required}}</label>
             {{new-select
@@ -93,6 +95,24 @@
             <div class="form-control-static">{{t 'generic.none'}}</div>
           {{/if}}
         </div>
+
+        {{#if (eq nodeWhich 'custom')}}
+          <div class="col span-4">
+            <label class="acc-label">Windows Support</label>
+            <div class="radio">
+              <label>
+                {{radio-button selection=windowsEnable value=false}}
+                Disabled
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                {{radio-button selection=windowsEnable value=true}}
+                Enable
+              </label>
+            </div>
+          </div>
+        {{/if}}
       </div>
       <div class="row">
         <div class="col span-12">
