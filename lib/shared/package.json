@@ -21,6 +21,7 @@
     "xterm": "*",
     "ivy-codemirror": "*",
     "jsyaml": "*",
-    "json2yaml": "*"
+    "json2yaml": "*",
+    "ember-power-select": "*"
   }
 }

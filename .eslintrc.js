@@ -14,6 +14,7 @@ module.exports = {
     "ALY": true,
     "AWS": true,
     "AnsiUp": true,
+    "HW": true,
     "Identicon": true,
     "Prism": true,
     "ShellQuote": true,

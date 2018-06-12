@@ -102,6 +102,7 @@ module.exports = function(defaults) {
   app.import('vendor/prompt/prompt-v1-latin-600.woff', { destDir: 'assets/fonts/' });
   app.import('vendor/prompt/prompt-v1-latin-600.woff2', { destDir: 'assets/fonts/' });
   app.import('vendor/aliyun-sdk.js');
+  app.import('vendor/cce-sdk.js');
 
   return app.toTree();
 

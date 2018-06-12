@@ -109,6 +109,7 @@ generic:
   value: Value
   version: Version
   yes: "Yes"
+  mbitS: "Mbit/s"
 
 realmNames:
   all: All
@@ -2030,6 +2031,104 @@ clusterNew:
       placeholder: e.g. 10.42.0.0/16
     alphaFeatures:
       label: Alpha Features
+  huaweicce:
+    label: Huawei Cloud Container Engine
+    access:
+      title: Account Access
+      detail: Configure the API key that will be used to launch Huawei CCE.
+    accessKey:
+      label: Access Key
+      placeholder: Your Huawei access key
+    secretKey:
+      label: Secret Key
+      placeholder: Your Huawei secret key
+    projectId:
+      label: Project Id
+      placeholder: Your CCE project id
+    zone:
+      label: Zone
+    checkAccount: "Next: Configure cluster"
+    checkingAccount: Authenticating...
+    configureNode: "Next: Configure Node"
+    configuringNode: Configuring...
+    clusterOption:
+      title: Cluster Option
+      detail: Customize the cluster that will be created
+    clusterType:
+      label: Cluster Type
+      placeholder: poi
+    clusterFlavor:
+      label: Cluster Flavor
+      placeholder: poi
+    masterVersion:
+      label: Master Version
+      placeholder: poi
+    vpcId:
+      label: VPC Name
+      placeholder: poi
+    subnetId:
+      label: Subnet Name
+      placeholder: poi
+    highwaySubnet:
+      label: Highway Subnet
+      placeholder: Highway Subnet
+    nodeOption:
+      title: Nodes
+      detail: Customize the nodes that will be created
+    dataVolumeType:
+      label: Data Volume Type
+    dataVolumeSize:
+      label: Data Volume Size
+    description:
+      label: Description
+      placeholder: e.g. Cluster for Huawei CCE
+    eipBandwidthSize:
+      label: Eip Bandwidth Size
+    eipChargeMode:
+      label: Eip Charge Mode
+    eipCount:
+      label: Eip Count
+    availableZone:
+      label: Zone
+    billingMode:
+      label: Billing Mode
+    containerNetworkCidr:
+      label: Container Network Cidr
+      placeholder: e.g. 172.16.0.0/16
+    containerNetworkMode:
+      label: Container Network Mode
+    rootVolumeType:
+      label: Root Volume Type
+    rootVolumeSize:
+      label: Root Volume Size
+    nodeCount:
+      label: Node Count
+    nodeFlavor:
+      label: Node Flavor
+    ssh:
+      label: SSH Key Name
+    eip:
+      label: Eip
+    eipSelection:
+      none: Disabled
+      new: Create Eip
+      exist: Select Existed Eip
+    eipIds:
+      label: Eip
+      none: No available Eip
+    eipType:
+      label: Eip Type
+    clusterLabels:
+      label: Cluster Label
+    nodeLabels:
+      label: Node Label
+    shortLabel: Huawei CCE
+    clusterEipId:
+      label: Cluster Eip
+    externalServerEnabled:
+      label: External Server
+      enabled: Enabled
+      disabled: Disabled
   rke:
     etcd:
       heartbeat:

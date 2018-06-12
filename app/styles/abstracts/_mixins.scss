@@ -147,6 +147,10 @@
   background-image: url('images/providers/googlegke.svg');
 }
 
+@mixin huaweicce {
+  background-image: url('images/providers/huaweicce.svg');
+}
+
 /// Make a context based selector a little more friendly
 /// @author Hugo Giraudel
 /// @param {String} $context

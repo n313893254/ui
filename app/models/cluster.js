@@ -50,26 +50,23 @@ export default Resource.extend(ResourceUsage, {
 
   }),
 
-  provider: computed('configName', 'nodePools.@each.nodeTemplateId', function() {
+  provider: computed('configName','nodePools.@each.nodeTemplateId', function() {
+    const pools = get(this,'nodePools')||[];
+    const firstTemplate = get(pools,'firstObject.nodeTemplate');
 
-    const pools = get(this, 'nodePools') || [];
-    const firstTemplate = get(pools, 'firstObject.nodeTemplate');
-
-    switch ( get(this, 'configName') ) {
-
-    case 'amazonElasticContainerServiceConfig':
-      return 'amazoneks';
-    case 'azureKubernetesServiceConfig':
-      return 'azureaks';
-    case 'googleKubernetesEngineConfig':
-      return 'googlegke';
-    case 'rancherKubernetesEngineConfig':
-      if ( pools.length > 0 ) {
-
-        if ( firstTemplate ) {
-
-          return get(firstTemplate, 'driver');
-
+    switch ( get(this,'configName') ) {
+      case 'amazonElasticContainerServiceConfig':
+        return 'amazoneks';
+      case 'azureKubernetesServiceConfig':
+        return 'azureaks';
+      case 'googleKubernetesEngineConfig':
+        return 'googlegke';
+      case 'huaweiCloudContainerEngineConfig':
+        return 'huaweicce';
+      case 'rancherKubernetesEngineConfig':
+        if ( pools.length > 0 ) {
+          if ( firstTemplate ) {
+            return get(firstTemplate, 'driver');
         } else {
 
           return null;
@@ -91,24 +88,22 @@ export default Resource.extend(ResourceUsage, {
   displayProvider: computed('configName', 'nodePools.@each.displayProvider', 'intl.locale', function() {
 
     const intl = get(this, 'intl');
-    const pools = get(this, 'nodePools');
-    const firstPool = (pools || []).objectAt(0);
+    const pools = get(this,'nodePools');
+    const firstPool = (pools||[]).objectAt(0);
 
-    switch ( get(this, 'configName') ) {
-
-    case 'amazonElasticContainerServiceConfig':
-      return intl.t('clusterNew.amazoneks.shortLabel');
-    case 'azureKubernetesServiceConfig':
-      return intl.t('clusterNew.azureaks.shortLabel');
-    case 'googleKubernetesEngineConfig':
-      return intl.t('clusterNew.googlegke.shortLabel');
-    case 'rancherKubernetesEngineConfig':
-      if ( !!pools ) {
-
-        if ( firstPool ) {
-
-          return get(firstPool, 'displayProvider');
-
+    switch ( get(this,'configName') ) {
+      case 'amazonElasticContainerServiceConfig':
+        return intl.t('clusterNew.amazoneks.shortLabel');
+      case 'azureKubernetesServiceConfig':
+        return intl.t('clusterNew.azureaks.shortLabel');
+      case 'googleKubernetesEngineConfig':
+        return intl.t('clusterNew.googlegke.shortLabel');
+      case 'huaweiCloudContainerEngineConfig':
+        return intl.t('clusterNew.huaweicce.shortLabel');
+      case 'rancherKubernetesEngineConfig':
+        if ( !!pools ) {
+          if ( firstPool ) {
+            return get(firstPool, 'displayProvider');
         } else {
 
           return intl.t('clusterNew.rke.shortLabel');

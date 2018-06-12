@@ -61,6 +61,7 @@
     "ember-load-initializers": "^1.0.0",
     "ember-math-helpers": "^2.2.3",
     "ember-maybe-import-regenerator": "^0.1.6",
+    "ember-power-select": "^2.0.3",
     "ember-resolver": "^4.5.5",
     "ember-route-action-helper": "^2.0.6",
     "ember-source": "~3.1.0",
@@ -73,6 +74,7 @@
     "http-proxy": "^1.16.2",
     "identicon.js": "^2.3.2",
     "jgrowl": "~1.4.2",
+    "json2yaml": "^1.1.0",
     "jsondiffpatch": "^0.2.4",
     "jszip": "^3.1.5",
     "liquid-fire": "^0.29.2",
@@ -84,8 +86,7 @@
     "shell-quote": "^1.6.1",
     "url-regex": "^4.1.1",
     "xterm": "^2.9.2",
-    "yamljs": "^0.3.0",
-    "json2yaml": "^1.1.0"
+    "yamljs": "^0.3.0"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
