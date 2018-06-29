@@ -99,6 +99,10 @@ Router.map(function() {
           });
         });
       });
+
+      this.route('monitor', function() {
+        this.route('index', {path: '/'});
+      });
     });
 
     // Per-Project

@@ -5585,6 +5585,7 @@ nav:
     alerts: Alerts
     notifiers: Notifiers
     logging: Logging
+    monitor: Monitor
   project:
     none: Grouped Projects/Namespaces
     namespaces: Namespaces
