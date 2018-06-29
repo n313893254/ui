@@ -1,8 +1,87 @@
 <section class="header clearfix">
-  <div class="pull-left pt-10"><h1>{{t 'notifierPage.notifiers'}}</h1></div>
-  <div class="right-buttons">
-    <button class="btn btn-sm bg-primary" {{action "showNewEditModal"}}>{{t 'notifierPage.index.addActionLabel'}}</button>
+  <h1 class="pull-left text-capitalize">Monitor</h1>
+</section>
+
+<div class="row nav nav-boxes checked-current mv-30 monitor-types">
+  {{#link-to "authenticated.cluster.monitor" (query-params targetType="prometheus")
+    alt=target.label
+    classNames=(concat "col span-2 nav-box-item driver " "prometheus active")
+    href=false
+  }}
+    {{#if target.label}}
+      <p style="position:absolute;bottom:-10px;">{{t target.label}}</p>
+    {{/if}}
+  {{/link-to}}
+</div>
+
+<section class="box mt-30">
+  <div class="row">
+    <div class="mb-30 col span-6 pt-0">
+      <label class="acc-label" for="">Name</label>
+      {{input
+          type="text"
+          value=model.monitoring.name
+          classNames="form-control"
+      }}
+    </div>
+    <div class="mb-30 col span-6 pt-0">
+      <label class="acc-label" for="">Retention</label>
+      {{input
+          type="text"
+          value=model.monitoring.retention
+          classNames="form-control"
+      }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-30 col span-6 pt-0">
+      <label class="acc-label" for="">Storage Class Name</label>
+      {{input
+          type="text"
+          value=model.monitoring.pvcConfig.storageClassName
+          classNames="form-control"
+      }}
+    </div>
+    <div class="mb-30 col span-6 pt-0">
+      <label class="acc-label" for="">Volume Name</label>
+      {{input
+          type="text"
+          value=model.monitoring.pvcConfig.volumeName
+          classNames="form-control"
+      }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">Metrics Server</label>
+      <div class="radio">
+        <label>
+          {{radio-button selection=model.monitoring.metricsServerEnabled value=false}}
+          {{t 'generic.disabled'}}
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          {{radio-button selection=model.monitoring.metricsServerEnabled value=true}}
+          {{t 'generic.enabled'}}
+        </label>
+      </div>
+    </div>
   </div>
 </section>
 
-{{notifier/notifier-table model=notifiers}}
+
+<section>
+  {{#accordion-list showExpandAll=false as |al expandFn|}}
+    {{form-labels-annotations
+      classNames="accordion-wrapper mt-10"
+      labelErrors=labelErrors
+      initialLabels=service.labels
+      setLabels=(action 'setLabels' 'user')
+      expandAll=al.expandAll
+      expandFn=expandFn
+      model=model
+      annotationErrors=annotationErrors
+    }}
+  {{/accordion-list}}
+</section>

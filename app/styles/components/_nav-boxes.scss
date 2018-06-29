@@ -109,6 +109,74 @@
   }
 }
 
+.nav-boxes.monitor-types {
+  .nav-box-item {
+    opacity           : 1;
+    background-color  : white;
+    border-color      : $light-grey;
+    position: relative;
+    filter         : none;
+    -webkit-filter : none;
+    -moz-filter    : none;
+    -ms-filter     : none;
+    -o-filter      : none;
+  }
+  .nav-box-item.active {
+    border-color: $info;
+  }
+  .badge-rancher {
+    position: absolute;
+    z-index: 1;
+    background: $warning;
+    color: black;
+    padding: 1px 10px;
+    right: -13px;
+    top: 5px;
+    font-size: .75em;
+    color: white;
+
+    &:before {
+      content: "";
+      border-style: solid;
+      border-color: $warning;
+      border-left-color: transparent;
+      position: absolute;
+      top: 0;
+      left: -16px;
+      border-width: 11.5px;
+      z-index: 2;
+    }
+
+    &:after {
+      content: "";
+      border-color: darken($warning, 20%) transparent transparent darken($warning, 20%);
+      border-style: solid;
+      border-width: 5px;
+      right: 2px;
+      bottom: -10px;
+      display: block;
+      position: absolute;
+    }
+  }
+  .badge-thirdparty {
+    @extend .badge-rancher;
+    background-color: $info;
+
+    &:before {
+      border-color: $info;
+      border-left-color: transparent;
+    }
+
+    &:after {
+      border-color: darken($info, 30%) transparent transparent darken($info, 30%);
+    }
+  }
+
+  .prometheus {
+    background-image: url('images/providers/prometheus.svg');
+  }
+}
+
 .nav-boxes {
   &.checked-current .current:after {
     content          : $icon-check;
