@@ -5897,3 +5897,20 @@ rkeConfigComment:
     "       kubelet:"
     "         cluster_domain: cluster.local"
     "         cluster_dns_server: 10.43.0.10"
+
+monitorPage:
+  header: Monitor
+  retention:
+    label: Retention
+    placeholder: Please enter retention time. e.g. 15d
+  metricsServerEnabled:
+    label: Metrics Server
+  pvcConfig:
+    title: PVC Config
+    detail: Configure PVC options
+    storageClassName:
+      label: Storage Class Name
+      placeholder: Please enter Storage Class Name
+    volumeName:
+      label: Volume Name
+      placeholder: Please enter Volumne Name

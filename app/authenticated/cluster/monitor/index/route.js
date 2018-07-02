@@ -12,14 +12,16 @@ export default Route.extend({
     const gs = get(this, 'globalStore')
     const newMonitoring = gs.createRecord({
       type: MonitoringType,
+      retention: '15d',
+      metricsServerEnabled: true,
       pvcConfig: gs.createRecord({
         type: 'persistentVolumeClaimSpec',
-        resources: gs.createRecord({
-          type: 'resourceRequirements',
-        }),
-        selector: gs.createRecord({
-          type: 'labelSelector',
-        })
+        // resources: gs.createRecord({
+        //   type: 'resourceRequirements',
+        // }),
+        // selector: gs.createRecord({
+        //   type: 'labelSelector',
+        // })
       })
     })
     return newMonitoring
