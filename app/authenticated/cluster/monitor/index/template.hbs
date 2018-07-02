@@ -31,15 +31,14 @@
   </div>
 </section>
 
-
-<section class="mt-10">
+{{#advanced-section advanced=showAdvanced}}
   {{#accordion-list showExpandAll=false as |al expandFn|}}
     {{#accordion-list-item
         title=(t 'monitorPage.pvcConfig.title')
         detail=(t 'monitorPage.pvcConfig.detail')
         expandAll=al.expandAll
         expand=(action expandFn)
-        expandOnInit=false
+        expandOnInit=true
     }}
       <div class="row">
         <div class="col span-6 pt-0">
@@ -52,7 +51,7 @@
           }}
         </div>
         <div class="col span-6 pt-0">
-          <label class="acc-label" for="">{{t 'monitorPage.pvcConfig.volumeName.label'}}</label>
+          <label class="acc-label">{{t 'monitorPage.pvcConfig.volumeName.label'}}</label>
           {{input
               type="text"
               value=model.monitoring.pvcConfig.volumeName
@@ -71,6 +70,29 @@
       </div>
     {{/accordion-list-item}}
   {{/accordion-list}}
-</section>
+{{/advanced-section}}
 
-{{save-cancel createLabel="generic.save" save="save" cancel="cancel"}}
+
+{{#if editing}}
+  <section class="box mt-30">
+    {{#if disabling}}
+      <button class="btn bg-disabled" disabled="disabled">
+        <i class="icon icon-spinner icon-spin"></i> Waiting to disabled
+      </button>
+    {{else}}
+      <button class="btn bg-error" {{action "disable"}}>
+        Disable Monitor
+      </button>
+    {{/if}}
+  </section>
+{{/if}}
+
+{{top-errors errors=errors}}
+
+{{save-cancel createLabel="generic.enable"
+              save="save"
+              cancel="cancel"
+              cancelDisabled=true
+              editing=editing
+              saved=saved
+}}

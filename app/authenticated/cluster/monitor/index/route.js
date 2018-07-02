@@ -36,15 +36,19 @@ export default Route.extend({
       },
     };
 
+    let mode = 'edit'
+
     return globalStore.findAll('clusterMonitoring', opt).then(monitorings => {
       let monitoring = monitorings.filterBy('clusterId', clusterId).get('firstObject');
       if (!monitoring) {
         monitoring = this.createMonitoring('clusterMonitoring');
+        mode = 'new'
       }
       const clone = monitoring.clone();
       return {
         monitoring: clone,
         originalMonitoring: monitoring,
+        mode,
       };
     });
   },
