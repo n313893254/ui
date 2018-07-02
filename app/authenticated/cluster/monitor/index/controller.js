@@ -15,29 +15,31 @@ export default Controller.extend({
   errors: null,
   actions: {
     save(cb) {
+      const errors = get(this, 'errors') || []
+      set(this, 'errors', null);
       const model = get(this, 'model.monitoring')
       set(model, 'clusterId', get(this, 'cluster.id'));
 
       model.save().then(() => {
+        this.send('refreshModel');
         set(this, 'saved', true)
-        set(this, 'model.mode', 'edit')
       }).catch((err) => {
-        const errors = get(this, 'errors') || []
         errors.pushObject(err)
         set(this, 'errors', errors);
       }).finally(() => {
         cb()
       })
     },
+
     disable() {
+      const errors = get(this, 'errors') || []
+      set(this, 'errors', null);
       set(this, 'disabling', true)
       const model = get(this, 'model.monitoring')
 
       model.delete().then(() => {
-        set(this, 'model.mode', 'new')
-        this.transitionToRoute('authenticated.cluster.index');
+        this.send('refreshModel');
       }).catch((err) => {
-        const errors = get(this, 'errors') || []
         errors.pushObject(err)
         set(this, 'errors', errors);
       }).finally(() => {

@@ -37,14 +37,15 @@ export default Route.extend({
     };
 
     let mode = 'edit'
-
-    return globalStore.findAll('clusterMonitoring', opt).then(monitorings => {
+    return globalStore.find('clusterMonitoring', null, {forceReload: true}).then(monitorings => {
+      const filter = monitorings.filter(m => m.clusterId === clusterId) || []
       let monitoring = monitorings.filterBy('clusterId', clusterId).get('firstObject');
       if (!monitoring) {
         monitoring = this.createMonitoring('clusterMonitoring');
         mode = 'new'
       }
       const clone = monitoring.clone();
+
       return {
         monitoring: clone,
         originalMonitoring: monitoring,
@@ -56,4 +57,10 @@ export default Route.extend({
   setDefaultRoute: on('activate', function() {
     set(this, `session.${C.SESSION.CLUSTER_ROUTE}`,'authenticated.cluster.monitor');
   }),
+
+  actions: {
+    refreshModel() {
+      this.refresh();
+    }
+  },
 });
