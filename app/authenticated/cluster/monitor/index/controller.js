@@ -35,6 +35,7 @@ export default Controller.extend({
 
       model.delete().then(() => {
         set(this, 'model.mode', 'new')
+        this.transitionToRoute('authenticated.cluster.index');
       }).catch((err) => {
         const errors = get(this, 'errors') || []
         errors.pushObject(err)
