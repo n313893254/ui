@@ -2,24 +2,56 @@
   <h1 class="pull-left text-capitalize">{{t 'monitorPage.header'}}</h1>
 </section>
 
-<div class="row">
-  <div class="col span-6">
-    <h2>PVC</h2>
-    {{#if pvcEnable}}
-      <div class="btn-group no-inline-space">
-        <button class="btn btn-link btn-sm bg-default" {{action "disablePVC"}} disabled={{editing}}>
-          {{t 'generic.disable'}}</button>
-        <button class="btn btn-link btn-sm bg-success">{{t 'generic.enabled'}}</button>
+<section>
+  <div class="row">
+    <div class="col span-6 pt-0">
+      <label class="acc-label">{{t 'monitorPage.retention.label'}}</label>
+      {{input
+          type="text"
+          value=model.retention
+          classNames="form-control"
+          placeholder=(t 'monitorPage.retention.placeholder')
+      }}
+    </div>
+    <div class="col span-6">
+      <label class="acc-label">{{t 'monitorPage.metricsServerEnabled.label'}}</label>
+      <div class="radio">
+        <label>
+          {{radio-button selection=model.metricsServerEnabled value=true}}
+          {{t 'generic.enabled'}}
+        </label>
       </div>
-    {{else}}
-      <div class="btn-group no-inline-space">
-        <button class="btn btn-link btn-sm bg-primary">{{t 'generic.disabled'}}</button>
-        <button class="btn btn-link btn-sm bg-defualt" {{action "enablePVC"}} disabled={{editing}}>
-         {{t 'generic.enable'}}</button>
+      <div class="radio">
+        <label>
+          {{radio-button selection=model.metricsServerEnabled value=false}}
+          {{t 'generic.disabled'}}
+        </label>
       </div>
-    {{/if}}
+    </div>
   </div>
-</div>
+</section>
+
+
+{{#advanced-section advanced=false}}
+  <div class="row">
+    <div class="col span-6">
+      <h2>PVC</h2>
+      {{#if pvcEnable}}
+        <div class="btn-group no-inline-space">
+          <button class="btn btn-link btn-sm bg-default" {{action "disablePVC"}} disabled={{editing}}>
+            {{t 'generic.disable'}}</button>
+          <button class="btn btn-link btn-sm bg-success">{{t 'generic.enabled'}}</button>
+        </div>
+      {{else}}
+        <div class="btn-group no-inline-space">
+          <button class="btn btn-link btn-sm bg-primary">{{t 'generic.disabled'}}</button>
+          <button class="btn btn-link btn-sm bg-defualt" {{action "enablePVC"}} disabled={{editing}}>
+           {{t 'generic.enable'}}</button>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+{{/advanced-section}}
 
 {{#if pvcEnable}}
   {{#accordion-list showExpandAll=false as |al expandFn|}}
@@ -85,36 +117,7 @@
   {{/accordion-list}}
 {{/if}}
 
-{{#advanced-section advanced=false}}
-  <section>
-    <div class="row">
-      <div class="col span-6 pt-0">
-        <label class="acc-label">{{t 'monitorPage.retention.label'}}</label>
-        {{input
-            type="text"
-            value=model.retention
-            classNames="form-control"
-            placeholder=(t 'monitorPage.retention.placeholder')
-        }}
-      </div>
-      <div class="col span-6">
-        <label class="acc-label">{{t 'monitorPage.metricsServerEnabled.label'}}</label>
-        <div class="radio">
-          <label>
-            {{radio-button selection=model.metricsServerEnabled value=true}}
-            {{t 'generic.enabled'}}
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            {{radio-button selection=model.metricsServerEnabled value=false}}
-            {{t 'generic.disabled'}}
-          </label>
-        </div>
-      </div>
-    </div>
-  </section>
-{{/advanced-section}}
+
 
 {{top-errors errors=errors}}
 
