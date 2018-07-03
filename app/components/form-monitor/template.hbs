@@ -2,36 +2,26 @@
   <h1 class="pull-left text-capitalize">{{t 'monitorPage.header'}}</h1>
 </section>
 
-<section>
-  <div class="row">
-    <div class="col span-6 pt-0">
-      <label class="acc-label">{{t 'monitorPage.retention.label'}}</label>
-      {{input
-          type="text"
-          value=model.retention
-          classNames="form-control"
-          placeholder=(t 'monitorPage.retention.placeholder')
-      }}
-    </div>
-    <div class="col span-6">
-      <label class="acc-label">{{t 'monitorPage.metricsServerEnabled.label'}}</label>
-      <div class="radio">
-        <label>
-          {{radio-button selection=model.metricsServerEnabled value=true}}
-          {{t 'generic.enabled'}}
-        </label>
+<div class="row">
+  <div class="col span-6">
+    <h2>PVC</h2>
+    {{#if pvcEnable}}
+      <div class="btn-group no-inline-space">
+        <button class="btn btn-link btn-sm bg-default" {{action "disablePVC"}} disabled={{editing}}>
+          {{t 'generic.disable'}}</button>
+        <button class="btn btn-link btn-sm bg-success">{{t 'generic.enabled'}}</button>
       </div>
-      <div class="radio">
-        <label>
-          {{radio-button selection=model.metricsServerEnabled value=false}}
-          {{t 'generic.disabled'}}
-        </label>
+    {{else}}
+      <div class="btn-group no-inline-space">
+        <button class="btn btn-link btn-sm bg-primary">{{t 'generic.disabled'}}</button>
+        <button class="btn btn-link btn-sm bg-defualt" {{action "enablePVC"}} disabled={{editing}}>
+         {{t 'generic.enable'}}</button>
       </div>
-    </div>
+    {{/if}}
   </div>
-</section>
+</div>
 
-{{#advanced-section advanced=false}}
+{{#if pvcEnable}}
   {{#accordion-list showExpandAll=false as |al expandFn|}}
     {{#accordion-list-item
         title=(t 'monitorPage.pvcConfig.title')
@@ -40,18 +30,18 @@
         expand=(action expandFn)
         expandOnInit=true
     }}
-      {{!-- <div class="row">
+      <div class="row">
         <div class="col span-6">
           <label class="acc-label">{{t 'cruPersistentVolumeClaim.source.label'}}</label>
           <div class="radio">
             <label class="{{unless canUseStorageClass 'text-muted'}}">
-              {{radio-button selection=useStorageClass value=true disabled=(not canUseStorageClass)}}
+              {{radio-button selection=useStorageClass value=true disabled=editing}}
               {{t 'cruPersistentVolumeClaim.source.storageClass'}}
             </label>
           </div>
           <div class="radio">
             <label>
-              {{radio-button selection=useStorageClass value=false}}
+              {{radio-button selection=useStorageClass value=false disabled=editing}}
               {{t 'cruPersistentVolumeClaim.source.pv'}}
             </label>
           </div>
@@ -67,13 +57,8 @@
               optionValuePath="id"
               required=true
               value=model.pvcConfig.storageClassName
+              disabled=editing
             }}
-
-            <label class="acc-label mt-20">{{t 'cruPersistentVolumeClaim.capacity.label'}}{{field-required editing=editing}}</label>
-            <div class="input-group">
-              {{input-number classNames="form-control" value=capacity}}
-              <span class="input-group-addon bg-default">{{t 'cruPersistentVolumeClaim.capacity.unit'}}</span>
-            </div>
           {{else}}
             <label class="acc-label">{{t 'cruPersistentVolumeClaim.pv.label'}}</label>
             {{new-select
@@ -82,43 +67,63 @@
               localizedPrompt=true
               required=true
               value=model.pvcConfig.volumeName
+              disabled=editing
             }}
           {{/if}}
         </div>
-      </div> --}}
+      </div>
       <div class="row">
         <div class="col span-6">
           {{form-access-modes
             model=model.pvcConfig
             mode=mode
+            disabled=editing
           }}
         </div>
       </div>
     {{/accordion-list-item}}
   {{/accordion-list}}
-{{/advanced-section}}
-
-
-{{#if editing}}
-  <section class="box mt-30">
-    {{#if disabling}}
-      <button class="btn bg-disabled" disabled="disabled">
-        <i class="icon icon-spinner icon-spin"></i> Waiting to disabled
-      </button>
-    {{else}}
-      <button class="btn bg-error" {{action "disable"}}>
-        Disable Monitor
-      </button>
-    {{/if}}
-  </section>
 {{/if}}
+
+{{#advanced-section advanced=false}}
+  <section>
+    <div class="row">
+      <div class="col span-6 pt-0">
+        <label class="acc-label">{{t 'monitorPage.retention.label'}}</label>
+        {{input
+            type="text"
+            value=model.retention
+            classNames="form-control"
+            placeholder=(t 'monitorPage.retention.placeholder')
+        }}
+      </div>
+      <div class="col span-6">
+        <label class="acc-label">{{t 'monitorPage.metricsServerEnabled.label'}}</label>
+        <div class="radio">
+          <label>
+            {{radio-button selection=model.metricsServerEnabled value=true}}
+            {{t 'generic.enabled'}}
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            {{radio-button selection=model.metricsServerEnabled value=false}}
+            {{t 'generic.disabled'}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+{{/advanced-section}}
 
 {{top-errors errors=errors}}
 
 {{save-cancel createLabel="generic.enable"
+              cancelLabel="generic.disable"
+              cancelDisabled=(not editing)
               save="save"
-              cancel="cancel"
-              cancelDisabled=true
+              cancel="disable"
               editing=editing
               saved=saved
+              cancelColor="bg-error"
 }}

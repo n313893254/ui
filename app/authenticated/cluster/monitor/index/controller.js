@@ -6,16 +6,12 @@ import Controller from '@ember/controller';
 export default Controller.extend({
   scope: service(),
   cluster: reads('scope.currentCluster'),
-  editing: computed('model.mode', function() {
-    const mode = get(this, 'model.mode')
-    return mode === 'edit' ? true : false
-  }),
   saved: null,
   disabling: false,
   errors: null,
   canUseStorageClass: gt('storageClasses.length', 0),
   useStorageClass: false,
-  
+
   actions: {
     save(cb) {
       const errors = get(this, 'errors') || []
@@ -42,6 +38,7 @@ export default Controller.extend({
 
       model.delete().then(() => {
         this.send('refreshModel');
+        set(this, 'saved', false)
       }).catch((err) => {
         errors.pushObject(err)
         set(this, 'errors', errors);

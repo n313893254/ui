@@ -60,6 +60,7 @@ export default Route.extend({
 
   actions: {
     refreshModel() {
+      console.log('refresh')
       this.refresh();
     }
   },
