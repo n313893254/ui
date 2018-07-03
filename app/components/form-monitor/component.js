@@ -69,22 +69,6 @@ export default Component.extend({
 
   actions: {
     save(cb) {
-      set(this, 'errors', null)
-      let errors = get(this, 'errors') || []
-      const pvcEnable = get(this, 'pvcEnable')
-      const useStorageClass = get(this, 'useStorageClass')
-      if (pvcEnable && useStorageClass && !get(this, 'model.pvcConfig.storageClassName')) {
-        errors.pushObject('Please select a storage Class')
-        set(this, 'errors', errors)
-        cb()
-        return
-      }
-      if (pvcEnable && !useStorageClass && !get(this, 'model.pvcConfig.volumeName')) {
-        errors.pushObject('Please select a persistent volume')
-        set(this, 'errors', errors)
-        cb()
-        return
-      }
       this.sendAction('save', cb)
     },
 
