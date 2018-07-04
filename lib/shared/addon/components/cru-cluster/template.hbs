@@ -9,7 +9,18 @@
     {{/if}}
   </h1>
 </section>
-
+{{#if (eq customer 'huawei')}}
+<div class="row nav nav-boxes checked-active inline-form">
+  {{#each (get providerGroups "cloudGroup") as |choice|}}
+    {{#link-to (query-params provider=choice.name) class=(concat "mb-20 mt-10 col span-3 col-inline nav-box-item driver generic machine-driver active " choice.name)}}
+      <p class="sr-only">{{driver-name choice.name}}</p>
+      {{#if choice.genericIcon}}
+        <p class="text-link text-bold">{{driver-name choice.name}}</p>
+      {{/if}}
+    {{/link-to}}
+  {{/each}}
+</div>
+{{else}}
 {{#unless initialProvider}}
 
   <div class="row nav nav-boxes checked-active inline-form">
@@ -73,6 +84,7 @@
     </div>
   </div>
 {{/unless}}
+{{/if}}
 
 {{#if (eq step 1)}}
   <form onsubmit={{action "clickNext"}}>
@@ -123,6 +135,7 @@
     save=(action 'save')
     close=(action 'close')
     registerHook=(action "registerHook")
+    customer=customer
 }}
 
 {{#if (and isEdit (not provider))}}

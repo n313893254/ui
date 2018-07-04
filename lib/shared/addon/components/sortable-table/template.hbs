@@ -59,18 +59,20 @@
           {{check-box classNames="select-all-check" checked=isAll}}
         </th>
       {{/if}}
-      {{#each headers as |header|}}
-        {{sortable-thead
-          sortable=this
-          current=sortBy
-          descending=descending
-          action="changeSort"
-          header=header
-        }}
-      {{/each}}
-      {{#if rowActions}}
-        <th width="{{actionsWidth}}"></th>
-      {{/if}}
+      {{!-- {{#unless (eq customer 'event')}} --}}
+        {{#each headers as |header|}}
+          {{sortable-thead
+            sortable=this
+            current=sortBy
+            descending=descending
+            action="changeSort"
+            header=header
+          }}
+        {{/each}}
+        {{#if rowActions}}
+          <th width="{{actionsWidth}}"></th>
+        {{/if}}
+      {{!-- {{/unless}} --}}
     </tr>
   </thead>
   {{#if prefix}}

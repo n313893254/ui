@@ -35,11 +35,26 @@
     {{/if}}
   </div>
 {{else}}
-  <label class="acc-label pb-5">{{t nameLabel}}</label>
-  <p class="mt-0">{{_name}}</p>
+  {{#if (eq customer 'huawei')}}
+    <div class="row">
+      <div class="col span-6">
+        <label class="acc-label pb-5">{{t nameLabel}}</label>
+        <p class="mt-0">{{_name}}</p>
+      </div>
+      {{#if (and _description descriptionShown)}}
+        <div class="col span-6">
+          <label class="acc-label pb-5">{{t descriptionLabel}}</label>
+          <p class="mt-0">{{_description}}</p>
+        </div>
+      {{/if}}
+    </div>
+  {{else}}
+    <label class="acc-label pb-5">{{t nameLabel}}</label>
+    <p class="mt-0">{{_name}}</p>
 
-  {{#if (and _description descriptionShown)}}
-    <label class="acc-label pb-5">{{t descriptionLabel}}</label>
-    <p class="mt-0">{{_description}}</p>
+    {{#if (and _description descriptionShown)}}
+      <label class="acc-label pb-5">{{t descriptionLabel}}</label>
+      <p class="mt-0">{{_description}}</p>
+    {{/if}}
   {{/if}}
 {{/if}}

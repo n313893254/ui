@@ -133,6 +133,9 @@ Router.map(function() {
 
       });
 
+      this.route('event', {path: 'event'}, function() {
+        this.route('index', {path: '/'})
+      })
     });
 
     // Per-Project

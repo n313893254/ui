@@ -1,0 +1,96 @@
+<section class="header clearfix">
+  <div class="pull-left pt-10"><h1>Event</h1></div>
+</section>
+<section class="box mb-20">
+  <div class="row">
+    <div class="col span-12">
+      {{searchable-select
+        class="form-control"
+        content=hostChoices
+        value=requestedHostId
+        optionValuePath="id"
+        optionLabelPath="name"
+        disabled=(not isRequestedHost)
+        style="display: inline-block; width: auto;"
+        placeholder="Filter by label or text search"
+        custom=ture
+      }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col span-3">
+      {{searchable-select
+        class="form-control"
+        content=eventTypeContent
+        value=eventType
+      }}
+    </div>
+    <div class="col span-3">
+      {{searchable-select
+        class="form-control"
+        content=eventLogContent
+        value=eventLog
+      }}
+    </div>
+    <div class="col span-3">
+      {{searchable-select
+        class="form-control"
+        content=eventLevelContent
+        value=eventLevel
+      }}
+    </div>
+    <div class="col span-3">
+      {{searchable-select
+        class="form-control"
+        content=eventTimeContent
+        value=eventTime
+      }}
+    </div>
+  </div>
+</section>
+
+{{#sortable-table
+  tableClassNames="bordered"
+  paging=true
+  pagingLabel="pagination.volume"
+  headers=headers
+  bulkActions=false
+  body=rows
+  sortBy=sortBy
+  search=false
+  showHeader=false
+  customer="event"
+  as |sortable kind obj dt|
+}}
+  {{#if (eq kind "row")}}
+    <tr class="main-row">
+      <td data-title="{{dt.name}}">
+        {{obj.time}}
+      </td>
+      <td data-title="{{dt.source}}">
+        {{obj.method}}
+      </td>
+      <td data-title="{{dt.actions}}">
+        {{obj.code}}
+      </td>
+      <td data-title="{{dt.actions}}">
+        {{obj.size}}
+      </td>
+      <td data-title="{{dt.actions}}">
+        {{obj.requestor}}
+      </td>
+      <td data-title="{{dt.actions}}">
+        {{obj.url}}
+      </td>
+      <td data-title="{{dt.actions}}" class="actions">
+        {{action-menu model=obj}}
+      </td>
+    </tr>
+  {{else if (eq kind "nomatch")}}
+    <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">{{t 'persistentVolumePage.noMatch'}}</td></tr>
+  {{else if (eq kind "norows")}}
+    <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">No data</td></tr>
+  {{/if}}
+{{/sortable-table}}
+
+{{antd/list-item content="poi"}}

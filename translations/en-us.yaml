@@ -110,6 +110,12 @@ generic:
   version: Version
   yes: "Yes"
   mbitS: "Mbit/s"
+  time: Time
+  method: Method
+  code: Code
+  Size: size
+  requestor: Requestor
+  Url: Url
 
 realmNames:
   all: All
@@ -2039,14 +2045,20 @@ clusterNew:
     accessKey:
       label: Access Key
       placeholder: Your Huawei access key
+      help: You can find instructions on how to create Access Key <a href="https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html" target="_blank">here</a>.
     secretKey:
       label: Secret Key
       placeholder: Your Huawei secret key
+      help: You can find instructions on how to obtain Secret Key <a href="https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html" target="_blank">here</a>.
     projectId:
       label: Project Id
       placeholder: Your CCE project id
+      help: You can find instructions on how to obtain Project Id <a href="https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606344.html" target="_blank">here</a>.
     zone:
-      label: Zone
+      label: Region
+      helpText: You can find instructions on how to obtain Region <a href="https://developer.huaweicloud.com/endpoint" target="_blank">here</a>.
+    business:
+      label: Business
     checkAccount: "Next: Configure cluster"
     checkingAccount: Authenticating...
     configureNode: "Next: Configure Node"
@@ -2129,6 +2141,14 @@ clusterNew:
       label: External Server
       enabled: Enabled
       disabled: Disabled
+    highAvailability:
+      label: High Availability
+    managementScale:
+      label: Management Scale count
+    nodeOperationSystem:
+      label: Node Operation System
+    authenticatingProxyCa:
+      label: Certificate
   rke:
     etcd:
       heartbeat:
@@ -5613,6 +5633,12 @@ searchableSelect:
 businessPage:
   header: Business
   newBusiness: Add Business
+  name:
+    label: Name
+  description:
+    label: Description
+  new:
+    title: Add Business
 
 ##############################
 # Mixins
@@ -5727,6 +5753,7 @@ nav:
     alerts: Alerts
     notifiers: Notifiers
     logging: Logging
+    event: Event
   project:
     none: Grouped Projects/Namespaces
     namespaces: Namespaces
@@ -5783,6 +5810,7 @@ action:
   mute: Mute
   unmute: Unmute
   uncordon: Uncordon
+  addCluster: Add Cluster
 
 ##############################
 # Resource Actions

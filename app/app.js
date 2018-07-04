@@ -55,6 +55,7 @@ const App = Application.extend({
           'tooltip',
           'user-language',
           'user-theme',
+          'k8sStore',
         ],
         externalRoutes: {
           index:                                          'index',

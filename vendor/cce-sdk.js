@@ -78,6 +78,22 @@ ECS.prototype.getAvaliableZone = function (callback) {
   }, _callback)
 }
 
+ECS.prototype.getPorts = function (callback) {
+  var _callback = this.logging(callback, 'ECS.getPorts')
+  this.validated(function () {
+    var resource = '/v1/ports'
+    this.requestor.get(resource, null, _callback)
+  }, _callback)
+}
+
+ECS.prototype.getNetwork = function (callback) {
+  var _callback = this.logging(callback, 'ECS.getNetwork')
+  this.validated(function () {
+    var resource = '/v2.0/networks'
+    this.requestor.get(resource, null, _callback)
+  }, _callback)
+}
+
 
 module.exports = ECS
 
@@ -170,10 +186,6 @@ ECS.prototype.logging = function (callback, apiName) {
         console.error(_error)
       }
     }
-    // var errorMessage
-    // if (err) {
-    //   errorMessage = response.body.message
-    // }
     return callback && callback(err, response)
   }
 }
@@ -1278,7 +1290,6 @@ class Requestor {
 
     // sign request
     this.signer.sign(request)
-    console.log(request)
     request.end(function (err, response) {
       // self.logError(URL, err, response)
       // execute callback if required

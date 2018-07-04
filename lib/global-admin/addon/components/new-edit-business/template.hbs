@@ -1,0 +1,85 @@
+<section class="header clearfix">
+  <div class="pull-left">
+    {{#if readOnly}}
+      <h1>Business: {{business.name}}</h1>
+    {{else}}
+      {{#if editing}}
+        <h1>Edit Business</h1>
+      {{else}}
+        <h1>{{t 'businessPage.new.title'}}</h1>
+      {{/if}}
+    {{/if}}
+  </div>
+  {{#if readOnly}}
+    <div class="pull-right">
+      <button {{action "addCluster"}} class="btn bg-primary">Add Cluster</button>
+    </div>
+  {{/if}}
+</section>
+
+{{form-name-description model=model.business
+                        nameRequired=true
+                        editing=(not readOnly)
+                        customer="huawei"
+}}
+<div class="row">
+  <div class="col span-6">
+    <label class="acc-label">Node Count</label>
+    {{#if readOnly}}
+      <div>{{business.nodeCount}}</div>
+    {{else}}
+      {{input-number classNames="form-control" value=business.nodeCount disabled=readOnly min=0}}
+    {{/if}}
+  </div>
+</div>
+
+<hr class="mt-30 mb-30" />
+
+{{#accordion-list showExpandAll=false as |al expandFn|}}
+  {{#accordion-list-item
+       title=(t 'clusterNew.members.label')
+       detail=(t 'clusterNew.members.detail')
+       expandAll=al.expandAll
+       everExpanded=true
+       expanded=expanded
+       expand=(action expandFn)
+  }}
+    {{form-members
+        creator=model.me
+        editing=notView
+        expanded=expanded
+        isNew=(or newBusiness editing)
+        memberConfig=memberConfig
+        errors=memberErrors
+        primaryResource=business
+        registerHook=(action "registerHook")
+        roles=model.roleTemplates
+        type="cluster"
+        users=model.users
+        customer="huawei"
+    }}
+  {{/accordion-list-item}}
+  {{form-labels-annotations
+    classNames="accordion-wrapper"
+    labelErrors=labelErrors
+    initialLabels=business.labels
+    setLabels=(action 'setLabels')
+    expandAll=al.expandAll
+    expandFn=expandFn
+    model=business
+    annotationErrors=annotationErrors
+    disabled=readOnly
+  }}
+{{/accordion-list}}
+
+{{top-errors errors=errors}}
+
+{{#unless readOnly}}
+  {{save-cancel editing=editing save="save" cancel="cancel"}}
+{{/unless}}
+
+{{#if readOnly}}
+<div class="footer-actions">
+  <button {{action "cancel"}} class="btn bg-primary">{{t 'generic.cancel'}}</button>
+</div>
+{{/if}}

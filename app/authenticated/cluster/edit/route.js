@@ -7,11 +7,13 @@ export default Route.extend({
   access:              service(),
   globalStore:         service(),
   roleTemplateService: service('roleTemplate'),
+  k8sStore:            service('k8sStore'),
 
   model() {
 
     const globalStore = this.get('globalStore');
     const cluster     = this.modelFor('authenticated.cluster');
+    const k8sStore    = this.get('k8sStore')
 
     return hash({
       originalCluster:            cluster,
@@ -23,6 +25,7 @@ export default Route.extend({
       users:                      globalStore.findAll('user'),
       clusterRoleTemplateBinding: globalStore.findAll('clusterRoleTemplateBinding'),
       me:                         get(this, 'access.principal'),
+      business:                   k8sStore.findAll('business', {url:`${k8sStore.baseUrl}/v3/business`, forceReload: true}),
     });
 
   },

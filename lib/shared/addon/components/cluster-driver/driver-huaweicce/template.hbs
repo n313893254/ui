@@ -12,10 +12,11 @@
         <label class="acc-label">
           {{t 'clusterNew.huaweicce.zone.label'}}
         </label>
-        {{new-select
-          classNames="form-control"
+        {{searchable-select
+          class="form-control"
           content=zones
           value=config.zone
+          allowCustom=true
         }}
       </div>
       <div class="col span-6 mb-0">
@@ -24,26 +25,48 @@
                 value=config.projectId
                 classNames="form-control"
                 placeholder=(t 'clusterNew.huaweicce.projectId.placeholder')}}
+        <p class="text-info text-small m-0">{{t 'clusterNew.huaweicce.projectId.help' htmlSafe=true}}</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col span-6 mb-0">
-        <label class="acc-label">
-          {{t 'clusterNew.huaweicce.accessKey.label'}}{{field-required}}
-        </label>
-        {{input type="text"
-                value=config.accessKey
-                classNames="form-control"
-                placeholder=(t 'clusterNew.huaweicce.accessKey.placeholder')}}
+    {{#unless authConfigred}}
+      <div class="row">
+        <div class="col span-6 mb-0">
+          <label class="acc-label">
+            {{t 'clusterNew.huaweicce.accessKey.label'}}{{field-required}}
+          </label>
+          {{input type="text"
+                  value=config.accessKey
+                  classNames="form-control"
+                  placeholder=(t 'clusterNew.huaweicce.accessKey.placeholder')}}
+          <p class="text-info text-small m-0">{{t 'clusterNew.huaweicce.accessKey.help' htmlSafe=true}}</p>
+        </div>
+        <div class="col span-6 mb-0">
+          <label class="acc-label">{{t 'clusterNew.huaweicce.secretKey.label'}}{{field-required}}</label>
+          {{input type="password"
+                  value=config.secretKey
+                  classNames="form-control"
+                  placeholder=(t 'clusterNew.huaweicce.secretKey.placeholder')}}
+        </div>
       </div>
-      <div class="col span-6 mb-0">
-        <label class="acc-label">{{t 'clusterNew.huaweicce.secretKey.label'}}{{field-required}}</label>
-        {{input type="password"
-                value=config.secretKey
-                classNames="form-control"
-                placeholder=(t 'clusterNew.huaweicce.secretKey.placeholder')}}
+    {{/unless}}
+    {{#unless (eq customer 'huawei')}}
+      <div class="row">
+        <div class="col span-6 mb-0">
+          <label class="acc-label">
+            {{t 'clusterNew.huaweicce.business.label'}}
+          </label>
+          {{#if editing}}
+            <div>{{businessName}}</div>
+          {{else}}
+            {{searchable-select
+              class="form-control"
+              content=businessContent
+              value=config.businessId
+            }}
+          {{/if}}
+        </div>
       </div>
-    </div>
+    {{/unless}}
   {{/accordion-list-item}}
 {{/if}}
 
@@ -67,6 +90,7 @@
         <div>{{config.projectId}}</div>
       </div>
     </div>
+    {{#unless authConfigred}}
     <div class="row">
       <div class="col span-6 mb-0">
         <label class="acc-label">
@@ -79,6 +103,7 @@
         <div>**************</div>
       </div>
     </div>
+    {{/unless}}
   {{/accordion-list-item}}
 
   {{#accordion-list-item
@@ -117,43 +142,65 @@
     </div>
     <div class="row">
       <div class="col span-6 mb-0">
-        <label class="acc-label">{{t 'clusterNew.huaweicce.clusterFlavor.label'}}</label>
-        {{#if editing}}
-          <div class="">
-            {{config.clusterFlavor}}
-          </div>
-        {{else}}
-          {{new-select
-            classNames="form-control"
-            value=config.clusterFlavor
-            content=clusterFlavorContent
-          }}
-        {{/if}}
-      </div>
-      <div class="col span-6 mb-0">
         <label class="acc-label">
           {{t 'clusterNew.huaweicce.masterVersion.label'}}{{field-required}}
         </label>
         {{#if editing}}
-          <div class="">
-            {{config.masterVersion}}
-          </div>
+          <div>{{config.masterVersion}}</div>
+        {{else}}
+          {{searchable-select
+            class="form-control"
+            content=masterVersions
+            value=config.masterVersion
+            optionValuePath="label"
+            optionLabelPath="value"
+            allowCustom=true
+          }}
+        {{/if}}
+      </div>
+      <div class="col span-6 mb-0">
+        <label class="acc-label">{{t 'clusterNew.huaweicce.managementScale.label'}}</label>
+        {{#if editing}}
+          <div>{{managementScaleDisplay}}</div>
         {{else}}
           {{new-select
             classNames="form-control"
-            value=config.masterVersion
-            content=masterVersions
+            value=managementScale
+            content=managementScaleContent
           }}
         {{/if}}
       </div>
     </div>
     <div class="row">
       <div class="col span-6 mb-0">
+        <label class="acc-label">
+          {{t 'clusterNew.huaweicce.highAvailability.label'}}{{field-required}}
+        </label>
+        {{#if editing}}
+          {{#if (eq highAvailabilityEnabled 's2')}}
+            <div>{{t 'generic.enabled'}}</div>
+          {{else}}
+            <div>{{t 'generic.disabled'}}</div>
+          {{/if}}
+        {{else}}
+          <div class="radio">
+            <label>
+              {{radio-button selection=highAvailabilityEnabled value="s2"}}
+              {{t 'generic.enabled'}}
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              {{radio-button selection=highAvailabilityEnabled value="s1"}}
+              {{t 'generic.disabled'}}
+            </label>
+          </div>
+        {{/if}}
+      </div>
+      <div class="col span-6 mb-0">
         <label class="acc-label">{{t 'clusterNew.huaweicce.containerNetworkMode.label'}}</label>
         {{#if editing}}
-          <div class="">
-            {{config.containerNetworkMode}}
-          </div>
+          <div>{{config.containerNetworkMode}}</div>
         {{else}}
           {{new-select
             classNames="form-control"
@@ -162,12 +209,14 @@
           }}
         {{/if}}
       </div>
+    </div>
+    <div class="row">
       <div class="col span-6 mb-0">
         <label class="acc-label">
-          {{t 'clusterNew.huaweicce.containerNetworkCidr.label'}}
+          {{t 'clusterNew.huaweicce.containerNetworkCidr.label'}}{{field-required}}
         </label>
         {{#if editing}}
-          <div class="">
+          <div>
             {{#if config.containerNetworkCidr}}
               {{config.containerNetworkCidr}}
             {{else}}
@@ -175,14 +224,14 @@
             {{/if}}
           </div>
         {{else}}
-          {{input type="text"
-                  value=config.containerNetworkCidr
-                  classNames="form-control"
-                  placeholder=(t 'clusterNew.huaweicce.containerNetworkCidr.placeholder')}}
+          {{searchable-select
+            class="form-control"
+            content=containerNetworkCidrContent
+            value=config.containerNetworkCidr
+            allowCustom=true
+          }}
         {{/if}}
       </div>
-    </div>
-    <div class="row">
       <div class="col span-6 mb-0">
         <label class="acc-label">{{t 'clusterNew.huaweicce.vpcId.label'}}{{field-required}}</label>
         {{#if editing}}
@@ -197,6 +246,8 @@
           }}
         {{/if}}
       </div>
+    </div>
+    <div class="row">
       <div class="col span-6 mb-0">
         <label class="acc-label">
           {{t 'clusterNew.huaweicce.subnetId.label'}}{{field-required}}
@@ -217,20 +268,23 @@
           {{/if}}
         {{/if}}
       </div>
-    </div>
-    <div class="row">
       {{#if (eq config.clusterType 'BareMetal')}}
         <div class="col span-6 mb-0">
           <label class="acc-label">{{t 'clusterNew.huaweicce.highwaySubnet.label'}}</label>
-          {{#if editing}}
-            <div class="">
-              {{config.highwaySubnet}}
-            </div>
+          {{#if (gt networkContent.length 0)}}
+            {{#if editing}}
+              <div class="">
+                {{config.highwaySubnet}}
+              </div>
+            {{else}}
+              {{new-select
+                classNames="form-control"
+                content=networkContent
+                value=config.highwaySubnet
+              }}
+            {{/if}}
           {{else}}
-            {{input type="text"
-                    value=config.highwaySubnet
-                    classNames="form-control"
-                    placeholder=(t 'clusterNew.huaweicce.highwaySubnet.placeholder')}}
+            <div style="margin-top: 10px;">No Highway Subnet can be use</div>
           {{/if}}
         </div>
       {{/if}}
@@ -312,9 +366,7 @@
             {{t 'clusterNew.huaweicce.availableZone.label'}}
           </label>
           {{#if editing}}
-            <div class="">
-              {{config.availableZone}}
-            </div>
+            <div>{{config.availableZone}}</div>
           {{else}}
             {{new-select
               classNames="form-control"
@@ -328,7 +380,7 @@
             {{t 'clusterNew.huaweicce.billingMode.label'}}
           </label>
           {{#if editing}}
-            <div>Pay-As-You-Go</div>
+            <div>{{billingModeName}}</div>
           {{else}}
             {{new-select
               classNames="form-control"
@@ -422,6 +474,18 @@
       </div>
       <div class="row">
         <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.huaweicce.nodeOperationSystem.label'}}</label>
+          {{#if editing}}
+            <div>{{config.nodeOperationSystem}}</div>
+          {{else}}
+            {{new-select
+              classNames="form-control"
+              value=config.nodeOperationSystem
+              content=nodeOperationSystemContent
+            }}
+          {{/if}}
+        </div>
+        <div class="col span-6">
           <label class="acc-label">{{t 'clusterNew.huaweicce.ssh.label'}}{{field-required}}</label>
           {{#if editing}}
             <div>{{editedSshName}}</div>
@@ -501,6 +565,23 @@
                   {{eipIds.label}}
                 {{/power-select-multiple}}
             {{/if}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col span-12 mt-0">
+            <div class="clearfix">
+              <label class="acc-label pt-5">{{t 'clusterNew.huaweicce.authenticatingProxyCa.label'}}{{field-required}}</label>
+            </div>
+            {{input-text-file
+                classNames="box"
+                value=authenticatingProxyCa
+                multiple=true
+                canChangeName=false
+                accept="application/x-x509-ca-cert,text/plain,.pem,.crt"
+                minHeight=60
+                placeholder="newCertificate.cert.placeholder"
+                shouldChangeName=false
+            }}
           </div>
         </div>
         <div class="row">
