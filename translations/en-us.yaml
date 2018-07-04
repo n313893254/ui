@@ -5610,6 +5610,10 @@ searchableSelect:
   noMatch: No match
   noOptions: No available options
 
+businessPage:
+  header: Business
+  newBusiness: Add Business
+
 ##############################
 # Mixins
 ##############################
@@ -5705,6 +5709,7 @@ nav:
       auth: Access Control
       registration: Host Registration
       advanced: Advanced
+    business: Business
   user:
     label: "User Menu: {username}"
     logout: Log Out

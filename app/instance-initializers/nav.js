@@ -304,6 +304,13 @@ const rootNav = [
       },
     ],
   },
+  {
+    scope: 'global',
+    id: 'global-business',
+    localizedLabel: 'nav.admin.business',
+    route: 'global-admin.business',
+    resourceScope: 'global',
+  },
 //  {
 //    scope: 'global',
 //    id: 'global-advanced',
