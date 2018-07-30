@@ -3,34 +3,34 @@
     {{#if canExpand}}<i role="button" {{action "toggle"}} class="icon icon-play eased text-small text-muted {{if expanded 'icon-rotate-90'}}"><span class="visually-hidden">Open accordion</span></i>{{/if}}
   </td>
   <td data-title="{{dt.name}}">
-    {{date-calendar obj.created}}
+    {{date-str model.created}}
   </td>
   <td data-title="{{dt.source}}">
-    {{obj.method}}
+    {{model.resourceKind}}
   </td>
   <td data-title="{{dt.actions}}">
-    {{obj.code}}
+    {{model.eventType}}
   </td>
   <td data-title="{{dt.actions}}">
-    {{obj.size}}
+    {{model.reason}}
   </td>
   <td data-title="{{dt.actions}}">
-    {{obj.requestor}}
+    {{model.namespaceId}}
   </td>
   <td data-title="{{dt.actions}}">
-    {{obj.url}}
+    {{model.message}}
   </td>
   <td data-title="{{dt.actions}}" class="actions">
-    {{action-menu model=obj}}
+    {{action-menu model=model}}
   </td>
 </tr>
 
 {{#if canExpand}}
   <tr class="sub-row {{unless expanded 'hide'}}">
     <td>{{! checkbox and expand}}</td>
-    <td colspan="{{sub fullColspan 4}}">
+    <td colspan="{{sub fullColspan 2}}">
       {{#if expanded}}
-        {{code-block code=obj}}
+        {{code-block code=logString}}
       {{/if}}
     </td>
   </tr>

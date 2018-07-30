@@ -115,7 +115,11 @@ generic:
   code: Code
   Size: size
   requestor: Requestor
-  Url: Url
+  message: Message
+  level: Level
+  kind: Kind
+  reason: Reason
+  resourceName: Resource name
 
 realmNames:
   all: All

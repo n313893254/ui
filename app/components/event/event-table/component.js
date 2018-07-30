@@ -112,31 +112,31 @@ export default Component.extend({
     {
       name:           'name',
       searchField:    'displayName',
-      translationKey: 'generic.method',
+      translationKey: 'generic.kind',
       width:          120
     },
     {
       name:           'source',
       searchField:    ['displaySource', 'configName'],
-      translationKey: 'generic.code',
+      translationKey: 'generic.level',
       width:          120
     },
     {
       name:           'source',
       searchField:    ['displaySource', 'configName'],
-      translationKey: 'generic.size',
+      translationKey: 'generic.reason',
+      width:          200
+    },
+    {
+      name:           'source',
+      searchField:    ['displaySource', 'configName'],
+      translationKey: 'generic.namespace',
       width:          120
     },
     {
       name:           'source',
       searchField:    ['displaySource', 'configName'],
-      translationKey: 'generic.requestor',
-      width:          120
-    },
-    {
-      name:           'source',
-      searchField:    ['displaySource', 'configName'],
-      translationKey: 'generic.url',
+      translationKey: 'generic.message',
     },
   ],
 
