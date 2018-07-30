@@ -15,7 +15,7 @@ export default Route.extend(Preload, {
   scope:        service(),
   globalStore:  service(),
   clusterStore: service(),
-  k8sStore: service(),
+  k8sStore:     service(),
 
   model(params, transition) {
 

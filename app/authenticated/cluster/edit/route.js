@@ -25,7 +25,10 @@ export default Route.extend({
       users:                      globalStore.findAll('user'),
       clusterRoleTemplateBinding: globalStore.findAll('clusterRoleTemplateBinding'),
       me:                         get(this, 'access.principal'),
-      business:                   k8sStore.findAll('business', {url:`${k8sStore.baseUrl}/v3/business`, forceReload: true}),
+      business:                   k8sStore.findAll('business', {
+        url:         `${ k8sStore.baseUrl }/v3/business`,
+        forceReload: true
+      }),
     });
 
   },
