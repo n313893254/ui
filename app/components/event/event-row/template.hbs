@@ -1,0 +1,43 @@
+<tr class="main-row">
+  <td>
+    {{#if canExpand}}<i role="button" {{action "toggle"}} class="icon icon-play eased text-small text-muted {{if expanded 'icon-rotate-90'}}"><span class="visually-hidden">Open accordion</span></i>{{/if}}
+  </td>
+  <td data-title="{{dt.name}}">
+    {{date-calendar obj.created}}
+  </td>
+  <td data-title="{{dt.source}}">
+    {{obj.method}}
+  </td>
+  <td data-title="{{dt.actions}}">
+    {{obj.code}}
+  </td>
+  <td data-title="{{dt.actions}}">
+    {{obj.size}}
+  </td>
+  <td data-title="{{dt.actions}}">
+    {{obj.requestor}}
+  </td>
+  <td data-title="{{dt.actions}}">
+    {{obj.url}}
+  </td>
+  <td data-title="{{dt.actions}}" class="actions">
+    {{action-menu model=obj}}
+  </td>
+</tr>
+
+{{#if canExpand}}
+  <tr class="sub-row {{unless expanded 'hide'}}">
+    <td>{{! checkbox and expand}}</td>
+    <td colspan="{{sub fullColspan 4}}">
+      {{#if expanded}}
+        {{code-block code=obj}}
+      {{/if}}
+    </td>
+  </tr>
+
+  {{#if expanded}}
+    <tr class="separator-row">
+      <td colspan="{{fullColspan}}"></td>
+    </tr>
+  {{/if}}
+{{/if}}

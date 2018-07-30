@@ -53,6 +53,7 @@ export const headers = [
 export default Component.extend({
   layout,
   hostChoices:      [],
+  expandedLogs:     [],
   eventTypeContent: [
     {
       label: 'Cloud HTTP Load Balancer',
@@ -61,14 +62,30 @@ export default Component.extend({
   ],
   eventLogContent: [
     {
-      label: 'All logs',
+      label: 'All kind',
       value: 'all'
+    },
+    {
+      label: 'Node',
+      value: 'node'
+    },
+    {
+      label: 'Pod',
+      value: 'pod'
     },
   ],
   eventLevelContent: [
     {
       label: 'Any log level',
       value: 'any'
+    },
+    {
+      label: 'Normal',
+      value: 'normal'
+    },
+    {
+      label: 'Warning',
+      value: 'warning'
     }
   ],
   eventTimeContent: [
@@ -77,23 +94,15 @@ export default Component.extend({
       value: 'lastHour'
     }
   ],
-  rows: [{
-    time:      '2018-07-24 10:56:21.003 HKT',
-    method:    'GET',
-    code:      '502',
-    size:      '488B',
-    requestor: 'Gemini/2.0',
-    url:       'http://35.190.53.225',
-  }, {
-    time:      '2018-07-24 10:56:21.003 HKT',
-    method:    'GET',
-    code:      '502',
-    size:      '488B',
-    requestor: 'Gemini/2.0',
-    url:       'http://35.190.53.225',
-  }],
+  rows: alias('model.clusterEventLogs'),
 
   headers: [
+    {
+      name:        'expand',
+      sort:        false,
+      searchField: null,
+      width:       30
+    },
     {
       name:           'state',
       searchField:    'displayState',
@@ -139,5 +148,22 @@ export default Component.extend({
     set(this, 'eventLevel', 'any')
     set(this, 'eventTime', 'lastHour')
 
-  }
+  },
+  actions: {
+    toggleExpand(instId) {
+
+      let list = get(this, 'expandedLogs')
+
+      if ( list.includes(instId) ) {
+
+        list.removeObject(instId);
+
+      } else {
+
+        list.addObject(instId);
+
+      }
+
+    },
+  },
 });
