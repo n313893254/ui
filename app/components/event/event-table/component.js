@@ -2,53 +2,7 @@ import Component from '@ember/component';
 import layout from './template';
 import { inject as service } from '@ember/service'
 import { alias } from '@ember/object/computed';
-import { set, get } from '@ember/object';
-
-export const headers = [
-  {
-    name:           'state',
-    sort:           ['sortState', 'displayName'],
-    searchField:    'displayState',
-    translationKey: 'generic.state',
-    width:          120
-  },
-  {
-    name:           'name',
-    sort:           ['sortName', 'id'],
-    searchField:    'displayName',
-    translationKey: 'generic.name',
-  },
-  {
-    name:           'source',
-    sort:           ['displaySource', 'name', 'id'],
-    searchField:    ['displaySource', 'configName'],
-    translationKey: 'persistentVolumePage.source.label',
-  },
-  {
-    name:           'source',
-    sort:           ['displaySource', 'name', 'id'],
-    searchField:    ['displaySource', 'configName'],
-    translationKey: 'persistentVolumePage.source.label',
-  },
-  {
-    name:           'source',
-    sort:           ['displaySource', 'name', 'id'],
-    searchField:    ['displaySource', 'configName'],
-    translationKey: 'persistentVolumePage.source.label',
-  },
-  {
-    name:           'source',
-    sort:           ['displaySource', 'name', 'id'],
-    searchField:    ['displaySource', 'configName'],
-    translationKey: 'persistentVolumePage.source.label',
-  },
-  {
-    name:           'source',
-    sort:           ['displaySource', 'name', 'id'],
-    searchField:    ['displaySource', 'configName'],
-    translationKey: 'persistentVolumePage.source.label',
-  },
-];
+import { set, get, computed } from '@ember/object';
 
 export default Component.extend({
   layout,
@@ -67,11 +21,11 @@ export default Component.extend({
     },
     {
       label: 'Node',
-      value: 'node'
+      value: 'Node'
     },
     {
       label: 'Pod',
-      value: 'pod'
+      value: 'Pod'
     },
   ],
   eventLevelContent: [
@@ -81,11 +35,11 @@ export default Component.extend({
     },
     {
       label: 'Normal',
-      value: 'normal'
+      value: 'Normal'
     },
     {
       label: 'Warning',
-      value: 'warning'
+      value: 'Warning'
     }
   ],
   eventTimeContent: [
@@ -94,7 +48,21 @@ export default Component.extend({
       value: 'lastHour'
     }
   ],
-  rows: alias('model.clusterEventLogs'),
+  // rows: alias('model.clusterEventLogs'),
+  rows: computed('eventType', 'resourceKind', 'eventLevel', 'eventTime', 'model.clusterEventLogs.[]', function() {
+    const clusterEventLogs = get(this, 'model.clusterEventLogs').content || []
+    const eventType = get(this, 'eventType')
+    const resourceKind = get(this, 'resourceKind')
+    const eventTime = get(this, 'eventTime')
+    let arr = clusterEventLogs
+    if (eventType !== 'any') {
+      arr = arr.filter(a => a.eventType === eventType)
+    }
+    if (resourceKind !== 'all') {
+      arr = arr.filter(a => a.resourceKind === resourceKind)
+    }
+    return arr
+  }),
 
   headers: [
     {
@@ -107,31 +75,31 @@ export default Component.extend({
       name:           'state',
       searchField:    'displayState',
       translationKey: 'generic.time',
-      width:          250
-    },
-    {
-      name:           'name',
-      searchField:    'displayName',
-      translationKey: 'generic.kind',
-      width:          120
-    },
-    {
-      name:           'source',
-      searchField:    ['displaySource', 'configName'],
-      translationKey: 'generic.level',
-      width:          120
-    },
-    {
-      name:           'source',
-      searchField:    ['displaySource', 'configName'],
-      translationKey: 'generic.reason',
       width:          200
     },
     {
       name:           'source',
       searchField:    ['displaySource', 'configName'],
       translationKey: 'generic.namespace',
-      width:          120
+      width:          150
+    },
+    {
+      name:           'name',
+      searchField:    'displayName',
+      translationKey: 'generic.kind',
+      width:          80
+    },
+    {
+      name:           'source',
+      searchField:    ['displaySource', 'configName'],
+      translationKey: 'generic.level',
+      width:          80
+    },
+    {
+      name:           'source',
+      searchField:    ['displaySource', 'configName'],
+      translationKey: 'generic.reason',
+      width:          200
     },
     {
       name:           'source',
@@ -143,9 +111,8 @@ export default Component.extend({
   init() {
 
     this._super(...arguments)
-    set(this, 'eventType', 'loadBalancer')
-    set(this, 'eventLog', 'all')
-    set(this, 'eventLevel', 'any')
+    set(this, 'resourceKind', 'all')
+    set(this, 'eventType', 'any')
     set(this, 'eventTime', 'lastHour')
 
   },

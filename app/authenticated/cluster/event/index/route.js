@@ -17,10 +17,12 @@ export default Route.extend({
       clusterEventLogs: k8sStore.findAll('huaWeiClusterEventLog', {
         url:         `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog`,
         forceReload: true,
+        depaginate: false,
         filter:{
           clusterEventId: clusterId,
         }
       })
+      // clusterEventLogs: []
     })
   },
 });

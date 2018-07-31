@@ -5,6 +5,9 @@
   <td data-title="{{dt.name}}">
     {{date-str model.created}}
   </td>
+  <td data-title="{{dt.actions}}">
+    {{model.namespaceId}}
+  </td>
   <td data-title="{{dt.source}}">
     {{model.resourceKind}}
   </td>
@@ -13,9 +16,6 @@
   </td>
   <td data-title="{{dt.actions}}">
     {{model.reason}}
-  </td>
-  <td data-title="{{dt.actions}}">
-    {{model.namespaceId}}
   </td>
   <td data-title="{{dt.actions}}">
     {{model.message}}
