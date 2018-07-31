@@ -9,13 +9,13 @@ export default Resource.extend({
   k8sStore: service(),
 
   actions:{
-    goToApi() {
-
-      let k8sStore = this.get('k8sStore') || {}
-
-      window.open(`${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog?clusterEventId=${ this.get('id') }`, '_blank')
-
-    },
+    // goToApi() {
+    //
+    //   let k8sStore = this.get('k8sStore') || {}
+    //
+    //   window.open(`${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog?clusterEventId=${ this.get('id') }`, '_blank')
+    //
+    // },
   },
 
 });

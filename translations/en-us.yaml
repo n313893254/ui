@@ -2153,6 +2153,10 @@ clusterNew:
       label: Node Operation System
     authenticatingProxyCa:
       label: Certificate
+    validityPeriod:
+      label: Validity Period
+    bmsIsAutoRenew:
+      label: Auto Renew
   rke:
     etcd:
       heartbeat:

@@ -382,10 +382,40 @@
           {{#if editing}}
             <div>{{billingModeName}}</div>
           {{else}}
-            {{new-select
-              classNames="form-control"
+            {{searchable-select
+              class="form-control"
               content=billingModeContent
               value=config.billingMode
+            }}
+          {{/if}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col span-6 mb-0">
+          <label class="acc-label">
+            {{t 'clusterNew.huaweicce.validityPeriod.label'}}
+          </label>
+          {{#if editing}}
+            <div>{{config.availableZone}}</div>
+          {{else}}
+            {{searchable-select
+              classNames="form-control"
+              content=validityPeriodContent
+              value=validityPeriod
+            }}
+          {{/if}}
+        </div>
+        <div class="col span-6 mb-0">
+          <label class="acc-label">
+            {{t 'clusterNew.huaweicce.bmsIsAutoRenew.label'}}
+          </label>
+          {{#if editing}}
+            <div>{{billingModeName}}</div>
+          {{else}}
+            {{searchable-select
+              class="form-control"
+              content=billingModeContent
+              value=config.bmsIsAutoRenew
             }}
           {{/if}}
         </div>
