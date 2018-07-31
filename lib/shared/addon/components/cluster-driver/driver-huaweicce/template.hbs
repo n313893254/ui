@@ -390,36 +390,45 @@
           {{/if}}
         </div>
       </div>
-      <div class="row">
-        <div class="col span-6 mb-0">
-          <label class="acc-label">
-            {{t 'clusterNew.huaweicce.validityPeriod.label'}}
-          </label>
-          {{#if editing}}
-            <div>{{config.availableZone}}</div>
-          {{else}}
-            {{searchable-select
-              classNames="form-control"
-              content=validityPeriodContent
-              value=validityPeriod
-            }}
-          {{/if}}
+      {{#if (eq config.billingMode 2)}}
+        <div class="row">
+          <div class="col span-6 mb-0">
+            <label class="acc-label">
+              {{t 'clusterNew.huaweicce.validityPeriod.label'}}
+            </label>
+            {{#if editing}}
+              <div>{{validityPeriodName}}</div>
+            {{else}}
+              {{searchable-select
+                classNames="form-control"
+                content=validityPeriodContent
+                value=validityPeriod
+              }}
+            {{/if}}
+          </div>
+          <div class="col span-6 mb-0">
+            <label class="acc-label">
+              {{t 'clusterNew.huaweicce.bmsIsAutoRenew.label'}}
+            </label>
+            {{#if editing}}
+              <div>{{bmsIsAutoRenewName}}</div>
+            {{else}}
+            <div class="radio">
+              <label>
+                {{radio-button selection=config.bmsIsAutoRenew value="false"}}
+                {{t 'generic.disabled'}}
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                {{radio-button selection=config.bmsIsAutoRenew value="true"}}
+                {{t 'generic.enabled'}}
+              </label>
+            </div>
+            {{/if}}
+          </div>
         </div>
-        <div class="col span-6 mb-0">
-          <label class="acc-label">
-            {{t 'clusterNew.huaweicce.bmsIsAutoRenew.label'}}
-          </label>
-          {{#if editing}}
-            <div>{{billingModeName}}</div>
-          {{else}}
-            {{searchable-select
-              class="form-control"
-              content=billingModeContent
-              value=config.bmsIsAutoRenew
-            }}
-          {{/if}}
-        </div>
-      </div>
+      {{/if}}
       <div class="row">
         <div class="col span-6 mb-0">
           <label class="acc-label">
