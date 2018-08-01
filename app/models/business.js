@@ -5,8 +5,8 @@ import { hasMany } from 'ember-api-store/utils/denormalize';
 import { alias } from '@ember/object/computed';
 
 export default Resource.extend({
-  businessRoleTemplateBindings: hasMany('id', 'businessRoleTemplateBinding', 'businessId'),
-  roleTemplateBindings:         alias('businessRoleTemplateBindings'),
+  // businessRoleTemplateBindings: hasMany('id', 'businessRoleTemplateBinding', 'businessId'),
+  // roleTemplateBindings:         alias('businessRoleTemplateBindings'),
 
   availableActions: computed('state', function() {
 
