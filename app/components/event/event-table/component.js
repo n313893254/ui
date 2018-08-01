@@ -12,12 +12,6 @@ export default Component.extend({
 
   hostChoices:      [],
   expandedLogs:     [],
-  eventTypeContent: [
-    {
-      label: 'Cloud HTTP Load Balancer',
-      value: 'loadBalancer'
-    },
-  ],
   eventLogContent: [
     {
       label: 'All kind',
@@ -78,25 +72,20 @@ export default Component.extend({
     return [{label: 'All namespace', value: 'poi-all'}, ...arr]
   }),
 
-  resourceNameContent: computed('model.namespaces.[]', function() {
+  resourceNameContent: computed('model.projects.@each.pods.[]', function() {
     const namespaces = get(this, 'model.namespaces').content || []
     const namespaceId = get(this, 'namespaceId')
     const resourceKind = get(this, 'resourceKind')
+    const projects = get(this, 'model.projects').content || []
+    const clusterId = get(this, 'scope.currentCluster.id')
     let allPods = []
-    console.log(get(this, 'allWorkloads'), 'allWorkloads')
-    namespaces.map(n => {
-      const pods = n.pods || []
-      console.log(pods, 'pods')
-      allPods = [...allPods, ...pods]
-      console.log(allPods, 'allPods')
-    })
-    // if (resourceKind !== 'all') {
-    //   arr = arr.filter(a => a.resourceKind === resourceKind)
-    // }
-    // if (namespaceId !== 'poi-all') {
-    //   arr = arr.filter(a => a.namespaceId === namespaceId)
-    // }
-    return [{label: 'All resource', value: 'poi-all'}, ...allPods]
+    projects.filter(p => p.clusterId === clusterId)
+            .map(p => {
+              const pods = p && p.pods && p.pods.content || []
+              allPods = [...allPods, ...pods]
+            })
+    let podContent = allPods.map(p => ({label: p.name, value: p.name}))
+    return [{label: 'All resource', value: 'poi-all'}, ...podContent]
   }),
 
   headers: [
@@ -153,6 +142,8 @@ export default Component.extend({
       'namespaceId': 'poi-all',
       'resourceName': 'poi-all',
     })
+    const projects = get(this, 'model.projects').content || []
+    projects.map(p => p.importLink('pods'))
   },
   actions: {
     toggleExpand(instId) {
@@ -175,7 +166,7 @@ export default Component.extend({
       const resourceKind = get(this, 'resourceKind')
       const eventTime = get(this, 'eventTime')
       const namespaceId = get(this, 'namespaceId')
-      const clusterId = get(this, 'scope.currentCluster.id');
+      const clusterId = get(this, 'scope.currentCluster.id')
       const k8sStore = this.get('k8sStore')
 
       let filter = {

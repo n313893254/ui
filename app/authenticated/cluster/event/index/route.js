@@ -23,7 +23,7 @@ export default Route.extend({
         }
       }),
       namespaces: clusterStore.findAll('namespace'),
-      project: cs.findAll('project'),
+      projects: cs.findAll('project'),
     })
   },
 });
