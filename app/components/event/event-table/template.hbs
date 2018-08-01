@@ -3,7 +3,7 @@
 </section>
 <section class="box mb-20">
   <div class="row">
-    {{!-- <div class="col span-12">
+    <div class="col span-12">
       {{searchable-select
         class="form-control"
         content=hostChoices
@@ -15,14 +15,14 @@
         placeholder="Filter by label or text search"
         custom=ture
       }}
-    </div> --}}
+    </div>
   </div>
   <div class="row">
     <div class="col span-3">
       {{searchable-select
         class="form-control"
-        content=eventTypeContent
-        value=eventType2
+        content=namespaceContent
+        value=namespaceId
       }}
     </div>
     <div class="col span-3">
@@ -39,12 +39,17 @@
         value=eventType
       }}
     </div>
-    <div class="col span-3">
+    <div class="col span-2">
       {{searchable-select
         class="form-control"
         content=eventTimeContent
         value=eventTime
       }}
+    </div>
+    <div class="col span-1">
+      <div class="pull-right">
+        <button class="btn bg-primary" {{action 'search'}}>Search</button>
+      </div>
     </div>
   </div>
 </section>

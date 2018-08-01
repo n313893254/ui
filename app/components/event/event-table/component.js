@@ -2,10 +2,12 @@ import Component from '@ember/component';
 import layout from './template';
 import { inject as service } from '@ember/service'
 import { alias } from '@ember/object/computed';
-import { set, get, computed } from '@ember/object';
+import { set, get, computed, setProperties } from '@ember/object';
 
 export default Component.extend({
   layout,
+  scope: service(),
+  k8sStore: service(),
   hostChoices:      [],
   expandedLogs:     [],
   eventTypeContent: [
@@ -48,20 +50,30 @@ export default Component.extend({
       value: 'lastHour'
     }
   ],
-  // rows: alias('model.clusterEventLogs'),
-  rows: computed('eventType', 'resourceKind', 'eventLevel', 'eventTime', 'model.clusterEventLogs.[]', function() {
-    const clusterEventLogs = get(this, 'model.clusterEventLogs').content || []
-    const eventType = get(this, 'eventType')
-    const resourceKind = get(this, 'resourceKind')
-    const eventTime = get(this, 'eventTime')
-    let arr = clusterEventLogs
-    if (eventType !== 'any') {
-      arr = arr.filter(a => a.eventType === eventType)
-    }
-    if (resourceKind !== 'all') {
-      arr = arr.filter(a => a.resourceKind === resourceKind)
-    }
-    return arr
+  rows: alias('model.clusterEventLogs'),
+  // rows: computed('eventType', 'resourceKind', 'eventLevel', 'eventTime', 'namespaceId', 'model.clusterEventLogs.[]', function() {
+  //   const clusterEventLogs = get(this, 'model.clusterEventLogs').content || []
+  //   const eventType = get(this, 'eventType')
+  //   const resourceKind = get(this, 'resourceKind')
+  //   const eventTime = get(this, 'eventTime')
+  //   const namespaceId = get(this, 'namespaceId')
+  //   let arr = clusterEventLogs
+  //   if (eventType !== 'any') {
+  //     arr = arr.filter(a => a.eventType === eventType)
+  //   }
+  //   if (resourceKind !== 'all') {
+  //     arr = arr.filter(a => a.resourceKind === resourceKind)
+  //   }
+  //   if (namespaceId !== 'poi-all') {
+  //     arr = arr.filter(a => a.namespaceId === namespaceId)
+  //   }
+  //   return arr
+  // }),
+
+  namespaceContent: computed('model.namespaces.[]', function() {
+    const namespaces = get(this, 'model.namespaces').content || []
+    let arr = namespaces.map(n => ({label: n.id, value: n.id}))
+    return [{label: 'All namespace', value: 'poi-all'}, ...arr]
   }),
 
   headers: [
@@ -111,10 +123,12 @@ export default Component.extend({
   init() {
 
     this._super(...arguments)
-    set(this, 'resourceKind', 'all')
-    set(this, 'eventType', 'any')
-    set(this, 'eventTime', 'lastHour')
-
+    setProperties(this, {
+      'resourceKind': 'all',
+      'eventType': 'any',
+      'eventTime': 'lastHour',
+      'namespaceId': 'poi-all',
+    })
   },
   actions: {
     toggleExpand(instId) {
@@ -131,6 +145,33 @@ export default Component.extend({
 
       }
 
+    },
+    search() {
+      const eventType = get(this, 'eventType')
+      const resourceKind = get(this, 'resourceKind')
+      const eventTime = get(this, 'eventTime')
+      const namespaceId = get(this, 'namespaceId')
+      const clusterId = get(this, 'scope.currentCluster.id');
+      const k8sStore = this.get('k8sStore')
+
+      let filter = {
+        clusterEventId: clusterId,
+      }
+      if (eventType !== 'any' && eventType) {
+        filter.logType = eventType
+      }
+      if (resourceKind !== 'all' && resourceKind) {
+        filter.refKind = resourceKind
+      }
+      if (namespaceId !== 'poi-all' && namespaceId) {
+        filter.namespaceId = namespaceId
+      }
+      k8sStore.find('huaWeiClusterEventLog', null, {
+        url:         `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog`,
+        forceReload: true,
+        depaginate: false,
+        filter,
+      }).then(res => set(this, 'model.clusterEventLogs', res))
     },
   },
 });
