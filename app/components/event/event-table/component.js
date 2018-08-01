@@ -169,7 +169,7 @@ export default Component.extend({
       k8sStore.find('huaWeiClusterEventLog', null, {
         url:         `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog`,
         forceReload: true,
-        depaginate: false,
+        // depaginate: false,
         filter,
       }).then(res => set(this, 'model.clusterEventLogs', res))
     },
