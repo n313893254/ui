@@ -2,21 +2,18 @@
   <div class="pull-left pt-10"><h1>Event</h1></div>
 </section>
 <section class="box mb-20">
-  <div class="row">
+  {{!-- <div class="row">
     <div class="col span-12">
       {{searchable-select
         class="form-control"
-        content=hostChoices
-        value=requestedHostId
-        optionValuePath="id"
-        optionLabelPath="name"
-        disabled=(not isRequestedHost)
+        content=podContent
+        value=resourceName
         style="display: inline-block; width: auto;"
-        placeholder="Filter by label or text search"
+        placeholder="Filter by resource name"
         custom=ture
       }}
     </div>
-  </div>
+  </div> --}}
   <div class="row">
     <div class="col span-3">
       {{searchable-select
@@ -25,7 +22,7 @@
         value=namespaceId
       }}
     </div>
-    <div class="col span-3">
+    <div class="col span-2">
       {{searchable-select
         class="form-control"
         content=eventLogContent
@@ -33,6 +30,13 @@
       }}
     </div>
     <div class="col span-3">
+      {{searchable-select
+        class="form-control"
+        content=resourceNameContent
+        value=resourceName
+      }}
+    </div>
+    <div class="col span-2">
       {{searchable-select
         class="form-control"
         content=eventLevelContent
@@ -46,11 +50,11 @@
         value=eventTime
       }}
     </div>
-    <div class="col span-1">
+    {{!-- <div class="col span-1">
       <div class="pull-right">
         <button class="btn bg-primary" {{action 'search'}}>Search</button>
       </div>
-    </div>
+    </div> --}}
   </div>
 </section>
 
@@ -60,6 +64,7 @@
   pagingLabel="pagination.volume"
   headers=headers
   bulkActions=false
+  rowActions=false
   body=rows
   sortBy=sortBy
   search=false

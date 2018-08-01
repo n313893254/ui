@@ -20,15 +20,12 @@
   <td data-title="{{dt.actions}}">
     {{model.message}}
   </td>
-  <td data-title="{{dt.actions}}" class="actions">
-    {{action-menu model=model}}
-  </td>
 </tr>
 
 {{#if canExpand}}
   <tr class="sub-row {{unless expanded 'hide'}}">
     <td>{{! checkbox and expand}}</td>
-    <td colspan="{{sub fullColspan 2}}">
+    <td colspan="{{sub fullColspan 1}}">
       {{#if expanded}}
         {{code-block code=logString}}
       {{/if}}

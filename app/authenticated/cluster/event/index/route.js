@@ -9,23 +9,20 @@ export default Route.extend({
   clusterStore:    service(),
 
   model(params, transition) {
-
     const k8sStore = this.get('k8sStore')
     const clusterStore = get(this, 'clusterStore');
     const cs = get(this, 'globalStore');
     const clusterId = transition.params['authenticated.cluster'].cluster_id;
 
     return hash({
-      clusterEventLogs: k8sStore.findAll('huaWeiClusterEventLog', {
+      clusterEventLogs: k8sStore.find('huaWeiClusterEventLog', null, {
         url:         `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog`,
         forceReload: true,
-        depaginate: false,
         filter:{
           clusterEventId: clusterId,
         }
       }),
       namespaces: clusterStore.findAll('namespace'),
-      // clusterEventLogs: []
     })
   },
 });
