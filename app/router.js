@@ -136,6 +136,7 @@ Router.map(function() {
       this.route('event', { path: 'event' }, function() {
 
         this.route('index', { path: '/' })
+        this.route('subscriber', { path: '/subscriber'})
 
       })
 

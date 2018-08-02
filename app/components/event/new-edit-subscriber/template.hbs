@@ -1,0 +1,42 @@
+<section class="header clearfix">
+  <div class="pull-left pt-10"><h1>Subscriber</h1></div>
+</section>
+
+<section>
+  <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">{{t 'editDns.target.cname'}}{{field-required}}</label>
+      {{input class="form-control"
+              type="text"
+              value=model.name
+              placeholder=(t 'formContainerLinks.alias.placeholder')
+      }}
+    </div>
+    <div class="col span-6">
+      <label class="acc-label">{{t 'editDns.target.cname'}}{{field-required}}</label>
+      {{input class="form-control"
+              type="text"
+              value=model.subscriptionAddress
+              placeholder=(t 'formContainerLinks.alias.placeholder')
+      }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">{{t 'editDns.target.cname'}}{{field-required}}</label>
+      {{input class="form-control"
+              type="text"
+              value=model.expectedHttpResponseCode
+              placeholder=(t 'formContainerLinks.alias.placeholder')
+      }}
+    </div>
+    <div class="col span-6">
+      <label class="acc-label">{{t 'editDns.target.cname'}}{{field-required}}</label>
+      {{input class="form-control"
+              type="text"
+              value=model.subscriptionAddress
+              placeholder=(t 'formContainerLinks.alias.placeholder')
+      }}
+    </div>
+  </div>
+</section>

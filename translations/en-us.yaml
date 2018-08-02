@@ -6074,3 +6074,18 @@ rkeConfigComment:
     "       kubelet:"
     "         cluster_domain: cluster.local"
     "         cluster_dns_server: 10.43.0.10"
+
+subscriberPage:
+  name:
+    label: Name
+    placeholder: Enter your subscriber Name
+  subscriptionAddress:
+    label: Subscription Address
+    placeholder: Enter your Subscription Address
+  namespaceId:
+    label: Namespace
+  expectedHttpResponseCode:
+    label: Expected Http Response Code
+    placeholder: e.g. 200
+  attachHttpRequestHeader:
+    label: Attach Http Request Header
