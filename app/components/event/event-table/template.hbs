@@ -5,18 +5,6 @@
   </div>
 </section>
 <section class="box mb-20">
-  {{!-- <div class="row">
-    <div class="col span-12">
-      {{searchable-select
-        class="form-control"
-        content=podContent
-        value=resourceName
-        style="display: inline-block; width: auto;"
-        placeholder="Filter by resource name"
-        custom=ture
-      }}
-    </div>
-  </div> --}}
   <div class="row">
     <div class="col span-3">
       {{searchable-select
@@ -37,6 +25,7 @@
         class="form-control"
         content=resourceNameContent
         value=resourceName
+        allowCustom=true
       }}
     </div>
     <div class="col span-2">

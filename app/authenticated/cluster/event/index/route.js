@@ -24,6 +24,7 @@ export default Route.extend({
       }),
       namespaces: clusterStore.findAll('namespace'),
       projects: cs.findAll('project'),
+      nodes: this.get('globalStore').findAll('node'),
     })
   },
 });

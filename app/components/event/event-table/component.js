@@ -47,12 +47,13 @@ export default Component.extend({
     }
   ],
   // rows: alias('model.clusterEventLogs'),
-  rows: computed('eventType', 'resourceKind', 'eventLevel', 'eventTime', 'namespaceId', 'model.clusterEventLogs.[]', function() {
+  rows: computed('eventType', 'resourceKind', 'eventLevel', 'eventTime', 'namespaceId', 'resourceName', 'model.clusterEventLogs.[]', function() {
     const clusterEventLogs = get(this, 'model.clusterEventLogs').content || []
     const eventType = get(this, 'eventType')
     const resourceKind = get(this, 'resourceKind')
     const eventTime = get(this, 'eventTime')
     const namespaceId = get(this, 'namespaceId')
+    const resourceName = get(this, 'resourceName')
     let arr = clusterEventLogs
     if (eventType !== 'any') {
       arr = arr.filter(a => a.eventType === eventType)
@@ -62,6 +63,9 @@ export default Component.extend({
     }
     if (namespaceId !== 'poi-all') {
       arr = arr.filter(a => a.namespaceId === namespaceId)
+    }
+    if (resourceName !== 'poi-all') {
+      arr = arr.filter(a => a.resourceName === resourceName)
     }
     return arr
   }),
@@ -85,6 +89,7 @@ export default Component.extend({
               allPods = [...allPods, ...pods]
             })
     let podContent = allPods.map(p => ({label: p.name, value: p.name}))
+    const allNodes = get(this, 'model.nodes').content || []
     return [{label: 'All resource', value: 'poi-all'}, ...podContent]
   }),
 
