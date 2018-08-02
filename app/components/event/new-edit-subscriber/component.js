@@ -3,193 +3,65 @@ import layout from './template';
 import { inject as service } from '@ember/service'
 import { alias } from '@ember/object/computed';
 import { set, get, computed, setProperties } from '@ember/object';
+import NewOrEdit from 'ui/mixins/new-or-edit';
 
-export default Component.extend({
+export default Component.extend(NewOrEdit, {
   layout,
   scope: service(),
   k8sStore: service(),
-  allWorkloads: service(),
 
-  hostChoices:      [],
-  expandedLogs:     [],
-  eventLogContent: [
-    {
-      label: 'All kind',
-      value: 'all'
-    },
-    {
-      label: 'Node',
-      value: 'Node'
-    },
-    {
-      label: 'Pod',
-      value: 'Pod'
-    },
-  ],
-  eventLevelContent: [
-    {
-      label: 'Any log level',
-      value: 'any'
-    },
-    {
-      label: 'Normal',
-      value: 'Normal'
-    },
-    {
-      label: 'Warning',
-      value: 'Warning'
-    }
-  ],
-  eventTimeContent: [
-    {
-      label: 'Last hour',
-      value: 'lastHour'
-    }
-  ],
-  // rows: alias('model.clusterEventLogs'),
-  rows: computed('eventType', 'resourceKind', 'eventLevel', 'eventTime', 'namespaceId', 'model.clusterEventLogs.[]', function() {
-    const clusterEventLogs = get(this, 'model.clusterEventLogs').content || []
-    const eventType = get(this, 'eventType')
-    const resourceKind = get(this, 'resourceKind')
-    const eventTime = get(this, 'eventTime')
-    const namespaceId = get(this, 'namespaceId')
-    let arr = clusterEventLogs
-    if (eventType !== 'any') {
-      arr = arr.filter(a => a.eventType === eventType)
-    }
-    if (resourceKind !== 'all') {
-      arr = arr.filter(a => a.resourceKind === resourceKind)
-    }
-    if (namespaceId !== 'poi-all') {
-      arr = arr.filter(a => a.namespaceId === namespaceId)
-    }
-    return arr
-  }),
-
-  namespaceContent: computed('model.namespaces.[]', function() {
-    const namespaces = get(this, 'model.namespaces').content || []
-    let arr = namespaces.map(n => ({label: n.id, value: n.id}))
-    return [{label: 'All namespace', value: 'poi-all'}, ...arr]
-  }),
-
-  resourceNameContent: computed('model.projects.@each.pods.[]', function() {
-    const namespaces = get(this, 'model.namespaces').content || []
-    const namespaceId = get(this, 'namespaceId')
-    const resourceKind = get(this, 'resourceKind')
-    const projects = get(this, 'model.projects').content || []
-    const clusterId = get(this, 'scope.currentCluster.id')
-    let allPods = []
-    projects.filter(p => p.clusterId === clusterId)
-            .map(p => {
-              const pods = p && p.pods && p.pods.content || []
-              allPods = [...allPods, ...pods]
-            })
-    let podContent = allPods.map(p => ({label: p.name, value: p.name}))
-    return [{label: 'All resource', value: 'poi-all'}, ...podContent]
-  }),
-
-  headers: [
-    {
-      name:        'expand',
-      sort:        false,
-      searchField: null,
-      width:       30
-    },
-    {
-      name:           'state',
-      searchField:    'displayState',
-      translationKey: 'generic.time',
-      width:          200
-    },
-    {
-      name:           'source',
-      searchField:    ['displaySource', 'configName'],
-      translationKey: 'generic.namespace',
-      width:          150
-    },
-    {
-      name:           'name',
-      searchField:    'displayName',
-      translationKey: 'generic.kind',
-      width:          80
-    },
-    {
-      name:           'source',
-      searchField:    ['displaySource', 'configName'],
-      translationKey: 'generic.level',
-      width:          80
-    },
-    {
-      name:           'source',
-      searchField:    ['displaySource', 'configName'],
-      translationKey: 'generic.reason',
-      width:          200
-    },
-    {
-      name:           'source',
-      searchField:    ['displaySource', 'configName'],
-      translationKey: 'generic.message',
-    },
-  ],
+  subscriber: alias('model.subscriber'),
+  primaryResource: alias('model.subscriber'),
 
   init() {
-
     this._super(...arguments)
-    setProperties(this, {
-      'resourceKind': 'all',
-      'eventType': 'any',
-      'eventTime': 'lastHour',
-      'namespaceId': 'poi-all',
-      'resourceName': 'poi-all',
-    })
-    const projects = get(this, 'model.projects').content || []
-    projects.map(p => p.importLink('pods'))
+    const mode = get(this, 'model.mode')
+    if (mode === 'new') {
+      setProperties(this, {
+        'subscriber.clusterId': get(this, 'scope.currentCluster.id'),
+        'subscriber.expectedHttpResponseCode': 200,
+        'subscriber.attachHttpRequestHeader': {},
+      })
+    }
   },
+
+  goBack() {
+    get(this, 'router').transitionTo('authenticated.cluster.event');
+  },
+
+  validate() {
+    set(this, 'errors', null)
+    let errors = get(this, 'errors') || []
+    const name = get(this, 'subscriber.name')
+    const subscriptionAddress = get(this, 'subscriber.subscriptionAddress')
+    if (!name) {
+      errors.pushObject('Name is required')
+    }
+    if (!subscriptionAddress) {
+      errors.pushObject('Subscription Address is required')
+    }
+    set(this, 'errors', errors)
+    return errors.length > 0 ? false : true
+  },
+
+  doSave () {
+    const k8sStore = get(this, 'k8sStore')
+    let url = `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogSubscriber`
+    if (get(this, 'model.mode') === 'edit') {
+      url += `/${get(this, 'subscriber.id')}`
+    }
+    return get(this, 'primaryResource').save({url,}).then((newData) => {
+      return this.mergeResult(newData);
+    });
+  },
+
   actions: {
-    toggleExpand(instId) {
-
-      let list = get(this, 'expandedLogs')
-
-      if ( list.includes(instId) ) {
-
-        list.removeObject(instId);
-
-      } else {
-
-        list.addObject(instId);
-
-      }
-
-    },
-    search() {
-      const eventType = get(this, 'eventType')
-      const resourceKind = get(this, 'resourceKind')
-      const eventTime = get(this, 'eventTime')
-      const namespaceId = get(this, 'namespaceId')
-      const clusterId = get(this, 'scope.currentCluster.id')
-      const k8sStore = this.get('k8sStore')
-
-      let filter = {
-        clusterEventId: clusterId,
-      }
-      if (eventType !== 'any' && eventType) {
-        filter.logType = eventType
-      }
-      if (resourceKind !== 'all' && resourceKind) {
-        filter.refKind = resourceKind
-      }
-      if (namespaceId !== 'poi-all' && namespaceId) {
-        filter.namespaceId = namespaceId
-      }
-      k8sStore.find('huaWeiClusterEventLog', null, {
-        url:         `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog`,
-        forceReload: true,
-        filter,
-      }).then(res => set(this, 'model.clusterEventLogs', res))
+    updateData(map) {
+      set(this, 'subscriber.attachHttpRequestHeader', map);
     },
 
-    configreSubscriber() {
-      console.log('configreSubscriber')
+    cancel() {
+      this.goBack();
     },
   },
 });

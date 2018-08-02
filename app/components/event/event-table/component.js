@@ -189,7 +189,7 @@ export default Component.extend({
     },
 
     configreSubscriber() {
-      console.log('configreSubscriber')
+      get(this, 'router').transitionTo('authenticated.cluster.event.subscriber')
     },
   },
 });

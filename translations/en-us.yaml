@@ -6088,4 +6088,11 @@ subscriberPage:
     label: Expected Http Response Code
     placeholder: e.g. 200
   attachHttpRequestHeader:
-    label: Attach Http Request Header
+    header: Attach Http Request Header
+    key:
+      label: Header
+      placeholder: e.g. Authorization
+    value:
+      label: Value
+      placeholder: e.g. Bearer token-xxxxx
+    addActionLabel: Add Header
