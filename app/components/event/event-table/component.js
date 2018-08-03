@@ -3,12 +3,14 @@ import layout from './template';
 import { inject as service } from '@ember/service'
 import { alias } from '@ember/object/computed';
 import { set, get, computed, setProperties } from '@ember/object';
+import parseUri from 'shared/utils/parse-uri';
 
 export default Component.extend({
   layout,
   scope: service(),
   k8sStore: service(),
 
+  loading: false,
   hostChoices:      [],
   expandedLogs:     [],
   eventLogContent: [
@@ -197,10 +199,35 @@ export default Component.extend({
     },
 
     loadMore() {
+      if (get(this, 'loading')) {
+        return
+      }
       const k8sStore = this.get('k8sStore')
       const clusterEventLogs = get(this, 'model.clusterEventLogs')
       const next = clusterEventLogs.pagination && clusterEventLogs.pagination.next
-      console.log('loadMore')
+      if (next) {
+        const urlParser = parseUri(next) || {}
+        const query = urlParser.query
+        let url = `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog`
+        if (query) {
+          url += `?${query}`
+        }
+        // get(this, 'store').rawRequest({
+        //   url:    get(model, 'links.revision'),
+        //   method: 'GET',
+        // })
+        set(this, 'loading', true)
+        k8sStore.rawRequest({
+          url,
+          method: 'GET',
+        }).then(res => {
+          clusterEventLogs.pushObjects(res.body.data)
+          // debugger
+          if((res.body.pagination && res.body.pagination.next) !== next) {
+            set(clusterEventLogs, 'pagination.next', res.body.pagination.next)
+          }
+        }).finally(() => set(this, 'loading', false))
+      }
     },
   },
 });

@@ -82,8 +82,14 @@
   {{/if}}
 {{/sortable-table}}
 
-<section class="header clearfix">
+<section>
   <div class="text-center">
-    <button class="btn btn-sm bg-primary" {{action "loadMore"}}>Load More</button>
+    <button class="btn btn-sm bg-primary" {{action "loadMore"}} >
+      {{#if loading}}
+        <i class="icon icon-spinner icon-spin"></i> Loading
+      {{else}}
+        Load More
+      {{/if}}
+    </button>
   </div>
 </section>
