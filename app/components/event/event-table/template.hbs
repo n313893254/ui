@@ -58,10 +58,11 @@
   bulkActions=false
   rowActions=false
   body=rows
-  sortBy=sortBy
+  sortBy="name"
   search=false
   showHeader=false
   customer="event"
+  descending=true
   as |sortable kind obj dt|
 }}
   {{#if (eq kind "row")}}
@@ -80,3 +81,9 @@
     <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">No data</td></tr>
   {{/if}}
 {{/sortable-table}}
+
+<section class="header clearfix">
+  <div class="text-center">
+    <button class="btn btn-sm bg-primary" {{action "loadMore"}}>Load More</button>
+  </div>
+</section>

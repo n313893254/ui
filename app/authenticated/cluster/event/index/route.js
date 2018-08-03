@@ -18,9 +18,12 @@ export default Route.extend({
       clusterEventLogs: k8sStore.find('huaWeiClusterEventLog', null, {
         url:         `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog`,
         forceReload: true,
+        depaginate: false,
         filter:{
           clusterEventId: clusterId,
-        }
+        },
+        sortOrder: 'desc',
+        limit: 1000,
       }),
       namespaces: clusterStore.findAll('namespace'),
       projects: cs.findAll('project'),

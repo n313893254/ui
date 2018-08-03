@@ -8,7 +8,6 @@ export default Component.extend({
   layout,
   scope: service(),
   k8sStore: service(),
-  allWorkloads: service(),
 
   hostChoices:      [],
   expandedLogs:     [],
@@ -101,39 +100,39 @@ export default Component.extend({
       width:       30
     },
     {
-      name:           'state',
-      searchField:    'displayState',
+      name:           'created',
       translationKey: 'generic.time',
+      sort:        ['created'],
       width:          200
     },
     {
       name:           'source',
-      searchField:    ['displaySource', 'configName'],
       translationKey: 'generic.namespace',
+      sort:        false,
       width:          150
     },
     {
-      name:           'name',
-      searchField:    'displayName',
+      name:           'kind',
       translationKey: 'generic.kind',
+      sort:        false,
       width:          80
     },
     {
       name:           'source',
-      searchField:    ['displaySource', 'configName'],
       translationKey: 'generic.level',
+      sort:        false,
       width:          80
     },
     {
       name:           'source',
-      searchField:    ['displaySource', 'configName'],
       translationKey: 'generic.reason',
+      sort:        false,
       width:          200
     },
     {
       name:           'source',
-      searchField:    ['displaySource', 'configName'],
       translationKey: 'generic.message',
+      sort:        false,
     },
   ],
 
@@ -195,6 +194,13 @@ export default Component.extend({
 
     configreSubscriber() {
       get(this, 'router').transitionTo('authenticated.cluster.event.subscriber')
+    },
+
+    loadMore() {
+      const k8sStore = this.get('k8sStore')
+      const clusterEventLogs = get(this, 'model.clusterEventLogs')
+      const next = clusterEventLogs.pagination && clusterEventLogs.pagination.next
+      console.log('loadMore')
     },
   },
 });
