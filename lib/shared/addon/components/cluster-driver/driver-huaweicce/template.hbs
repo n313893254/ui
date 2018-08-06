@@ -500,11 +500,7 @@
           <label class="acc-label">
             {{t 'clusterNew.huaweicce.nodeCount.label'}}
           </label>
-          {{#if editing}}
-            <div>{{config.nodeCount}}</div>
-          {{else}}
             {{input-number min=1 value=config.nodeCount max=nodeCountMax}}
-          {{/if}}
         </div>
       </div>
       <div class="row">
@@ -573,6 +569,14 @@
                 classNames="form-control"
                 value=config.eipType
                 content=eipTypeContent
+              }}
+              <label class="acc-label">
+                eIP Share Type
+              </label>
+              {{new-select
+                classNames="form-control"
+                value=config.eipShareType
+                content=eipShareTypeContent
               }}
               <label class="acc-label">{{t 'clusterNew.huaweicce.eipChargeMode.label'}}</label>
               {{!-- {{new-select
