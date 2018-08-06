@@ -140,6 +140,12 @@ Router.map(function() {
 
       })
 
+      this.route('subscriber', { path: 'subscriber' }, function() {
+
+        this.route('index', { path: '/' })
+
+      })
+
     });
 
     // Per-Project
