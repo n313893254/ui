@@ -151,8 +151,6 @@
             class="form-control"
             content=masterVersions
             value=config.masterVersion
-            optionValuePath="label"
-            optionLabelPath="value"
           }}
         {{/if}}
       </div>
@@ -577,7 +575,12 @@
                 content=eipTypeContent
               }}
               <label class="acc-label">{{t 'clusterNew.huaweicce.eipChargeMode.label'}}</label>
-              {{new-select
+              {{!-- {{new-select
+                classNames="form-control"
+                value=config.eipChargeMode
+                content=eipChargeModeContent
+              }} --}}
+              {{searchable-select
                 classNames="form-control"
                 value=config.eipChargeMode
                 content=eipChargeModeContent
