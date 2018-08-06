@@ -232,6 +232,13 @@ const rootNav = [
         ctx:            [getClusterId],
         resourceScope:  'cluster',
       },
+      {
+        id:             'cluster-tools-event',
+        localizedLabel: 'nav.tools.subscriber',
+        route:          'authenticated.cluster.subscriber',
+        ctx:            [getClusterId],
+        resourceScope:  'cluster',
+      },
     ],
   },
 

@@ -12,7 +12,8 @@ export default Route.extend({
     const k8sStore = this.get('k8sStore')
     const clusterStore = get(this, 'clusterStore');
     const cs = get(this, 'globalStore');
-    
+    const clusterId = transition.params['authenticated.cluster'].cluster_id;
+
     let cluster = this.modelFor('authenticated.cluster');
 
     if ( !get(cluster, 'isReady') ) {

@@ -1,0 +1,35 @@
+<section class="header clearfix">
+  <div class="pull-left pt-10"><h1>Subscriber</h1></div>
+  <div class="right-buttons">
+    <button class="btn btn-sm bg-primary" {{action "configreSubscriber"}}>Add Subscriber</button>
+  </div>
+</section>
+
+{{#sortable-table
+  tableClassNames="bordered"
+  paging=true
+  pagingLabel="pagination.volume"
+  headers=headers
+  body=rows
+  sortBy="name"
+  search=false
+  showHeader=false
+  customer="event"
+  as |sortable kind obj dt|
+}}
+  {{#if (eq kind "row")}}
+    {{subscriber/subscriber-row
+      model=obj
+      toggle=(action "toggleExpand" obj.id)
+      expanded=(array-includes expandedLogs obj.id)
+      searchText=searchText
+      subMatches=sortable.subMatches
+      fullColspan=sortable.fullColspan
+      dt=dt
+    }}
+  {{else if (eq kind "nomatch")}}
+    <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">{{t 'persistentVolumePage.noMatch'}}</td></tr>
+  {{else if (eq kind "norows")}}
+    <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">No data</td></tr>
+  {{/if}}
+{{/sortable-table}}

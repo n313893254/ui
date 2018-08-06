@@ -6,18 +6,19 @@
 </section>
 <section class="box mb-20">
   <div class="row">
-    <div class="col span-3">
-      {{searchable-select
-        class="form-control"
-        content=namespaceContent
-        value=namespaceId
-      }}
-    </div>
     <div class="col span-2">
       {{searchable-select
         class="form-control"
         content=eventLogContent
         value=resourceKind
+      }}
+    </div>
+    <div class="col span-3">
+      {{searchable-select
+        class="form-control"
+        content=namespaceContent
+        value=namespaceId
+        readOnly=(eq resourceKind 'Node')
       }}
     </div>
     <div class="col span-3">
@@ -53,7 +54,7 @@
 {{#sortable-table
   tableClassNames="bordered"
   paging=true
-  pagingLabel="pagination.volume"
+  pagingLabel="pagination.event"
   headers=headers
   bulkActions=false
   rowActions=false
@@ -82,7 +83,7 @@
   {{/if}}
 {{/sortable-table}}
 
-<section>
+<section class="mt-20">
   <div class="text-center">
     <button class="btn btn-sm bg-primary" {{action "loadMore"}} >
       {{#if loading}}

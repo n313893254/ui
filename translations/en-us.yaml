@@ -120,6 +120,7 @@ generic:
   kind: Kind
   reason: Reason
   resourceName: Resource name
+  address: Address
 
 realmNames:
   all: All
@@ -5762,6 +5763,7 @@ nav:
     notifiers: Notifiers
     logging: Logging
     event: Event
+    subscriber: Subscriber
   project:
     none: Grouped Projects/Namespaces
     namespaces: Namespaces
