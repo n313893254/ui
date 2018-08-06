@@ -8,8 +8,8 @@ export function initialize(instance) {
 
   k8sStore.reopen(StoreTweaks);
 
-  // k8sStore.baseUrl = `/meta/proxy/http:/cattle-cce-service`
-  k8sStore.baseUrl = `/k8s/clusters/local/api/v1/namespaces/cattle-system/services/https:cattle-cce-service:443/proxy`
+  k8sStore.baseUrl = `/meta/proxy/http:/cattle-cce-service`
+  // k8sStore.baseUrl = `/k8s/clusters/local/api/v1/namespaces/cattle-system/services/https:cattle-cce-service:443/proxy`
   k8sStore.cceUrl = `/k8s/clusters/local/api/v1/namespaces/cattle-system/services/https:cattle-cce-service:443/proxy/v3`
 
   let timeout = cookies.get('timeout');
