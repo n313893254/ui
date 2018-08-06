@@ -31,46 +31,19 @@
       {{input-number classNames="form-control" value=business.nodeCount disabled=readOnly min=0}}
     {{/if}}
   </div>
+  <div class="col span-6">
+    <label class="acc-label">Admin</label>
+    {{#if readOnly}}
+      <div>{{business.nodeCount}}</div>
+    {{else}}
+      {{searchable-select
+        class="form-control"
+        content=userContent
+        value=business.userId
+      }}
+    {{/if}}
+  </div>
 </div>
-
-<hr class="mt-30 mb-30" />
-
-{{#accordion-list showExpandAll=false as |al expandFn|}}
-  {{#accordion-list-item
-       title=(t 'clusterNew.members.label')
-       detail=(t 'clusterNew.members.detail')
-       expandAll=al.expandAll
-       everExpanded=true
-       expanded=expanded
-       expand=(action expandFn)
-  }}
-    {{!-- {{form-members
-        creator=model.me
-        editing=notView
-        expanded=expanded
-        isNew=(or newBusiness editing)
-        memberConfig=memberConfig
-        errors=memberErrors
-        primaryResource=business
-        registerHook=(action "registerHook")
-        roles=model.roleTemplates
-        type="cluster"
-        users=model.users
-        customer="huawei"
-    }} --}}
-  {{/accordion-list-item}}
-  {{form-labels-annotations
-    classNames="accordion-wrapper"
-    labelErrors=labelErrors
-    initialLabels=business.labels
-    setLabels=(action 'setLabels')
-    expandAll=al.expandAll
-    expandFn=expandFn
-    model=business
-    annotationErrors=annotationErrors
-    disabled=readOnly
-  }}
-{{/accordion-list}}
 
 {{top-errors errors=errors}}
 
