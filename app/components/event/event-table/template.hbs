@@ -22,12 +22,29 @@
       }}
     </div>
     <div class="col span-3">
-      {{searchable-select
+      {{!-- {{searchable-select
         class="form-control"
         content=resourceNameContent
         value=resourceName
         allowCustom=true
+      }} --}}
+      {{event/resource-search
+          filter=filter
+          includeLocal=false
+          principal=addInput
+          selectExact="selectExact"
+          selectExactOnBlur=selectExactOnBlur
+          useLabel=true
       }}
+      {{!-- {{principal-search
+          add="add"
+          filter=filter
+          includeLocal=false
+          principal=addInput
+          selectExact="selectExact"
+          selectExactOnBlur=selectExactOnBlur
+          useLabel=true
+      }} --}}
     </div>
     <div class="col span-2">
       {{searchable-select

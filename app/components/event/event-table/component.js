@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import layout from './template';
 import { inject as service } from '@ember/service'
 import { alias } from '@ember/object/computed';
-import { set, get, computed, setProperties } from '@ember/object';
+import { set, get, computed, setProperties, observer } from '@ember/object';
 import parseUri from 'shared/utils/parse-uri';
 
 export default Component.extend({
@@ -87,14 +87,23 @@ export default Component.extend({
             })
     let podContent = allPods.map(p => ({label: p.name, value: p.name}))
     const allNodes = get(this, 'model.nodes').content || []
-    // return [{label: 'All resource', value: 'poi-all'}, ...podContent]
+    return [{label: 'All resource', value: 'poi-all'}, ...podContent]
+
+  }),
+
+  resourceNameChange: observer('resourceName', function() {
+    console.log('poi')
+    const namespaces = get(this, 'model.namespaces').content || []
+    const namespaceId = get(this, 'namespaceId')
+    const resourceKind = get(this, 'resourceKind')
+    const projects = get(this, 'model.projects').content || []
+    const clusterId = get(this, 'scope.currentCluster.id')
     const k8sStore = get(this, 'k8sStore')
     let url = `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogs?action=queryName&refKind=${resourceKind}&clusterEventId=${clusterId}`
     k8sStore.rawRequest({
         url,
         method: 'GET',
     }).then((res => console.log(res)))
-    return [{label: 'All resource', value: 'poi-all'}, ...podContent]
   }),
 
   headers: [
@@ -151,7 +160,7 @@ export default Component.extend({
       'resourceName': 'poi-all',
     })
     const projects = get(this, 'model.projects').content || []
-    projects.map(p => p.importLink('pods'))
+    projects.map(p => p.importLink('pods').catch((err) => console.log(err)))
   },
   actions: {
     toggleExpand(instId) {
@@ -168,6 +177,9 @@ export default Component.extend({
 
       }
 
+    },
+    add() {
+      console.log('add')
     },
     search() {
       const eventType = get(this, 'eventType')
@@ -224,7 +236,6 @@ export default Component.extend({
           method: 'GET',
         }).then(res => {
           clusterEventLogs.pushObjects(res.body.data)
-          // debugger
           if((res.body.pagination && res.body.pagination.next) !== next) {
             set(clusterEventLogs, 'pagination.next', res.body.pagination.next)
           }
