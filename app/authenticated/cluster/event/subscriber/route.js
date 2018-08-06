@@ -4,21 +4,12 @@ import { get } from '@ember/object'
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
-  globalStore: service(),
-  k8sStore:    service(),
+  globalStore:  service(),
+  k8sStore:     service(),
   clusterStore:    service(),
 
-  createSubscriber(type) {
-    const gs = get(this, 'globalStore');
-    const k8sStore = this.get('k8sStore')
-    const newSubscriber = k8sStore.createRecord({
-      type,
-      outputTags: {},
-    });
-    return newSubscriber;
-  },
-
   model(params, transition) {
+
     const k8sStore = this.get('k8sStore')
     const clusterStore = get(this, 'clusterStore');
     const cs = get(this, 'globalStore');
@@ -36,19 +27,39 @@ export default Route.extend({
     //   projects: cs.findAll('project'),
     // })
 
-    return k8sStore.find('huaWeiClusterEventLogSubscriber', null, {url: `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogSubscriber`}).then(subscribers => {
+    return k8sStore.find('huaWeiClusterEventLogSubscriber', null, { url: `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogSubscriber` }).then((subscribers) => {
+
       let subscriber = subscribers.filterBy('clusterId', clusterId).get('firstObject');
       let mode = 'edit'
+
       if (!subscriber) {
+
         subscriber = this.createSubscriber('huaWeiClusterEventLogSubscriber');
         mode = 'new'
+
       }
       const clone = subscriber.clone();
+
       return {
-        subscriber: clone,
+        subscriber:         clone,
         mode,
         originalSubscriber: subscriber,
       };
+
     });
+
   },
+  createSubscriber(type) {
+
+    const gs = get(this, 'globalStore');
+    const k8sStore = this.get('k8sStore')
+    const newSubscriber = k8sStore.createRecord({
+      type,
+      outputTags: {},
+    });
+
+    return newSubscriber;
+
+  },
+
 });

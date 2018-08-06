@@ -17,28 +17,31 @@ export default Component.extend({
   showInstanceCount: true,
   showImage:         true,
 
-  showLabelRow:      or('model.displayUserLabelStrings.length'),
   canExpand:    true,
 
-  logString: computed('model', function() {
+  showLabelRow:      or('model.displayUserLabelStrings.length'),
+  logString:    computed('model', function() {
+
     const model = get(this, 'model')
+
     return `{
-  "clusterEventId": ${model.clusterEventId},
-  "count": ${model.count},
-  "created": ${model.created},
-  "createdTS": ${model.createdTS},
-  "eventType": ${model.eventType},
-  "id": ${model.id},
-  "message": ${model.message},
-  "namespaceId": ${model.namespaceId},
-  "reason": ${model.reason},
-  "resourceKind": ${model.resourceKind},
-  "resourceName": ${model.resourceName},
+  "clusterEventId": ${ model.clusterEventId },
+  "count": ${ model.count },
+  "created": ${ model.created },
+  "createdTS": ${ model.createdTS },
+  "eventType": ${ model.eventType },
+  "id": ${ model.id },
+  "message": ${ model.message },
+  "namespaceId": ${ model.namespaceId },
+  "reason": ${ model.reason },
+  "resourceKind": ${ model.resourceKind },
+  "resourceName": ${ model.resourceName },
   "source": {
-    "component": ${model.component},
-    "host": ${model.host}
+    "component": ${ model.component },
+    "host": ${ model.host }
   }
 }`
+
   }),
 
   actions: {
