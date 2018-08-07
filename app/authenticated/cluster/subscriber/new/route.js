@@ -27,26 +27,31 @@ export default Route.extend({
     //   projects: cs.findAll('project'),
     // })
 
-    return k8sStore.find('huaWeiClusterEventLogSubscriber', null, { url: `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogSubscriber` }).then((subscribers) => {
+    // return k8sStore.find('huaWeiClusterEventLogSubscriber', null, { url: `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogSubscriber` }).then((subscribers) => {
+    //
+    //   let subscriber = subscribers.filterBy('clusterId', clusterId).get('firstObject');
+    //   let mode = 'edit'
+    //
+    //   if (!subscriber) {
+    //
+    //     subscriber = this.createSubscriber('huaWeiClusterEventLogSubscriber');
+    //     mode = 'new'
+    //
+    //   }
+    //   const clone = subscriber.clone();
+    //
+    //   return {
+    //     subscriber:         clone,
+    //     mode,
+    //     originalSubscriber: subscriber,
+    //   };
+    //
+    // });
 
-      let subscriber = subscribers.filterBy('clusterId', clusterId).get('firstObject');
-      let mode = 'edit'
-
-      if (!subscriber) {
-
-        subscriber = this.createSubscriber('huaWeiClusterEventLogSubscriber');
-        mode = 'new'
-
-      }
-      const clone = subscriber.clone();
-
-      return {
-        subscriber:         clone,
-        mode,
-        originalSubscriber: subscriber,
-      };
-
-    });
+    return {
+      subscriber: this.createSubscriber('huaWeiClusterEventLogSubscriber'),
+      mode: 'new',
+    }
 
   },
   createSubscriber(type) {

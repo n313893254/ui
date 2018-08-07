@@ -136,14 +136,14 @@ Router.map(function() {
       this.route('event', { path: 'event' }, function() {
 
         this.route('index', { path: '/' })
-        this.route('subscriber', { path: '/subscriber' })
 
       })
 
       this.route('subscriber', { path: 'subscriber' }, function() {
 
         this.route('index', { path: '/' })
-
+        this.route('new', { path: '/add' })
+        this.route('edit', { path: '/edit/:subscriber_id' })
       })
 
     });

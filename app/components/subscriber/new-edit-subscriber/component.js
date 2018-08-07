@@ -47,7 +47,7 @@ export default Component.extend(NewOrEdit, {
   },
   goBack() {
 
-    get(this, 'router').transitionTo('authenticated.cluster.event');
+    get(this, 'router').transitionTo('authenticated.cluster.subscriber.index');
 
   },
 
@@ -92,6 +92,10 @@ export default Component.extend(NewOrEdit, {
 
       });
 
+  },
+
+  doneSaving() {
+    this.goBack();
   },
 
 });

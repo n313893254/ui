@@ -209,7 +209,7 @@ export default Component.extend({
     },
 
     configreSubscriber() {
-      get(this, 'router').transitionTo('authenticated.cluster.event.subscriber')
+      get(this, 'router').transitionTo('authenticated.cluster.subscriber.new')
     },
 
     loadMore() {

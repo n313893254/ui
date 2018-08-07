@@ -15,7 +15,7 @@ export default Route.extend({
     const clusterId = transition.params['authenticated.cluster'].cluster_id;
 
     return hash({
-      subscribers: k8sStore.find('huaWeiClusterEventLogSubscriber', null, {
+      subscribers: k8sStore.findAll('huaWeiClusterEventLogSubscriber', {
         url: `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogSubscriber`,
         filter: {
           clusterId,
