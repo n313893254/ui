@@ -54,15 +54,11 @@
           <label class="acc-label">
             {{t 'clusterNew.huaweicce.business.label'}}
           </label>
-          {{#if editing}}
-            <div>{{businessName}}</div>
-          {{else}}
-            {{searchable-select
-              class="form-control"
-              content=businessContent
-              value=config.businessId
-            }}
-          {{/if}}
+          {{searchable-select
+            class="form-control"
+            content=businessContent
+            value=config.businessId
+          }}
         </div>
       </div>
     {{/unless}}
