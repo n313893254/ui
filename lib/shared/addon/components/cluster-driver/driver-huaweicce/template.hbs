@@ -579,16 +579,16 @@
                 content=eipShareTypeContent
               }}
               <label class="acc-label">{{t 'clusterNew.huaweicce.eipChargeMode.label'}}</label>
-              {{!-- {{new-select
-                classNames="form-control"
-                value=config.eipChargeMode
-                content=eipChargeModeContent
-              }} --}}
-              {{searchable-select
+              {{new-select
                 classNames="form-control"
                 value=config.eipChargeMode
                 content=eipChargeModeContent
               }}
+              {{!-- {{searchable-select
+                classNames="form-control"
+                value=config.eipChargeMode
+                content=eipChargeModeContent
+              }} --}}
               <label class="acc-label">{{t 'clusterNew.huaweicce.eipBandwidthSize.label'}}</label>
               <div class="input-group">
                 {{input-number min=1 value=config.eipBandwidthSize max=100}}
