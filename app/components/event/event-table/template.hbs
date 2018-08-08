@@ -6,7 +6,10 @@
 </section>
 <section class="box mb-20">
   <div class="row">
-    <div class="col span-2">
+    <div class="col span-1">
+      <label class="acc-label">
+        Kind
+      </label>
       {{searchable-select
         class="form-control"
         content=eventLogContent
@@ -14,6 +17,9 @@
       }}
     </div>
     <div class="col span-3">
+      <label class="acc-label">
+        Namespace
+      </label>
       {{searchable-select
         class="form-control"
         content=namespaceContent
@@ -22,6 +28,9 @@
       }}
     </div>
     <div class="col span-3">
+      <label class="acc-label">
+        Resource Name
+      </label>
       {{!-- {{searchable-select
         class="form-control"
         content=resourceNameContent
@@ -29,12 +38,15 @@
         allowCustom=true
       }} --}}
       {{resource-search
-          filter=filter
           includeLocal=false
           principal=addInput
           selectExact="selectExact"
           selectExactOnBlur=selectExactOnBlur
           useLabel=true
+          add="add"
+          namespaceId=namespaceId
+          resourceKind=resourceKind
+          clusterId=clusterId
       }}
       {{!-- {{principal-search
           add="add"
@@ -47,6 +59,9 @@
       }} --}}
     </div>
     <div class="col span-2">
+      <label class="acc-label">
+        Log Level
+      </label>
       {{searchable-select
         class="form-control"
         content=eventLevelContent
@@ -54,17 +69,21 @@
       }}
     </div>
     <div class="col span-2">
+      <label class="acc-label">
+        Time
+      </label>
       {{searchable-select
         class="form-control"
         content=eventTimeContent
         value=eventTime
       }}
     </div>
-    {{!-- <div class="col span-1">
-      <div class="pull-right">
-        <button class="btn bg-primary" {{action 'search'}}>Search</button>
-      </div>
-    </div> --}}
+    <div class="col span-1">
+      <label class="acc-label">
+        &#12288;
+      </label>
+      <button class="btn bg-primary" {{action 'search'}}>Search</button>
+    </div>
   </div>
 </section>
 

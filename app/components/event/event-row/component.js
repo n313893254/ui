@@ -35,11 +35,7 @@ export default Component.extend({
   "namespaceId": ${ model.namespaceId },
   "reason": ${ model.reason },
   "resourceKind": ${ model.resourceKind },
-  "resourceName": ${ model.resourceName },
-  "source": {
-    "component": ${ model.component },
-    "host": ${ model.host }
-  }
+  "resourceName": ${ model.resourceName }
 }`
 
   }),

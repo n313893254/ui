@@ -4,11 +4,13 @@ import { inject as service } from '@ember/service'
 import { alias } from '@ember/object/computed';
 import { set, get, computed, setProperties, observer } from '@ember/object';
 import parseUri from 'shared/utils/parse-uri';
+import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   layout,
   scope: service(),
   k8sStore: service(),
+  clusterId: alias('scope.currentCluster.id'),
 
   loading: false,
   hostChoices:      [],
@@ -39,8 +41,12 @@ export default Component.extend({
   ],
   eventTimeContent: [
     {
+      label: 'All Time',
+      value: 'all'
+    },
+    {
       label: 'Last hour',
-      value: 'lastHour'
+      value: moment().subtract(1, 'hours').format('x')
     }
   ],
   // rows: alias('model.clusterEventLogs'),
@@ -61,8 +67,12 @@ export default Component.extend({
     if (resourceKind === 'Pod' && namespaceId !== 'poi-all') {
       arr = arr.filter(a => a.namespaceId === namespaceId)
     }
-    if (resourceName !== 'poi-all') {
+    if (!!resourceName && resourceName !== 'poi-all') {
       arr = arr.filter(a => a.resourceName === resourceName)
+    }
+    console.log(eventTime)
+    if (eventTime !== 'all') {
+      arr = arr.filter(a => a.createdTS > eventTime)
     }
     return arr
   }),
@@ -88,23 +98,33 @@ export default Component.extend({
     let podContent = allPods.map(p => ({label: p.name, value: p.name}))
     const allNodes = get(this, 'model.nodes').content || []
     return [{label: 'All resource', value: 'poi-all'}, ...podContent]
-
   }),
 
-  resourceNameChange: observer('resourceName', function() {
-    console.log('poi')
-    const namespaces = get(this, 'model.namespaces').content || []
-    const namespaceId = get(this, 'namespaceId')
-    const resourceKind = get(this, 'resourceKind')
-    const projects = get(this, 'model.projects').content || []
-    const clusterId = get(this, 'scope.currentCluster.id')
-    const k8sStore = get(this, 'k8sStore')
-    let url = `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogs?action=queryName&refKind=${resourceKind}&clusterEventId=${clusterId}`
-    k8sStore.rawRequest({
-        url,
-        method: 'GET',
-    }).then((res => console.log(res)))
+  poi: observer('resourceKind', function() {
+    this.searchTes
   }),
+
+  // resourceNameChange: observer('resourceName', function() {
+  //   console.log(get(this, 'resourceName'))
+  //   const namespaces = get(this, 'model.namespaces').content || []
+  //   const namespaceId = get(this, 'namespaceId')
+  //   const resourceKind = get(this, 'resourceKind')
+  //   const projects = get(this, 'model.projects').content || []
+  //   const clusterId = get(this, 'scope.currentCluster.id')
+  //   const k8sStore = get(this, 'k8sStore')
+  //   // let url = `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogs?action=queryName&refKind=${resourceKind}&clusterEventId=${clusterId}`
+  //   // k8sStore.rawRequest({
+  //   //     url,
+  //   //     method: 'GET',
+  //   // }).then((res => console.log(res)))
+  // }),
+
+  searchTest: task(function * (term) {
+    console.log('search-poi')
+    yield timeout(DEBOUNCE_MS);
+    console.log('finish-poi')
+    return xhr;
+  }).restartable(),
 
   headers: [
     {
@@ -155,12 +175,9 @@ export default Component.extend({
     setProperties(this, {
       'resourceKind': 'Pod',
       'eventType': 'any',
-      'eventTime': 'lastHour',
+      'eventTime': 'all',
       'namespaceId': 'poi-all',
-      'resourceName': 'poi-all',
     })
-    const projects = get(this, 'model.projects').content || []
-    projects.map(p => p.importLink('pods').catch((err) => console.log(err)))
   },
   actions: {
     toggleExpand(instId) {
@@ -178,9 +195,16 @@ export default Component.extend({
       }
 
     },
-    add() {
-      console.log('add')
+
+    add(value) {
+      const addInput = get(this, 'addInput') || {}
+      if (addInput.value) {
+        set(this, 'resourceName', addInput.value)
+      } else {
+        set(this, 'resourceName', value)
+      }
     },
+
     search() {
       const eventType = get(this, 'eventType')
       const resourceKind = get(this, 'resourceKind')
@@ -188,6 +212,7 @@ export default Component.extend({
       const namespaceId = get(this, 'namespaceId')
       const clusterId = get(this, 'scope.currentCluster.id')
       const k8sStore = this.get('k8sStore')
+      const resourceName = get(this, 'resourceName')
 
       let filter = {
         clusterEventId: clusterId,
@@ -201,9 +226,13 @@ export default Component.extend({
       if (namespaceId !== 'poi-all' && namespaceId) {
         filter.namespaceId = namespaceId
       }
+      if (resourceName !== 'poi-all' && resourceName) {
+        filter.resourceName = resourceName
+      }
       k8sStore.find('huaWeiClusterEventLog', null, {
         url:         `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog`,
         forceReload: true,
+        depaginate: false,
         filter,
       }).then(res => set(this, 'model.clusterEventLogs', res))
     },
