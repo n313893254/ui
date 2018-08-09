@@ -85,6 +85,38 @@
       <button class="btn bg-primary" {{action 'search'}}>Search</button>
     </div>
   </div>
+  <div class="row">
+    <div class="col sapn-6">
+      {{#basic-dropdown as |dropdown|}}
+        <input type="text"
+          data-ebd-id="{{dropdown.uniqueId}}-trigger"
+          class="datepicker-demo-input"
+          onclick={{dropdown.actions.toggle}}
+          value={{if selected (format-date selected 'DD-MM-YYYY')}}
+          readonly>
+
+        {{#dropdown.content class="datepicker-demo-dropdown"}}
+          {{#power-calendar class="demo-calendar-small"
+            center=month
+            onCenterChange=(action (mut month) value="date")
+            selected=selected
+            onSelect=(action (mut selected) value="date") as |calendar|}}
+            {{!-- {{calendar.nav}} --}}
+            <nav class="ember-power-calendar-nav">
+              <button type="button" class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter -12 'month'}}>«</button>
+              <button type="button" class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter -1 'month'}}>‹</button>
+              <div class="ember-power-calendar-nav-title">
+                {{format-date calendar.center 'MMMM YYYY'}}
+              </div>
+              <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter 1 'month'}}>›</button>
+              <button class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter 12 'month'}}>»</button>
+            </nav>
+            {{calendar.days}}
+          {{/power-calendar}}
+        {{/dropdown.content}}
+      {{/basic-dropdown}}
+    </div>
+  </div>
 </section>
 
 {{#sortable-table
