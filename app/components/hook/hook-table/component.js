@@ -51,19 +51,33 @@ export default Component.extend({
   ],
   headers: [
     {
+      name:           'state',
+      translationKey: 'generic.state',
+      sort:           ['created'],
+    },
+    {
       name:           'name',
       translationKey: 'generic.name',
       sort:           ['created'],
-      searchField: ['name', 'subscriptionAddress']
     },
     {
-      name:           'address',
-      translationKey: 'generic.address',
+      name:           'kind',
+      translationKey: 'generic.kind',
+      sort:           ['created'],
+    },
+    {
+      name:           'detail',
+      translationKey: 'generic.detail',
+      sort:           false,
+    },
+    {
+      name:           'triggerUrl',
+      translationKey: 'generic.triggerUrl',
       sort:           false,
     },
   ],
 
-  rows: alias('model.subscribers'),
+  rows: alias('model.hooks'),
 
   init() {
 

@@ -146,6 +146,11 @@ Router.map(function() {
         this.route('edit', { path: '/edit/:subscriber_id' })
       })
 
+      this.route('hooks', { path: 'hooks' }, function() {
+
+        this.route('index', { path: '/' })
+      })
+
     });
 
     // Per-Project

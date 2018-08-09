@@ -1,21 +1,20 @@
 <section class="header clearfix">
-  <div class="pull-left pt-10"><h1>Subscriber</h1></div>
+  <div class="pull-left pt-10"><h1>Receiver Hooks</h1></div>
   <div class="right-buttons">
-    <button class="btn btn-sm bg-primary" {{action "configreSubscriber"}}>Add Subscriber</button>
+    <button class="btn btn-sm bg-primary" {{action "configreSubscriber"}}>Add Receiver</button>
   </div>
 </section>
 
 {{#sortable-table
   tableClassNames="bordered"
   paging=true
-  pagingLabel="pagination.subscriber"
+  pagingLabel="pagination.volume"
   headers=headers
   body=rows
   sortBy="name"
-  search=true
-  showHeader=true
+  search=false
+  showHeader=false
   customer="event"
-  bulkActions=true
   as |sortable kind obj dt|
 }}
   {{#if (eq kind "row")}}
@@ -29,7 +28,7 @@
       dt=dt
     }}
   {{else if (eq kind "nomatch")}}
-    <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">{{t 'subscriberPage.noMatch'}}</td></tr>
+    <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">{{t 'persistentVolumePage.noMatch'}}</td></tr>
   {{else if (eq kind "norows")}}
     <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">No data</td></tr>
   {{/if}}

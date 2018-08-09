@@ -5762,8 +5762,9 @@ nav:
     alerts: Alerts
     notifiers: Notifiers
     logging: Logging
-    event: Event
-    subscriber: Subscriber
+    event: Events
+    subscriber: Subscribers
+    hook: WebHooks
   project:
     none: Grouped Projects/Namespaces
     namespaces: Namespaces
@@ -6098,3 +6099,4 @@ subscriberPage:
       label: Value
       placeholder: e.g. Bearer token-xxxxx
     addActionLabel: Add Header
+  noMatch: No subscribers match the current search

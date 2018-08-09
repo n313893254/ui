@@ -239,6 +239,14 @@ const rootNav = [
         ctx:            [getClusterId],
         resourceScope:  'cluster',
       },
+      { divider: true },
+      {
+        id:             'cluster-tools-hook',
+        localizedLabel: 'nav.tools.hook',
+        route:          'authenticated.cluster.hooks',
+        ctx:            [getClusterId],
+        resourceScope:  'cluster',
+      },
     ],
   },
 

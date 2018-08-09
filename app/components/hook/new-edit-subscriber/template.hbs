@@ -1,0 +1,53 @@
+<section class="header clearfix">
+  <div class="pull-left pt-10"><h1>Subscriber</h1></div>
+</section>
+
+<section>
+  <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">{{t 'subscriberPage.name.label'}}{{field-required}}</label>
+      {{input class="form-control"
+              type="text"
+              value=subscriber.name
+              placeholder=(t 'subscriberPage.name.placeholder')
+      }}
+    </div>
+    <div class="col span-6">
+      <label class="acc-label">{{t 'subscriberPage.subscriptionAddress.label'}}{{field-required}}</label>
+      {{input class="form-control"
+              type="text"
+              value=subscriber.subscriptionAddress
+              placeholder=(t 'subscriberPage.subscriptionAddress.placeholder')
+      }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">{{t 'subscriberPage.expectedHttpResponseCode.label'}}</label>
+      {{input class="form-control"
+              type="text"
+              value=subscriber.expectedHttpResponseCode
+              placeholder=(t 'subscriberPage.expectedHttpResponseCode.placeholder')
+      }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col span-12">
+      {{form-key-value
+          allowEmptyValue=false
+          header=(t 'subscriberPage.attachHttpRequestHeader.header')
+          valueLabel="subscriberPage.attachHttpRequestHeader.value.label"
+          keyLabel="subscriberPage.attachHttpRequestHeader.key.label"
+          valuePlaceholder="subscriberPage.attachHttpRequestHeader.value.placeholder"
+          keyPlaceholder="subscriberPage.attachHttpRequestHeader.key.placeholder"
+          addActionLabel="subscriberPage.attachHttpRequestHeader.addActionLabel"
+          changed=(action "updateData")
+          initialMap=subscriber.attachHttpRequestHeader
+      }}
+    </div>
+  </div>
+</section>
+
+{{top-errors errors=errors}}
+
+{{save-cancel editing=editing save="save" cancel="cancel"}}
