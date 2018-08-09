@@ -13,6 +13,7 @@ export default Component.extend({
   clusterId: alias('scope.currentCluster.id'),
 
   loading: false,
+  searching: false,
   hostChoices:      [],
   expandedLogs:     [],
   eventLogContent: [
@@ -47,7 +48,20 @@ export default Component.extend({
     {
       label: 'Last hour',
       value: moment().subtract(1, 'hours').format('x')
-    }
+    },
+    {
+      label: 'Last 6 hours',
+      value: moment().subtract(6, 'hours').format('x')
+    },
+    {
+      label: 'Last 24 hours',
+      value: moment().subtract(24, 'hours').format('x')
+    },
+    {
+      label: 'Custom',
+      value: 'custom',
+    },
+
   ],
   // rows: alias('model.clusterEventLogs'),
   rows: computed('eventType', 'resourceKind', 'eventLevel', 'eventTime', 'namespaceId', 'resourceName', 'model.clusterEventLogs.[]', function() {
@@ -120,9 +134,7 @@ export default Component.extend({
   // }),
 
   searchTest: task(function * (term) {
-    console.log('search-poi')
     yield timeout(DEBOUNCE_MS);
-    console.log('finish-poi')
     return xhr;
   }).restartable(),
 
@@ -206,6 +218,9 @@ export default Component.extend({
     },
 
     search() {
+      if (get(this, 'searching')) {
+        return
+      }
       const eventType = get(this, 'eventType')
       const resourceKind = get(this, 'resourceKind')
       const eventTime = get(this, 'eventTime')
@@ -229,12 +244,16 @@ export default Component.extend({
       if (resourceName !== 'poi-all' && resourceName) {
         filter.resourceName = resourceName
       }
+      set(this, 'searching', true)
       k8sStore.find('huaWeiClusterEventLog', null, {
         url:         `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog`,
         forceReload: true,
         depaginate: false,
         filter,
-      }).then(res => set(this, 'model.clusterEventLogs', res))
+      }).then(res => {
+        set(this, 'searching', false)
+        set(this, 'model.clusterEventLogs', res)
+      })
     },
 
     configreSubscriber() {
