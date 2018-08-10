@@ -90,7 +90,7 @@
   </div>
   {{#if (eq eventTime 'custom')}}
     <div class="row">
-      <div class="col sapn-6">
+      <div class="col span-4">
         <label class="acc-label">
           Start Time
         </label>
@@ -99,7 +99,7 @@
             data-ebd-id="{{dropdown.uniqueId}}-trigger"
             class="datepicker-demo-input"
             onclick={{dropdown.actions.toggle}}
-            value={{if startDate (format-date startDate 'DD-MM-YYYY')}}
+            value={{if startDate (date-str startDate format='YYYY-MM-DD')}}
             readonly>
 
           {{#dropdown.content class="datepicker-demo-dropdown"}}
@@ -123,7 +123,7 @@
           {{/dropdown.content}}
         {{/basic-dropdown}}
       </div>
-      <div class="col sapn-6">
+      <div class="col span-4">
         <label class="acc-label">
           End Time
         </label>
@@ -132,15 +132,15 @@
             data-ebd-id="{{dropdown.uniqueId}}-trigger"
             class="datepicker-demo-input"
             onclick={{dropdown.actions.toggle}}
-            value={{if selected (format-date selected 'DD-MM-YYYY')}}
+            value={{if endDate (date-str endDate format='YYYY-MM-DD')}}
             readonly>
 
           {{#dropdown.content class="datepicker-demo-dropdown"}}
             {{#power-calendar class="demo-calendar-small"
               center=month
               onCenterChange=(action (mut month) value="date")
-              selected=selected
-              onSelect=(action (mut selected) value="date") as |calendar|}}
+              selected=endDate
+              onSelect=(action (mut endDate) value="date") as |calendar|}}
               {{!-- {{calendar.nav}} --}}
               <nav class="ember-power-calendar-nav">
                 <button type="button" class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter -12 'month'}}>«</button>

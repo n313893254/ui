@@ -5,17 +5,18 @@ import { alias } from '@ember/object/computed';
 import { set, get, computed, setProperties, observer } from '@ember/object';
 import parseUri from 'shared/utils/parse-uri';
 import { task, timeout } from 'ember-concurrency';
+import C from 'ui/utils/constants'
 
 export default Component.extend({
   layout,
   scope: service(),
   k8sStore: service(),
   clusterId: alias('scope.currentCluster.id'),
-
   loading: false,
   searching: false,
   hostChoices:      [],
   expandedLogs:     [],
+  dateStrOption: {format: 'YYYY-MM-DD'},
   eventLogContent: [
     {
       label: 'Pod',
@@ -47,15 +48,15 @@ export default Component.extend({
     },
     {
       label: 'Last hour',
-      value: moment().subtract(1, 'hours').format('x')
+      value: moment().subtract(1, 'hours').format(C.MOMENT_FORMAT)
     },
     {
       label: 'Last 6 hours',
-      value: moment().subtract(6, 'hours').format('x')
+      value: moment().subtract(6, 'hours').format(C.MOMENT_FORMAT)
     },
     {
       label: 'Last 24 hours',
-      value: moment().subtract(24, 'hours').format('x')
+      value: moment().subtract(24, 'hours').format(C.MOMENT_FORMAT)
     },
     {
       label: 'Custom',
@@ -63,33 +64,33 @@ export default Component.extend({
     },
 
   ],
-  // rows: alias('model.clusterEventLogs'),
-  rows: computed('eventType', 'resourceKind', 'eventLevel', 'eventTime', 'namespaceId', 'resourceName', 'model.clusterEventLogs.[]', function() {
-    const clusterEventLogs = get(this, 'model.clusterEventLogs').content || []
-    const eventType = get(this, 'eventType')
-    const resourceKind = get(this, 'resourceKind')
-    const eventTime = get(this, 'eventTime')
-    const namespaceId = get(this, 'namespaceId')
-    const resourceName = get(this, 'resourceName')
-    let arr = clusterEventLogs
-    if (eventType !== 'any') {
-      arr = arr.filter(a => a.eventType === eventType)
-    }
-    if (resourceKind !== 'all') {
-      arr = arr.filter(a => a.resourceKind === resourceKind)
-    }
-    if (resourceKind === 'Pod' && namespaceId !== 'poi-all') {
-      arr = arr.filter(a => a.namespaceId === namespaceId)
-    }
-    if (!!resourceName && resourceName !== 'poi-all') {
-      arr = arr.filter(a => a.resourceName === resourceName)
-    }
-    console.log(eventTime)
-    if (eventTime !== 'all') {
-      arr = arr.filter(a => a.createdTS > eventTime)
-    }
-    return arr
-  }),
+  rows: alias('model.clusterEventLogs'),
+  // rows: computed('eventType', 'resourceKind', 'eventLevel', 'eventTime', 'namespaceId', 'resourceName', 'model.clusterEventLogs.[]', function() {
+  //   const clusterEventLogs = get(this, 'model.clusterEventLogs').content || []
+  //   const eventType = get(this, 'eventType')
+  //   const resourceKind = get(this, 'resourceKind')
+  //   const eventTime = get(this, 'eventTime')
+  //   const namespaceId = get(this, 'namespaceId')
+  //   const resourceName = get(this, 'resourceName')
+  //   let arr = clusterEventLogs
+  //   if (eventType !== 'any') {
+  //     arr = arr.filter(a => a.eventType === eventType)
+  //   }
+  //   if (resourceKind !== 'all') {
+  //     arr = arr.filter(a => a.resourceKind === resourceKind)
+  //   }
+  //   if (resourceKind === 'Pod' && namespaceId !== 'poi-all') {
+  //     arr = arr.filter(a => a.namespaceId === namespaceId)
+  //   }
+  //   if (!!resourceName && resourceName !== 'poi-all') {
+  //     arr = arr.filter(a => a.resourceName === resourceName)
+  //   }
+  //   console.log(eventTime)
+  //   if (eventTime !== 'all') {
+  //     arr = arr.filter(a => a.createdTS > eventTime)
+  //   }
+  //   return arr
+  // }),
 
   namespaceContent: computed('model.namespaces.[]', function() {
     const namespaces = get(this, 'model.namespaces').content || []
@@ -189,6 +190,8 @@ export default Component.extend({
       'eventType': 'any',
       'eventTime': 'all',
       'namespaceId': 'poi-all',
+      'startDate': moment([]).format(C.MOMENT_FORMAT),
+      'endDate': moment([]).format(C.MOMENT_FORMAT),
     })
   },
   actions: {
@@ -228,6 +231,8 @@ export default Component.extend({
       const clusterId = get(this, 'scope.currentCluster.id')
       const k8sStore = this.get('k8sStore')
       const resourceName = get(this, 'resourceName')
+      const startDate = get(this, 'startDate')
+      const endDate = get(this, 'endDate')
 
       let filter = {
         clusterEventId: clusterId,
@@ -242,7 +247,14 @@ export default Component.extend({
         filter.namespaceId = namespaceId
       }
       if (resourceName !== 'poi-all' && resourceName) {
-        filter.resourceName = resourceName
+        filter.refName = resourceName
+      }
+      if (eventTime !== 'all' && eventTime !== 'custom') {
+        filter.logCreatedRangeStart = `${eventTime}Z`
+      }
+      if (eventTime === 'custom') {
+        filter.logCreatedRangeStart = `${moment(startDate).format(C.MOMENT_FORMAT)}Z`
+        filter.logCreatedRangeEnd = `${moment(endDate).format(C.MOMENT_FORMAT)}Z`
       }
       set(this, 'searching', true)
       k8sStore.find('huaWeiClusterEventLog', null, {
@@ -287,7 +299,7 @@ export default Component.extend({
           if((res.body.pagination && res.body.pagination.next) !== next) {
             set(clusterEventLogs, 'pagination.next', res.body.pagination.next)
           }
-        }).finally(() => set(this, 'loading', false))
+        }).catch(err => console.log(err)).finally(() => set(this, 'loading', false))
       }
     },
   },
