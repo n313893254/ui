@@ -15,6 +15,13 @@ export default Component.extend(NewOrEdit, {
   receiver:      alias('model.receiver'),
   primaryResource: alias('model.receiver'),
 
+  metricsTypeContent: [{
+    label: 'CPU',
+    value: 'CPU',
+  }, {
+    label: 'Memory',
+    value: 'Memory',
+  }],
   init() {
 
     this._super(...arguments)
@@ -28,6 +35,7 @@ export default Component.extend(NewOrEdit, {
         minimumScale: 1,
         maximumScale: 100,
         tolerance: 10,
+        metricsType: 'CPU',
       })
 
     }

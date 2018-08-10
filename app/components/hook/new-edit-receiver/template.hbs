@@ -4,7 +4,7 @@
 
 <section>
   <div class="row">
-    <div class="col span-6">
+    <div class="col span-12">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.name.label'}}{{field-required}}</label>
       {{input class="form-control"
               type="text"
@@ -12,6 +12,8 @@
               placeholder=(t 'hooksPage.NewOrEdit.name.placeholder')
       }}
     </div>
+  </div>
+  <div class="row">
     <div class="col span-6">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.isScaleUp.label'}}</label>
       <div class="radio">
@@ -27,8 +29,6 @@
         </label>
       </div>
     </div>
-  </div>
-  <div class="row">
     <div class="col span-6">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.scaleStep.label'}}</label>
       <div>
@@ -38,6 +38,7 @@
               valueMin=1
               valueMax=11
               step=1
+              disabled=(not primaryResource.isScaleUp)
           }}
           <span class="input-group-addon">{{primaryResource.scaleStep}}</span>
         </div>
@@ -47,10 +48,37 @@
   <div class="row">
     <div class="col span-6">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.minimumScale.label'}}</label>
+      {{input-integer min=0 value=primaryResource.minimumScale disabled=(not primaryResource.isScaleUp)}}
+    </div>
+    <div class="col span-6">
+      <label class="acc-label">{{t 'hooksPage.NewOrEdit.maximumScale.label'}}</label>
+      {{input-integer min=0 value=primaryResource.maximumScale disabled=(not primaryResource.isScaleUp)}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">{{t 'hooksPage.NewOrEdit.tolerance.label'}}</label>
+      <div class="input-group">
+        {{input-integer min=0 value=primaryResource.tolerance}}
+        <span class="input-group-addon bg-default">{{t 'generic.seconds'}}</span>
+      </div>
+    </div>
+    <div class="col span-6">
+      <label class="acc-label">{{t 'hooksPage.NewOrEdit.metricsType.label'}}</label>
+      {{searchable-select
+        class="form-control"
+        content=metricsTypeContent
+        value=primaryResource.metricsType
+      }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">{{t 'hooksPage.NewOrEdit.metricsCondition.label'}}{{field-required}}</label>
       {{input class="form-control"
               type="text"
-              value=primaryResource.expectedHttpResponseCode
-              placeholder=(t 'subscriberPage.expectedHttpResponseCode.placeholder')
+              value=primaryResource.name
+              placeholder=(t 'hooksPage.NewOrEdit.metricsCondition.placeholder')
       }}
     </div>
   </div>

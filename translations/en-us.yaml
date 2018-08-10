@@ -6127,3 +6127,4 @@ hooksPage:
       label: Metrics Type
     metricsCondition:
       label: Metrics Condition
+      placeholder: e.g. >50%
