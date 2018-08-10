@@ -1,0 +1,76 @@
+<section class="header clearfix">
+  <div class="pull-left pt-10"><h1>Receiver</h1></div>
+</section>
+
+<section>
+  <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">{{t 'hooksPage.NewOrEdit.name.label'}}{{field-required}}</label>
+      {{input class="form-control"
+              type="text"
+              value=primaryResource.name
+              placeholder=(t 'hooksPage.NewOrEdit.name.placeholder')
+      }}
+    </div>
+    <div class="col span-6">
+      <label class="acc-label">{{t 'hooksPage.NewOrEdit.isScaleUp.label'}}</label>
+      <div class="radio">
+        <label>
+          {{radio-button selection=primaryResource.isScaleUp value=false}}
+          {{t 'generic.disabled'}}
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          {{radio-button selection=primaryResource.isScaleUp value="true"}}
+          {{t 'generic.enabled'}}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">{{t 'hooksPage.NewOrEdit.scaleStep.label'}}</label>
+      <div>
+        <div class="input-group pt-5 pl-10">
+          {{input-slider
+              value=primaryResource.scaleStep
+              valueMin=1
+              valueMax=11
+              step=1
+          }}
+          <span class="input-group-addon">{{primaryResource.scaleStep}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">{{t 'hooksPage.NewOrEdit.minimumScale.label'}}</label>
+      {{input class="form-control"
+              type="text"
+              value=primaryResource.expectedHttpResponseCode
+              placeholder=(t 'subscriberPage.expectedHttpResponseCode.placeholder')
+      }}
+    </div>
+  </div>
+  {{!-- <div class="row">
+    <div class="col span-12">
+      {{form-key-value
+          allowEmptyValue=false
+          header=(t 'subscriberPage.attachHttpRequestHeader.header')
+          valueLabel="subscriberPage.attachHttpRequestHeader.value.label"
+          keyLabel="subscriberPage.attachHttpRequestHeader.key.label"
+          valuePlaceholder="subscriberPage.attachHttpRequestHeader.value.placeholder"
+          keyPlaceholder="subscriberPage.attachHttpRequestHeader.key.placeholder"
+          addActionLabel="subscriberPage.attachHttpRequestHeader.addActionLabel"
+          changed=(action "updateData")
+          initialMap=subscriber.attachHttpRequestHeader
+      }}
+    </div>
+  </div> --}}
+</section>
+
+{{top-errors errors=errors}}
+
+{{save-cancel editing=editing save="save" cancel="cancel"}}

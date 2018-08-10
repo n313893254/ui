@@ -149,6 +149,7 @@ Router.map(function() {
       this.route('hooks', { path: 'hooks' }, function() {
 
         this.route('index', { path: '/' })
+        this.route('new', {path: 'add'})
       })
 
     });

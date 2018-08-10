@@ -12,20 +12,22 @@ export default Component.extend(NewOrEdit, {
   k8sStore: service(),
 
   layout,
-  subscriber:      alias('model.subscriber'),
-  primaryResource: alias('model.subscriber'),
+  receiver:      alias('model.receiver'),
+  primaryResource: alias('model.receiver'),
 
   init() {
 
     this._super(...arguments)
     const mode = get(this, 'model.mode')
-
+    const primaryResource = get(this, 'primaryResource')
     if (mode === 'new') {
 
-      setProperties(this, {
-        'subscriber.clusterId':                get(this, 'scope.currentCluster.id'),
-        'subscriber.expectedHttpResponseCode': 200,
-        'subscriber.attachHttpRequestHeader':  {},
+      setProperties(primaryResource, {
+        isScaleUp: false,
+        scaleStep: 1,
+        minimumScale: 1,
+        maximumScale: 100,
+        tolerance: 10,
       })
 
     }

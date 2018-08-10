@@ -9,19 +9,4 @@ export default Controller.extend({
 
   queryParams: ['type'],
   currentType: 'slack',
-  hostChoices: [],
-
-  notifiers: alias('model.notifiers'),
-  actions:   {
-    showNewEditModal() {
-
-      get(this, 'modalService').toggleModal('notifier/modal-new-edit', {
-        closeWithOutsideClick: false,
-        controller:            this,
-        currentType:           alias('controller.currentType'),
-        mode:                  'add',
-      });
-
-    },
-  },
 });

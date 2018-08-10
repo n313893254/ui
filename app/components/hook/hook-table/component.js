@@ -67,12 +67,12 @@ export default Component.extend({
     },
     {
       name:           'detail',
-      translationKey: 'generic.detail',
+      translationKey: 'hooksPage.detail.label',
       sort:           false,
     },
     {
       name:           'triggerUrl',
-      translationKey: 'generic.triggerUrl',
+      translationKey: 'hooksPage.triggerUrl.label',
       sort:           false,
     },
   ],
@@ -131,12 +131,6 @@ export default Component.extend({
         forceReload: true,
         filter,
       }).then((res) => set(this, 'model.clusterEventLogs', res))
-
-    },
-
-    configreSubscriber() {
-
-      get(this, 'router').transitionTo('authenticated.cluster.subscriber.new')
 
     },
 

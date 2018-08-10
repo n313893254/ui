@@ -190,8 +190,8 @@ export default Component.extend({
       'eventType': 'any',
       'eventTime': 'all',
       'namespaceId': 'poi-all',
-      'startDate': moment([]).format(C.MOMENT_FORMAT),
-      'endDate': moment([]).format(C.MOMENT_FORMAT),
+      'startDate': moment([]).format('YYYY-MM-DD'),
+      'endDate': moment([]).format('YYYY-MM-DD'),
     })
   },
   actions: {
@@ -254,7 +254,7 @@ export default Component.extend({
       }
       if (eventTime === 'custom') {
         filter.logCreatedRangeStart = `${moment(startDate).format(C.MOMENT_FORMAT)}Z`
-        filter.logCreatedRangeEnd = `${moment(endDate).format(C.MOMENT_FORMAT)}Z`
+        filter.logCreatedRangeEnd = `${moment(endDate).add(24, 'hours').format(C.MOMENT_FORMAT)}Z`
       }
       set(this, 'searching', true)
       k8sStore.find('huaWeiClusterEventLog', null, {
@@ -262,6 +262,7 @@ export default Component.extend({
         forceReload: true,
         depaginate: false,
         filter,
+        sortOrder: 'desc',
       }).then(res => {
         set(this, 'searching', false)
         set(this, 'model.clusterEventLogs', res)

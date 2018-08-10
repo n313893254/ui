@@ -6100,3 +6100,30 @@ subscriberPage:
       placeholder: e.g. Bearer token-xxxxx
     addActionLabel: Add Header
   noMatch: No subscribers match the current search
+
+hooksPage:
+  detail:
+    label: Detail
+  triggerUrl:
+    label: Trigger Url
+  NewOrEdit:
+    header: Receiver
+    name:
+      label: Name
+      placeholder: Enter Name
+    isScaleUp:
+      label: Scale Up
+      true: Scale Up
+      false: Scale Down
+    scaleStep:
+      label: Scale Step
+    minimumScale:
+      label: Minimum Scale
+    maximumScale:
+      label: Maximum Scale
+    tolerance:
+      label: Tolerance
+    metricsType:
+      label: Metrics Type
+    metricsCondition:
+      label: Metrics Condition

@@ -89,7 +89,8 @@ ECS.prototype.getPorts = function (callback) {
 ECS.prototype.getNetwork = function (callback) {
   var _callback = this.logging(callback, 'ECS.getNetwork')
   this.validated(function () {
-    var resource = '/v2.0/networks'
+    // var resource = `/v2.0/networks?provider:network_type=geneve&tenant_id=${this.projectId}`
+    var resource = `/v2.0/networks`
     this.requestor.get(resource, null, _callback)
   }, _callback)
 }
