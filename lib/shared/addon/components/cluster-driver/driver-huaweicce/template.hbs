@@ -190,10 +190,10 @@
             <label>
               {{#if (eq config.clusterType 'BareMetal')}}
                 {{radio-button selection=highAvailabilityEnabled value="t1"}}
-                {{t 'generic.enabled'}}
+                {{t 'generic.disabled'}}
               {{else}}
                 {{radio-button selection=highAvailabilityEnabled value="s1"}}
-                {{t 'generic.disabled'}}
+                {{t 'generic.enabled'}}
               {{/if}}
             </label>
           </div>
