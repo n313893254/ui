@@ -169,7 +169,7 @@
           {{t 'clusterNew.huaweicce.highAvailability.label'}}{{field-required}}
         </label>
         {{#if editing}}
-          {{#if (eq highAvailabilityEnabled 's2')}}
+          {{#if (or (eq highAvailabilityEnabled 's2') (eq highAvailabilityEnabled 't2'))}}
             <div>{{t 'generic.enabled'}}</div>
           {{else}}
             <div>{{t 'generic.disabled'}}</div>
@@ -177,14 +177,24 @@
         {{else}}
           <div class="radio">
             <label>
-              {{radio-button selection=highAvailabilityEnabled value="s2"}}
-              {{t 'generic.enabled'}}
+              {{#if (eq config.clusterType 'BareMetal')}}
+                {{radio-button selection=highAvailabilityEnabled value="t2"}}
+                {{t 'generic.enabled'}}
+              {{else}}
+                {{radio-button selection=highAvailabilityEnabled value="s2"}}
+                {{t 'generic.enabled'}}
+              {{/if}}
             </label>
           </div>
           <div class="radio">
             <label>
-              {{radio-button selection=highAvailabilityEnabled value="s1"}}
-              {{t 'generic.disabled'}}
+              {{#if (eq config.clusterType 'BareMetal')}}
+                {{radio-button selection=highAvailabilityEnabled value="t1"}}
+                {{t 'generic.enabled'}}
+              {{else}}
+                {{radio-button selection=highAvailabilityEnabled value="s1"}}
+                {{t 'generic.disabled'}}
+              {{/if}}
             </label>
           </div>
         {{/if}}
