@@ -10,7 +10,7 @@
   as |sortable kind obj dt|
 }}
   {{#if (eq kind "row")}}
-    {{subscriber/subscriber-row
+    {{hook/hook-row
       model=obj
       toggle=(action "toggleExpand" obj.id)
       expanded=(array-includes expandedLogs obj.id)

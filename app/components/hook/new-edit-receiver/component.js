@@ -27,6 +27,7 @@ export default Component.extend(NewOrEdit, {
     this._super(...arguments)
     const mode = get(this, 'model.mode')
     const primaryResource = get(this, 'primaryResource')
+    const clusterId = get(this, 'scope.currentCluster.id')
     if (mode === 'new') {
 
       setProperties(primaryResource, {
@@ -36,6 +37,7 @@ export default Component.extend(NewOrEdit, {
         maximumScale: 100,
         tolerance: 10,
         metricsType: 'CPU',
+        clusterId,
       })
 
     }
@@ -43,12 +45,6 @@ export default Component.extend(NewOrEdit, {
   },
 
   actions: {
-    updateData(map) {
-
-      set(this, 'subscriber.attachHttpRequestHeader', map);
-
-    },
-
     cancel() {
 
       this.goBack();
@@ -57,7 +53,7 @@ export default Component.extend(NewOrEdit, {
   },
   goBack() {
 
-    get(this, 'router').transitionTo('authenticated.cluster.subscriber.index');
+    get(this, 'router').transitionTo('authenticated.cluster.hooks.index');
 
   },
 
@@ -65,17 +61,17 @@ export default Component.extend(NewOrEdit, {
 
     set(this, 'errors', null)
     let errors = get(this, 'errors') || []
-    const name = get(this, 'subscriber.name')
-    const subscriptionAddress = get(this, 'subscriber.subscriptionAddress')
+    const name = get(this, 'primaryResource.name')
+    const metricsCondition = get(this, 'primaryResource.metricsCondition')
 
     if (!name) {
 
       errors.pushObject('Name is required')
 
     }
-    if (!subscriptionAddress) {
+    if (!metricsCondition) {
 
-      errors.pushObject('Subscription Address is required')
+      errors.pushObject('Metrics Condition is required')
 
     }
     set(this, 'errors', errors)
@@ -85,13 +81,12 @@ export default Component.extend(NewOrEdit, {
   },
 
   doSave() {
-
     const k8sStore = get(this, 'k8sStore')
-    let url = `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogSubscriber`
+    let url = `${ k8sStore.baseUrl }/v3/nodeWebhook`
 
     if (get(this, 'model.mode') === 'edit') {
 
-      url += `/${ get(this, 'subscriber.id') }`
+      url += `/${ get(this, 'primaryResource.id') }`
 
     }
 

@@ -3,19 +3,19 @@
     {{check-box nodeId=model.id}}
   </td>
   <td data-title="{{dt.actions}}">
+    {{badge-state model=model classNames="btn-xs"}}
+  </td>
+  <td data-title="{{dt.source}}">
     {{model.name}}
   </td>
   <td data-title="{{dt.source}}">
-    {{model.subscriptionAddress}}
+    {{model.metricsType}}
   </td>
   <td data-title="{{dt.source}}">
-    {{model.subscriptionAddress}}
+    {{model.detail}}
   </td>
   <td data-title="{{dt.source}}">
-    {{model.subscriptionAddress}}
-  </td>
-  <td data-title="{{dt.source}}">
-    {{model.subscriptionAddress}}
+    {{model.metricsCondition}}
   </td>
   <td data-title="{{t 'generic.actions'}}:" class="actions">
     {{action-menu model=model}}

@@ -16,7 +16,7 @@ export default Route.extend({
     const clusterId = transition.params['authenticated.cluster'].cluster_id;
 
     return {
-      receiver: this.createRecord('nodeAutoScaler'),
+      receiver: this.createRecord('nodeWebhook'),
       mode: 'new',
     }
 

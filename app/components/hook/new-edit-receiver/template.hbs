@@ -77,26 +77,11 @@
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.metricsCondition.label'}}{{field-required}}</label>
       {{input class="form-control"
               type="text"
-              value=primaryResource.name
+              value=primaryResource.metricsCondition
               placeholder=(t 'hooksPage.NewOrEdit.metricsCondition.placeholder')
       }}
     </div>
   </div>
-  {{!-- <div class="row">
-    <div class="col span-12">
-      {{form-key-value
-          allowEmptyValue=false
-          header=(t 'subscriberPage.attachHttpRequestHeader.header')
-          valueLabel="subscriberPage.attachHttpRequestHeader.value.label"
-          keyLabel="subscriberPage.attachHttpRequestHeader.key.label"
-          valuePlaceholder="subscriberPage.attachHttpRequestHeader.value.placeholder"
-          keyPlaceholder="subscriberPage.attachHttpRequestHeader.key.placeholder"
-          addActionLabel="subscriberPage.attachHttpRequestHeader.addActionLabel"
-          changed=(action "updateData")
-          initialMap=subscriber.attachHttpRequestHeader
-      }}
-    </div>
-  </div> --}}
 </section>
 
 {{top-errors errors=errors}}
