@@ -27,7 +27,8 @@
     <td>{{! checkbox and expand}}</td>
     <td colspan="{{sub fullColspan 1}}">
       {{#if expanded}}
-        {{code-block code=logString}}
+        {{!-- {{code-block code=logString}} --}}
+        {{event/event-json value=model}}
       {{/if}}
     </td>
   </tr>

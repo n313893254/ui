@@ -95,6 +95,8 @@
     "body-parser": "^1.18.2",
     "ember-drag-drop": "^0.4.7",
     "ivy-codemirror": "^2.1.0",
+    "json-formatter": "^0.1.0",
+    "json-formatter-js": "^2.2.1",
     "mysql": "^2.15.0",
     "prettycron": "^0.10.0",
     "request": "^2.83.0",
