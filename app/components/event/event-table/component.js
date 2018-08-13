@@ -115,10 +115,6 @@ export default Component.extend({
     return [{label: 'All resource', value: 'poi-all'}, ...podContent]
   }),
 
-  poi: observer('resourceKind', function() {
-    this.searchTes
-  }),
-
   // resourceNameChange: observer('resourceName', function() {
   //   console.log(get(this, 'resourceName'))
   //   const namespaces = get(this, 'model.namespaces').content || []
@@ -133,11 +129,6 @@ export default Component.extend({
   //   //     method: 'GET',
   //   // }).then((res => console.log(res)))
   // }),
-
-  searchTest: task(function * (term) {
-    yield timeout(DEBOUNCE_MS);
-    return xhr;
-  }).restartable(),
 
   headers: [
     {

@@ -23,8 +23,17 @@ export default Component.extend({
   logString:    computed('model', function() {
 
     const model = get(this, 'model')
-
+    console.log(model, 'model')
+    const {attachPod={}} = model
+    let tplAttachPod = ``
+    for (let key in attachPod) {
+      if (key === 'status') continue
+      tplAttachPod += `
+    ${key}: ${attachPod[key]},`
+    }
     return `{
+  "attachPod": {${tplAttachPod}
+  },
   "clusterEventId": ${ model.clusterEventId },
   "count": ${ model.count },
   "created": ${ model.created },

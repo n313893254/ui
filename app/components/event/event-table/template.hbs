@@ -1,14 +1,11 @@
 <section class="header clearfix">
-  <div class="pull-left pt-10"><h1>Event</h1></div>
-  {{!-- <div class="right-buttons">
-    <button class="btn btn-sm bg-primary" {{action "configreSubscriber"}}>Configre Subscriber</button>
-  </div> --}}
+  <div class="pull-left pt-10"><h1>{{t 'eventPage.header'}}</h1></div>
 </section>
 <section class="box mb-20">
   <div class="row">
     <div class="col span-1">
       <label class="acc-label">
-        Kind
+        {{t 'eventPage.resourceKind'}}
       </label>
       {{searchable-select
         class="form-control"
@@ -18,7 +15,7 @@
     </div>
     <div class="col span-2">
       <label class="acc-label">
-        Namespace
+        {{t 'eventPage.namespace'}}
       </label>
       {{searchable-select
         class="form-control"
@@ -29,14 +26,8 @@
     </div>
     <div class="col span-3">
       <label class="acc-label">
-        Resource Name
+        {{t 'eventPage.resourceName'}}
       </label>
-      {{!-- {{searchable-select
-        class="form-control"
-        content=resourceNameContent
-        value=resourceName
-        allowCustom=true
-      }} --}}
       {{resource-search
           includeLocal=false
           principal=addInput
@@ -48,19 +39,10 @@
           resourceKind=resourceKind
           clusterId=clusterId
       }}
-      {{!-- {{principal-search
-          add="add"
-          filter=filter
-          includeLocal=false
-          principal=addInput
-          selectExact="selectExact"
-          selectExactOnBlur=selectExactOnBlur
-          useLabel=true
-      }} --}}
     </div>
     <div class="col span-2">
       <label class="acc-label">
-        Log Level
+        {{t 'eventPage.logLevel'}}
       </label>
       {{searchable-select
         class="form-control"
@@ -70,7 +52,7 @@
     </div>
     <div class="col span-2">
       <label class="acc-label">
-        Time
+        {{t 'eventPage.time'}}
       </label>
       {{searchable-select
         class="form-control"
@@ -92,7 +74,7 @@
     <div class="row">
       <div class="col span-4">
         <label class="acc-label">
-          Start Time
+          {{t 'eventPage.startTime'}}
         </label>
         {{#basic-dropdown as |dropdown|}}
           <input type="text"
@@ -108,7 +90,6 @@
               onCenterChange=(action (mut month) value="date")
               selected=startDate
               onSelect=(action (mut startDate) value="date") as |calendar|}}
-              {{!-- {{calendar.nav}} --}}
               <nav class="ember-power-calendar-nav">
                 <button type="button" class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter -12 'month'}}>«</button>
                 <button type="button" class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter -1 'month'}}>‹</button>
@@ -125,7 +106,7 @@
       </div>
       <div class="col span-4">
         <label class="acc-label">
-          End Time
+          {{t 'eventPage.endTime'}}
         </label>
         {{#basic-dropdown as |dropdown|}}
           <input type="text"
@@ -141,7 +122,6 @@
               onCenterChange=(action (mut month) value="date")
               selected=endDate
               onSelect=(action (mut endDate) value="date") as |calendar|}}
-              {{!-- {{calendar.nav}} --}}
               <nav class="ember-power-calendar-nav">
                 <button type="button" class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter -12 'month'}}>«</button>
                 <button type="button" class="ember-power-calendar-nav-control" onclick={{action calendar.actions.moveCenter -1 'month'}}>‹</button>

@@ -6128,3 +6128,13 @@ hooksPage:
     metricsCondition:
       label: Metrics Condition
       placeholder: e.g. >50%
+
+eventPage:
+  header: Event
+  resourceKind: Kind
+  namespace: Namespace
+  resourceName: Resouce Name
+  logLevel: Log Level
+  time: Time
+  startTime: Start Time
+  endTime: End Time
