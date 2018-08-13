@@ -15,16 +15,16 @@ export default Route.extend({
     const cs = get(this, 'globalStore');
     const clusterId = transition.params['authenticated.cluster'].cluster_id;
 
-    return {
-      receiver: k8sStore.find('nodeWebhook', null, {url:`${k8sStore.baseUrl}/v3/nodeWebhook`, forceReload: true}).then(hooks => {
+    return hash({
+      receiver: clusterStore.find('nodeAutoScaler', null, {url:`${k8sStore.baseUrl}/v3/nodeAutoScaler`, forceReload: true}).then(hooks => {
         const s = hooks.findBy('id', params.hook_id)
         if (!s) {
-          this.replaceWith('authenticated.cluster.hook.index');
+          this.replaceWith('authenticated.cluster.hooks.index');
         }
         return s
       }),
       mode: 'edit',
-    }
+    })
 
   },
   createRecord(type) {

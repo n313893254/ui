@@ -51,24 +51,19 @@ export default Component.extend({
   ],
   headers: [
     {
-      name:           'state',
-      translationKey: 'generic.state',
-      sort:           ['created'],
-    },
-    {
       name:           'name',
       translationKey: 'generic.name',
       sort:           ['created'],
     },
     {
-      name:           'kind',
-      translationKey: 'generic.kind',
-      sort:           ['created'],
+      name:           'tolerance',
+      translationKey: 'hooksPage.NewOrEdit.tolerance.label',
+      sort:           false,
     },
     {
-      name:           'detail',
-      translationKey: 'hooksPage.detail.label',
-      sort:           false,
+      name:           'metricsType',
+      translationKey: 'hooksPage.NewOrEdit.metricsType.label',
+      sort:           ['created'],
     },
     {
       name:           'triggerUrl',

@@ -24,7 +24,7 @@
       </div>
       <div class="radio">
         <label>
-          {{radio-button selection=primaryResource.isScaleUp value="true"}}
+          {{radio-button selection=primaryResource.isScaleUp value=true}}
           {{t 'generic.enabled'}}
         </label>
       </div>
@@ -52,7 +52,7 @@
     </div>
     <div class="col span-6">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.maximumScale.label'}}</label>
-      {{input-integer min=0 value=primaryResource.maximumScale disabled=(not primaryResource.isScaleUp)}}
+      {{input-integer min=0 value=primaryResource.maximumScale disabled=(not primaryResource.isScaleUp) max=100}}
     </div>
   </div>
   <div class="row">

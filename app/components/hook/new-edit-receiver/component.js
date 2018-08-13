@@ -10,6 +10,7 @@ import NewOrEdit from 'ui/mixins/new-or-edit';
 export default Component.extend(NewOrEdit, {
   scope:    service(),
   k8sStore: service(),
+  clusterStore: service(),
 
   layout,
   receiver:      alias('model.receiver'),
@@ -40,6 +41,12 @@ export default Component.extend(NewOrEdit, {
         clusterId,
       })
 
+    }
+
+    if (mode === 'edit') {
+      setProperties(primaryResource, {
+        clusterId,
+      })
     }
 
   },
@@ -82,7 +89,7 @@ export default Component.extend(NewOrEdit, {
 
   doSave() {
     const k8sStore = get(this, 'k8sStore')
-    let url = `${ k8sStore.baseUrl }/v3/nodeWebhook`
+    let url = `${ k8sStore.baseUrl }/v3/nodeAutoScaler`
 
     if (get(this, 'model.mode') === 'edit') {
 

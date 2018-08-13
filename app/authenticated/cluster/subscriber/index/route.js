@@ -15,12 +15,20 @@ export default Route.extend({
     const clusterId = transition.params['authenticated.cluster'].cluster_id;
 
     return hash({
-      subscribers: k8sStore.findAll('huaWeiClusterEventLogSubscriber', {
-        url: `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogSubscriber`,
-        filter: {
-          clusterId,
-        }
-      }),
+      subscribers: clusterStore.findAll('huaWeiClusterEventLogSubscriber', {
+                                url:`${k8sStore.baseUrl}/v3/huaWeiClusterEventLogSubscriber`,
+                                forceReload: true,
+                                filter: {
+                                  clusterId,
+                                }})
+                     .catch(err => console.log(err))
     })
+    // .then(hash => {
+    //   const {subscribers=[]} = hash
+    //   const filter = subscribers.filter(h => h.clusterId === clusterId)
+    //   return {
+    //     subscribers: filter,
+    //   }
+    // })
   },
 });
