@@ -91,6 +91,15 @@ const rootNav = [
         resource:       ['namespacedsecret', 'secret'],
         resourceScope:  'project',
       },
+      {
+        id:             'infra--hook',
+        localizedLabel: 'nav.tools.hook',
+        icon:           'icon icon-link',
+        route:          'authenticated.project.hooks',
+        ctx:            [getProjectId],
+        resource:       ['namespacedsecret', 'secret'],
+        resourceScope:  'project',
+      },
     ],
   },
   {

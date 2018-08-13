@@ -4,24 +4,32 @@ import { get } from '@ember/object'
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
-  globalStore: service(),
-  k8sStore:    service(),
+  globalStore:  service(),
+  k8sStore:     service(),
   clusterStore:    service(),
 
   model(params, transition) {
+
     const k8sStore = this.get('k8sStore')
     const clusterStore = get(this, 'clusterStore');
     const cs = get(this, 'globalStore');
     const clusterId = transition.params['authenticated.cluster'].cluster_id;
 
-    return hash({
-      hooks: k8sStore.find('nodeWebhook', null, {
-                                url:`${k8sStore.baseUrl}/v3/nodeWebhook`,
-                                forceReload: true,
-                                filter: {
-                                  clusterId,
-                                }})
-                     .catch(err => console.log(err))
-    })
+    return {
+      receiver: this.createRecord('nodeWebhook'),
+      mode: 'new',
+    }
+
   },
+  createRecord(type) {
+    const k8sStore = this.get('k8sStore')
+    const newRecord = k8sStore.createRecord({
+      type,
+      outputTags: {},
+    });
+
+    return newRecord;
+
+  },
+
 });

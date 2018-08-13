@@ -150,6 +150,7 @@ Router.map(function() {
 
         this.route('index', { path: '/' })
         this.route('new', {path: 'add'})
+        this.route('edit', {path: '/edit/:hook_id'})
       })
 
     });
@@ -311,12 +312,19 @@ Router.map(function() {
 
       });
 
-      this.route('hooks', { path: '/api/hooks' }, function() {
+      this.route('receivers', { path: '/api/hooks' }, function() {
 
         this.route('new-receiver', { path: '/add-receiver' });
         this.route('edit-receiver', { path: '/receiver/:receiver_id' });
 
       });
+
+      this.route('hooks', { path: 'hooks' }, function() {
+
+        this.route('index', { path: '/' })
+        this.route('new', {path: 'add'})
+        this.route('edit', {path: '/edit/:hook_id'})
+      })
 
       this.route('help');
 
