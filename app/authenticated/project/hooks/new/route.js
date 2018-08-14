@@ -13,16 +13,19 @@ export default Route.extend({
     const store = get(this, 'store');
     const k8sStore = this.get('k8sStore')
     const cs = get(this, 'globalStore');
+    const projectId = transition.params['authenticated.project'].project_id;
 
-    return {
-      receiver: this.createRecord('workloadWebhook'),
+    return hash({
+      receiver: this.createRecord('workloadWebhook', projectId),
       mode: 'new',
-    }
+      pageScope: 'project',
+      workloads:  store.findAll('workload'),
+    })
 
   },
-  createRecord(type) {
+  createRecord(type, projectId) {
     const store = get(this, 'store')
-    const projectId = get(this, 'scope.currentProject.id')
+    const scope = get(this, 'scope')
     const newRecord = store.createRecord({
       type,
       projectId,

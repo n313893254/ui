@@ -48,6 +48,10 @@ export default Component.extend(NewOrEdit, {
 
   },
 
+  workloadContent: computed('model.workloads.[]', function() {
+
+  }),
+
   actions: {
     cancel() {
 
@@ -56,9 +60,11 @@ export default Component.extend(NewOrEdit, {
     },
   },
   goBack() {
-
-    get(this, 'router').transitionTo('authenticated.cluster.hooks.index');
-
+    if (get(this, 'model.pageScope') === 'project') {
+      get(this, 'router').transitionTo('authenticated.project.hooks.index')
+    } else {
+      get(this, 'router').transitionTo('authenticated.cluster.hooks.index')
+    }
   },
 
   validate() {
@@ -86,7 +92,13 @@ export default Component.extend(NewOrEdit, {
 
   doSave() {
     const k8sStore = get(this, 'k8sStore')
-    let url = `${ k8sStore.baseUrl }/v3/nodeAutoScaler`
+    let url = ``
+    const currentPageScope = get(this, 'scope.currentPageScope')
+    if (currentPageScope === 'project') {
+      url = `${ k8sStore.baseUrl }/v3/workloadAutoScaler`
+    } else {
+      url = `${ k8sStore.baseUrl }/v3/nodeAutoScaler`
+    }
 
     if (get(this, 'model.mode') === 'edit') {
 

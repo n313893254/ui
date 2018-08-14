@@ -6102,15 +6102,19 @@ subscriberPage:
   noMatch: No subscribers match the current search
 
 hooksPage:
+  header: Auto Scaler
   detail:
     label: Detail
   triggerUrl:
     label: Trigger Url
   NewOrEdit:
-    header: Receiver
+    header: Auto Scaler
     name:
       label: Name
       placeholder: Enter Name
+    workloadId:
+      label: Workload
+      placeholder: Select a workload
     isScaleUp:
       label: Scale Up
       true: Scale Up

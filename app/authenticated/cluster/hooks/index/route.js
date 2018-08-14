@@ -15,13 +15,15 @@ export default Route.extend({
     const clusterId = transition.params['authenticated.cluster'].cluster_id;
 
     return hash({
-      hooks: clusterStore.find('nodeAutoScaler', null, {
+      hooks: clusterStore.findAll('nodeAutoScaler', {
                                 url:`${k8sStore.baseUrl}/v3/nodeAutoScaler`,
                                 forceReload: true,
                                 filter: {
                                   clusterId,
                                 }})
-                     .catch(err => console.log(err))
+                     .catch(err => console.log(err)),
+      pageScope: 'cluster',
+      clusterId,
     })
   },
 });

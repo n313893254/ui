@@ -4,7 +4,7 @@
 
 <section>
   <div class="row">
-    <div class="col span-12">
+    <div class="col {{if (eq model.pageScope 'project') 'span-6' 'span-12'}}">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.name.label'}}{{field-required}}</label>
       {{input class="form-control"
               type="text"
@@ -12,6 +12,17 @@
               placeholder=(t 'hooksPage.NewOrEdit.name.placeholder')
       }}
     </div>
+    {{#if (eq model.pageScope 'project')}}
+      <div class="col span-6">
+        <label class="acc-label">{{t 'hooksPage.NewOrEdit.workloadId.label'}}</label>
+        {{searchable-select
+          class="form-control"
+          content=workloadContent
+          value=primaryResource.workloadId
+          placeholder=(t 'hooksPage.NewOrEdit.workloadId.placeholder')
+        }}
+      </div>
+    {{/if}}
   </div>
   <div class="row">
     <div class="col span-6">

@@ -13,28 +13,19 @@ export default Route.extend({
     const k8sStore = this.get('k8sStore')
     const clusterStore = get(this, 'clusterStore');
     const cs = get(this, 'globalStore');
-    const clusterId = transition.params['authenticated.cluster'].cluster_id;
+    const projectId = transition.params['authenticated.project'].project_id;
 
-    return {
-      receiver: k8sStore.find('nodeWebhook', null, {url:`${k8sStore.baseUrl}/v3/nodeWebhook`, forceReload: true}).then(hooks => {
+    return hash({
+      receiver: k8sStore.find('workloadAutoScaler', null, {url:`${k8sStore.baseUrl}/v3/workloadAutoScaler`, forceReload: true}).then(hooks => {
         const s = hooks.findBy('id', params.hook_id)
         if (!s) {
-          this.replaceWith('authenticated.cluster.hook.index');
+          this.replaceWith('authenticated.project.hook.index');
         }
         return s
       }),
       mode: 'edit',
-    }
-
-  },
-  createRecord(type) {
-    const k8sStore = this.get('k8sStore')
-    const newRecord = k8sStore.createRecord({
-      type,
-      outputTags: {},
-    });
-
-    return newRecord;
+      pageScope:'project',
+    })
 
   },
 
