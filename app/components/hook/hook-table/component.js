@@ -67,7 +67,7 @@ export default Component.extend({
     },
     {
       name:           'triggerUrl',
-      translationKey: 'hooksPage.triggerUrl.label',
+      translationKey: 'hooksPage.NewOrEdit.metricsCondition.label',
       sort:           false,
     },
   ],

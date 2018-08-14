@@ -7,11 +7,11 @@ export default Route.extend({
   globalStore:  service(),
   k8sStore:     service(),
   clusterStore:    service(),
+  scope:    service(),
 
   model(params, transition) {
     const store = get(this, 'store');
     const k8sStore = this.get('k8sStore')
-    const clusterStore = get(this, 'clusterStore');
     const cs = get(this, 'globalStore');
 
     return {
@@ -22,8 +22,10 @@ export default Route.extend({
   },
   createRecord(type) {
     const store = get(this, 'store')
+    const projectId = get(this, 'scope.currentProject.id')
     const newRecord = store.createRecord({
       type,
+      projectId,
       outputTags: {},
     });
 
