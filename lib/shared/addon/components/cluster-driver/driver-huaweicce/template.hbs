@@ -523,15 +523,36 @@
           {{/if}}
         </div>
         <div class="col span-6">
-          <label class="acc-label">{{t 'clusterNew.huaweicce.ssh.label'}}{{field-required}}</label>
-          {{#if editing}}
-            <div>{{editedSshName}}</div>
-          {{else}}
-            {{new-select
-              classNames="form-control"
-              value=config.sshKey
-              content=sshkeyContent
-            }}
+          <label class="acc-label">{{t 'clusterNew.huaweicce.loginMode.label'}}</label>
+          <div class="radio">
+            <label>
+              {{radio-button selection=loginMode value="password"}}
+              {{t 'clusterNew.huaweicce.loginMode.password'}}
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              {{radio-button selection=loginMode value="keyPair"}}
+              {{t 'clusterNew.huaweicce.loginMode.keyPair'}}
+            </label>
+          </div>
+          {{#if (eq loginMode 'keyPair')}}
+            <label class="acc-label">{{t 'clusterNew.huaweicce.ssh.label'}}</label>
+            {{#if editing}}
+              <div>{{editedSshName}}</div>
+            {{else}}
+              {{new-select
+                classNames="form-control"
+                value=config.sshKey
+                content=sshkeyContent
+              }}
+            {{/if}}
+          {{/if}}
+          {{#if (and (eq loginMode 'password') (not editing))}}
+            {{input type="text"
+                    value=config.password
+                    classNames="form-control"
+                    placeholder=(t 'clusterNew.huaweicce.password.placeholder')}}
           {{/if}}
         </div>
       </div>
@@ -590,11 +611,6 @@
                 value=config.eipChargeMode
                 content=eipChargeModeContent
               }}
-              {{!-- {{searchable-select
-                classNames="form-control"
-                value=config.eipChargeMode
-                content=eipChargeModeContent
-              }} --}}
               <label class="acc-label">{{t 'clusterNew.huaweicce.eipBandwidthSize.label'}}</label>
               <div class="input-group">
                 {{input-number min=1 value=config.eipBandwidthSize max=100}}

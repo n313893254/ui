@@ -49,7 +49,9 @@ export default Component.extend(NewOrEdit, {
   },
 
   workloadContent: computed('model.workloads.[]', function() {
-
+    const workloads = get(this, 'model.workloads').content || []
+    return workloads.filter(w => w.projectId === get(this, 'primaryResource.projectId'))
+                    .map(w => ({label: w.name, value: w.id}))
   }),
 
   actions: {

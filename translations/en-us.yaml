@@ -6103,6 +6103,7 @@ subscriberPage:
 
 hooksPage:
   header: Auto Scaler
+  new: Add Auto Scaler
   detail:
     label: Detail
   triggerUrl:
