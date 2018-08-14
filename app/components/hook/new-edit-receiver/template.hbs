@@ -29,14 +29,14 @@
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.isScaleUp.label'}}</label>
       <div class="radio">
         <label>
-          {{radio-button selection=primaryResource.isScaleUp value=false}}
-          {{t 'generic.disabled'}}
+          {{radio-button selection=primaryResource.isScaleUp value=true}}
+          {{t 'hooksPage.NewOrEdit.isScaleUp.true'}}
         </label>
       </div>
       <div class="radio">
         <label>
-          {{radio-button selection=primaryResource.isScaleUp value=true}}
-          {{t 'generic.enabled'}}
+          {{radio-button selection=primaryResource.isScaleUp value=false}}
+          {{t 'hooksPage.NewOrEdit.isScaleUp.false'}}
         </label>
       </div>
     </div>
@@ -49,7 +49,6 @@
               valueMin=1
               valueMax=11
               step=1
-              disabled=(not primaryResource.isScaleUp)
           }}
           <span class="input-group-addon">{{primaryResource.scaleStep}}</span>
         </div>
@@ -59,7 +58,7 @@
   <div class="row">
     <div class="col span-6">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.minimumScale.label'}}</label>
-      {{input-integer min=0 value=primaryResource.minimumScale disabled=(not primaryResource.isScaleUp)}}
+      {{input-integer min=0 value=primaryResource.minimumScale disabled=primaryResource.isScaleUp}}
     </div>
     <div class="col span-6">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.maximumScale.label'}}</label>

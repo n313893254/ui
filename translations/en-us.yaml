@@ -5773,7 +5773,7 @@ nav:
     logging: Logging
     event: Events
     subscriber: Subscribers
-    hook: WebHooks
+    hook: Auto Scaler
   project:
     none: Grouped Projects/Namespaces
     namespaces: Namespaces
@@ -6126,9 +6126,9 @@ hooksPage:
       label: Workload
       placeholder: Select a workload
     isScaleUp:
-      label: Scale Up
-      true: Scale Up
-      false: Scale Down
+      label: Scale
+      true: Up
+      false: Down
     scaleStep:
       label: Scale Step
     minimumScale:
