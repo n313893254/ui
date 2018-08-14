@@ -523,21 +523,23 @@
           {{/if}}
         </div>
         <div class="col span-6">
-          <label class="acc-label">{{t 'clusterNew.huaweicce.loginMode.label'}}</label>
-          <div class="radio">
-            <label>
-              {{radio-button selection=loginMode value="password"}}
-              {{t 'clusterNew.huaweicce.loginMode.password'}}
-            </label>
-          </div>
-          <div class="radio">
-            <label>
-              {{radio-button selection=loginMode value="keyPair"}}
-              {{t 'clusterNew.huaweicce.loginMode.keyPair'}}
-            </label>
-          </div>
+          {{#unless editing}}
+            <label class="acc-label">{{t 'clusterNew.huaweicce.loginMode.label'}}</label>
+            <div class="radio">
+              <label>
+                {{radio-button selection=loginMode value="password"}}
+                {{t 'clusterNew.huaweicce.loginMode.password'}}
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                {{radio-button selection=loginMode value="keyPair"}}
+                {{t 'clusterNew.huaweicce.loginMode.keyPair'}}
+              </label>
+            </div>
+          {{/unless}}
           {{#if (eq loginMode 'keyPair')}}
-            <label class="acc-label">{{t 'clusterNew.huaweicce.ssh.label'}}</label>
+            <label class="acc-label mt-10">{{t 'clusterNew.huaweicce.ssh.label'}}</label>
             {{#if editing}}
               <div>{{editedSshName}}</div>
             {{else}}
@@ -549,6 +551,9 @@
             {{/if}}
           {{/if}}
           {{#if (and (eq loginMode 'password') (not editing))}}
+            <label class="acc-label mt-10">{{t 'clusterNew.huaweicce.userName.label'}}</label>
+            <div>root</div>
+            <label class="acc-label mt-10">{{t 'clusterNew.huaweicce.password.label'}}</label>
             {{input type="text"
                     value=config.password
                     classNames="form-control"

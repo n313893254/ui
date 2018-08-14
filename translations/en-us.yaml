@@ -2158,6 +2158,15 @@ clusterNew:
       label: Validity Period
     bmsIsAutoRenew:
       label: Auto Renew
+    loginMode:
+      label: Login Mode
+      password: Password
+      keyPair: Key Pair
+    password:
+      label: Password
+      placeholder: Please enter password
+    userName:
+      label: User Name
   rke:
     etcd:
       heartbeat:
