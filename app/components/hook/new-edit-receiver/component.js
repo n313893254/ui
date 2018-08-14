@@ -18,10 +18,10 @@ export default Component.extend(NewOrEdit, {
 
   metricsTypeContent: [{
     label: 'CPU',
-    value: 'CPU',
+    value: 'cpu',
   }, {
     label: 'Memory',
-    value: 'Memory',
+    value: 'memory',
   }],
   init() {
 
@@ -37,7 +37,7 @@ export default Component.extend(NewOrEdit, {
         minimumScale: 1,
         maximumScale: 100,
         tolerance: 10,
-        metricsType: 'CPU',
+        metricsType: 'cpu',
         clusterId,
       })
 

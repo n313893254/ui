@@ -28,8 +28,8 @@ export default Route.extend({
 
   },
   createRecord(type) {
-    const k8sStore = this.get('k8sStore')
-    const newRecord = k8sStore.createRecord({
+    const clusterStore = this.get('clusterStore')
+    const newRecord = clusterStore.createRecord({
       type,
       outputTags: {},
     });

@@ -15,7 +15,7 @@ export default Route.extend({
     const clusterId = transition.params['authenticated.cluster'].cluster_id;
 
     return hash({
-      hooks: clusterStore.findAll('nodeAutoScaler', {
+      hooks: clusterStore.find('nodeAutoScaler', null, {
                                 url:`${k8sStore.baseUrl}/v3/nodeAutoScaler`,
                                 forceReload: true,
                                 filter: {
