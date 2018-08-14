@@ -28,7 +28,7 @@ export default Component.extend(NewOrEdit, {
     this._super(...arguments)
     const mode = get(this, 'model.mode')
     const primaryResource = get(this, 'primaryResource')
-    const clusterId = get(this, 'scope.currentCluster.id')
+    // const clusterId = get(this, 'scope.currentCluster.id')
     if (mode === 'new') {
 
       setProperties(primaryResource, {
@@ -38,14 +38,14 @@ export default Component.extend(NewOrEdit, {
         maximumScale: 100,
         tolerance: 10,
         metricsType: 'cpu',
-        clusterId,
+        // clusterId,
       })
 
     }
 
     if (mode === 'edit') {
       setProperties(primaryResource, {
-        clusterId,
+        // clusterId,
       })
     }
 

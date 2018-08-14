@@ -9,21 +9,20 @@ export default Route.extend({
   clusterStore:    service(),
 
   model(params, transition) {
-
+    const store = get(this, 'store');
     const k8sStore = this.get('k8sStore')
     const clusterStore = get(this, 'clusterStore');
     const cs = get(this, 'globalStore');
-    const clusterId = transition.params['authenticated.cluster'].cluster_id;
 
     return {
-      receiver: this.createRecord('nodeWebhook'),
+      receiver: this.createRecord('workloadWebhook'),
       mode: 'new',
     }
 
   },
   createRecord(type) {
-    const k8sStore = this.get('k8sStore')
-    const newRecord = k8sStore.createRecord({
+    const store = get(this, 'store')
+    const newRecord = store.createRecord({
       type,
       outputTags: {},
     });

@@ -7,6 +7,7 @@ export default Route.extend({
   globalStore:  service(),
   k8sStore:     service(),
   clusterStore:    service(),
+  scope:    service(),
 
   model(params, transition) {
 
@@ -24,8 +25,10 @@ export default Route.extend({
   createRecord(type) {
     const k8sStore = this.get('k8sStore')
     const clusterStore = this.get('clusterStore')
+    const clusterId = get(this, 'scope.currentCluster.id')
     const newRecord = clusterStore.createRecord({
       type,
+      clusterId,
       outputTags: {},
     });
 
