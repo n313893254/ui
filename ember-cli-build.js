@@ -105,6 +105,8 @@ module.exports = function(defaults) {
   app.import('vendor/cce-sdk.js');
   app.import('vendor/json-formatter.js');
   app.import('vendor/crypt.js');
+  app.import('vendor/sha512crypt.js');
+  app.import('vendor/sha512.js');
 
   return app.toTree();
 
