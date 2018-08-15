@@ -85,11 +85,24 @@
   <div class="row">
     <div class="col span-6">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.metricsCondition.label'}}{{field-required}}</label>
-      {{input class="form-control"
-              type="text"
-              value=primaryResource.metricsCondition
-              placeholder=(t 'hooksPage.NewOrEdit.metricsCondition.placeholder')
-      }}
+      <div class="input-group">
+        {{input class="form-control"
+                type="text"
+                value=primaryResource.metricsCondition
+                placeholder=(t 'hooksPage.NewOrEdit.metricsCondition.placeholder')
+        }}
+        <span class="input-group-addon bg-default">
+          {{#if (eq model.pageScope 'project')}}
+            {{#if (eq primaryResource.metricsType 'cpu')}}
+              {{t 'hooksPage.NewOrEdit.unit.mCpu'}}
+            {{else}}
+              {{t 'hooksPage.NewOrEdit.unit.mb'}}
+            {{/if}}
+          {{else}}
+            {{t 'hooksPage.NewOrEdit.unit.percentage'}}
+          {{/if}}
+        </span>
+      </div>
     </div>
   </div>
 </section>

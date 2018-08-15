@@ -6141,7 +6141,11 @@ hooksPage:
       label: Metrics Type
     metricsCondition:
       label: Metrics Condition
-      placeholder: e.g. >50%
+      placeholder: e.g. >50
+    unit:
+      mCpu: mCpu
+      mb: Mb
+      percentage: "%"
 
 eventPage:
   header: Event

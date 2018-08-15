@@ -16,7 +16,7 @@ export default Route.extend({
     const projectId = transition.params['authenticated.project'].project_id;
 
     return hash({
-      receiver: this.createRecord('workloadWebhook', projectId),
+      receiver: this.createRecord('workloadAutoScaler', projectId),
       mode: 'new',
       pageScope: 'project',
       workloads:  store.findAll('workload'),
