@@ -14,7 +14,7 @@
     </div>
     {{#if (eq model.pageScope 'project')}}
       <div class="col span-6">
-        <label class="acc-label">{{t 'hooksPage.NewOrEdit.workloadId.label'}}</label>
+        <label class="acc-label">{{t 'hooksPage.NewOrEdit.workloadId.label'}}{{field-required}}</label>
         {{searchable-select
           class="form-control"
           content=workloadContent

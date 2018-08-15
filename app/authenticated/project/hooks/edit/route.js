@@ -9,7 +9,7 @@ export default Route.extend({
   clusterStore:    service(),
 
   model(params, transition) {
-
+    const store = get(this, 'store');
     const k8sStore = this.get('k8sStore')
     const clusterStore = get(this, 'clusterStore');
     const cs = get(this, 'globalStore');
@@ -25,6 +25,7 @@ export default Route.extend({
       }),
       mode: 'edit',
       pageScope:'project',
+      workloads:  store.findAll('workload'),
     })
 
   },

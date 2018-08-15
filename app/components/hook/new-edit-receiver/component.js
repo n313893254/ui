@@ -75,6 +75,8 @@ export default Component.extend(NewOrEdit, {
     let errors = get(this, 'errors') || []
     const name = get(this, 'primaryResource.name')
     const metricsCondition = get(this, 'primaryResource.metricsCondition')
+    const pageScope = get(this, 'model.pageScope')
+    const workloadId = get(this, 'primaryResource.workloadId')
 
     if (!name) {
 
@@ -85,6 +87,11 @@ export default Component.extend(NewOrEdit, {
 
       errors.pushObject('Metrics Condition is required')
 
+    }
+    if (pageScope === 'project') {
+      if (!workloadId) {
+        errors.pushObject('Workload is required')
+      }
     }
     set(this, 'errors', errors)
 
