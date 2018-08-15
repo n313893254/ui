@@ -22,6 +22,8 @@
     "ivy-codemirror": "*",
     "jsyaml": "*",
     "json2yaml": "*",
-    "ember-power-select": "*"
+    "ember-power-select": "*",
+    "crypto-js": "*",
+    "ember-auto-import": "*"
   }
 }
