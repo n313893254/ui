@@ -4,11 +4,12 @@ import { get } from '@ember/object'
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
-  globalStore: service(),
-  k8sStore:    service(),
+  globalStore:  service(),
+  k8sStore:     service(),
   clusterStore:    service(),
 
   model(params, transition) {
+
     const k8sStore = this.get('k8sStore')
     const clusterStore = get(this, 'clusterStore');
     const cs = get(this, 'globalStore');
@@ -16,14 +17,14 @@ export default Route.extend({
 
     return hash({
       hooks: clusterStore.findAll('nodeAutoScaler', {
-                                url:`${k8sStore.baseUrl}/v3/nodeAutoScaler`,
-                                forceReload: true,
-                                filter: {
-                                  clusterId,
-                                }})
-                     .catch(err => console.log(err)),
+        url:         `${ k8sStore.baseUrl }/v3/nodeAutoScaler`,
+        forceReload: true,
+        filter:      { clusterId, }
+      })
+        .catch((err) => console.log(err)),
       pageScope: 'cluster',
       clusterId,
     })
+
   },
 });

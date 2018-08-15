@@ -8,14 +8,11 @@ import {
 import NewOrEdit from 'ui/mixins/new-or-edit';
 
 export default Component.extend(NewOrEdit, {
-  scope:    service(),
-  k8sStore: service(),
+  scope:        service(),
+  k8sStore:     service(),
   clusterStore: service(),
 
   layout,
-  receiver:      alias('model.receiver'),
-  primaryResource: alias('model.receiver'),
-
   metricsTypeContent: [{
     label: 'CPU',
     value: 'cpu',
@@ -23,36 +20,47 @@ export default Component.extend(NewOrEdit, {
     label: 'Memory',
     value: 'memory',
   }],
+  receiver:        alias('model.receiver'),
+  primaryResource: alias('model.receiver'),
+
+  workloadContent: computed('model.workloads.[]', function() {
+
+    const workloads = get(this, 'model.workloads').content || []
+
+    return workloads.filter((w) => w.projectId === get(this, 'primaryResource.projectId'))
+      .map((w) => ({
+        label: w.name,
+        value: w.id
+      }))
+
+  }),
+
   init() {
 
     this._super(...arguments)
     const mode = get(this, 'model.mode')
     const primaryResource = get(this, 'primaryResource')
+
     if (mode === 'new') {
 
       setProperties(primaryResource, {
-        isScaleUp: false,
-        scaleStep: 1,
+        isScaleUp:    false,
+        scaleStep:    1,
         minimumScale: 1,
         maximumScale: 100,
-        tolerance: 10,
-        metricsType: 'cpu',
+        tolerance:    10,
+        metricsType:  'cpu',
       })
 
     }
 
     if (mode === 'edit') {
-      setProperties(primaryResource, {
-      })
+
+      setProperties(primaryResource, {})
+
     }
 
   },
-
-  workloadContent: computed('model.workloads.[]', function() {
-    const workloads = get(this, 'model.workloads').content || []
-    return workloads.filter(w => w.projectId === get(this, 'primaryResource.projectId'))
-                    .map(w => ({label: w.name, value: w.id}))
-  }),
 
   actions: {
     cancel() {
@@ -62,11 +70,17 @@ export default Component.extend(NewOrEdit, {
     },
   },
   goBack() {
+
     if (get(this, 'model.pageScope') === 'project') {
+
       get(this, 'router').transitionTo('authenticated.project.hooks.index')
+
     } else {
+
       get(this, 'router').transitionTo('authenticated.cluster.hooks.index')
+
     }
+
   },
 
   validate() {
@@ -89,9 +103,13 @@ export default Component.extend(NewOrEdit, {
 
     }
     if (pageScope === 'project') {
+
       if (!workloadId) {
+
         errors.pushObject('Workload is required')
+
       }
+
     }
     set(this, 'errors', errors)
 
@@ -100,13 +118,19 @@ export default Component.extend(NewOrEdit, {
   },
 
   doSave() {
+
     const k8sStore = get(this, 'k8sStore')
     let url = ``
     const currentPageScope = get(this, 'scope.currentPageScope')
+
     if (currentPageScope === 'project') {
+
       url = `${ k8sStore.baseUrl }/v3/workloadautoscalers`
+
     } else {
+
       url = `${ k8sStore.baseUrl }/v3/nodeAutoScaler`
+
     }
 
     if (get(this, 'model.mode') === 'edit') {
@@ -125,7 +149,9 @@ export default Component.extend(NewOrEdit, {
   },
 
   doneSaving() {
+
     this.goBack();
+
   },
 
 });

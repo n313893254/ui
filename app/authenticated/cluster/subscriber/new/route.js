@@ -50,7 +50,7 @@ export default Route.extend({
 
     return {
       subscriber: this.createSubscriber('huaWeiClusterEventLogSubscriber'),
-      mode: 'new',
+      mode:       'new',
     }
 
   },

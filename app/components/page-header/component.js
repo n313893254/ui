@@ -211,6 +211,7 @@ export default Component.extend({
       return true;
 
     });
+
     console.log(out, 'out')
     set(this, 'navTree', out);
 

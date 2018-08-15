@@ -73,14 +73,22 @@ export default Component.extend({
   ],
 
   rows: computed('model.hooks.[]', function() {
+
     const hooks = get(this, 'model.hooks').content || []
+
     if (get(this, 'model.pageScope') === 'cluster') {
-      return hooks.filter(h => h.clusterId === get(this, 'model.clusterId'))
+
+      return hooks.filter((h) => h.clusterId === get(this, 'model.clusterId'))
+
     }
     if (get(this, 'model.pageScope') === 'project') {
-      return hooks.filter(h => h.projectId === get(this, 'model.projectId'))
+
+      return hooks.filter((h) => h.projectId === get(this, 'model.projectId'))
+
     }
+
     return []
+
   }),
 
   init() {

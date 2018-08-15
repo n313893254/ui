@@ -54,7 +54,7 @@ export default Component.extend({
       name:           'name',
       translationKey: 'generic.name',
       sort:           ['created'],
-      searchField: ['name', 'subscriptionAddress']
+      searchField:    ['name', 'subscriptionAddress']
     },
     {
       name:           'address',

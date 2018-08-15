@@ -95,7 +95,9 @@ export default Component.extend(NewOrEdit, {
   },
 
   doneSaving() {
+
     this.goBack();
+
   },
 
 });

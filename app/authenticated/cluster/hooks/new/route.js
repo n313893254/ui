@@ -7,7 +7,7 @@ export default Route.extend({
   globalStore:  service(),
   k8sStore:     service(),
   clusterStore:    service(),
-  scope:    service(),
+  scope:        service(),
 
   model(params, transition) {
 
@@ -18,11 +18,12 @@ export default Route.extend({
 
     return {
       receiver: this.createRecord('nodeAutoScaler'),
-      mode: 'new',
+      mode:     'new',
     }
 
   },
   createRecord(type) {
+
     const k8sStore = this.get('k8sStore')
     const clusterStore = this.get('clusterStore')
     const clusterId = get(this, 'scope.currentCluster.id')

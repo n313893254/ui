@@ -144,13 +144,15 @@ Router.map(function() {
         this.route('index', { path: '/' })
         this.route('new', { path: '/add' })
         this.route('edit', { path: '/edit/:subscriber_id' })
+
       })
 
       this.route('hooks', { path: 'hooks' }, function() {
 
         this.route('index', { path: '/' })
-        this.route('new', {path: 'add'})
-        this.route('edit', {path: '/edit/:hook_id'})
+        this.route('new', { path: 'add' })
+        this.route('edit', { path: '/edit/:hook_id' })
+
       })
 
     });
@@ -322,8 +324,9 @@ Router.map(function() {
       this.route('hooks', { path: 'hooks' }, function() {
 
         this.route('index', { path: '/' })
-        this.route('new', {path: 'add'})
-        this.route('edit', {path: '/edit/:hook_id'})
+        this.route('new', { path: 'add' })
+        this.route('edit', { path: '/edit/:hook_id' })
+
       })
 
       this.route('help');

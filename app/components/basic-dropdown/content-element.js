@@ -4,8 +4,11 @@ import { next } from '@ember/runloop';
 
 const CE =  ContentElement.extend({
   click(event) {
+
     if (event.target.className === 'ember-power-calendar-nav-control') {
+
       return
+
     }
     this.closeDD();
 
