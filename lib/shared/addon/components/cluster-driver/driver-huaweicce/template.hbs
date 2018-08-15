@@ -558,6 +558,7 @@
                     value=preBase64Password
                     classNames="form-control"
                     placeholder=(t 'clusterNew.huaweicce.password.placeholder')}}
+            {{top-errors errors=passwordError}}
           {{/if}}
         </div>
       </div>
@@ -578,10 +579,10 @@
               </label>
             </div>
             <div class="radio">
-              <label class={{unless config.eipIdContent.length 'text-muted'}}>
-                {{radio-button selection=eipSelection value="exist" disabled=(not config.eipIdContent.length)}}
+              <label class={{unless (gt eipIdContent.length 0) 'text-muted'}}>
+                {{radio-button selection=eipSelection value="exist" disabled=(not (gt eipIdContent.length 0))}}
                 {{t 'clusterNew.huaweicce.eipSelection.exist'}}
-                {{#unless (gt config.eipIdContent.length 0)}}
+                {{#unless (gt eipIdContent.length 0)}}
                   &mdash; {{t 'clusterNew.huaweicce.eipIds.none'}}
                 {{/unless}}
               </label>
