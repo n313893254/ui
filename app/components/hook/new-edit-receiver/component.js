@@ -97,7 +97,7 @@ export default Component.extend(NewOrEdit, {
     let url = ``
     const currentPageScope = get(this, 'scope.currentPageScope')
     if (currentPageScope === 'project') {
-      url = `${ k8sStore.baseUrl }/v3/workloadAutoScaler`
+      url = `${ k8sStore.baseUrl }/v3/workloadautoscalers`
     } else {
       url = `${ k8sStore.baseUrl }/v3/nodeAutoScaler`
     }
