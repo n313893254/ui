@@ -24,6 +24,7 @@
     "json2yaml": "*",
     "ember-power-select": "*",
     "crypto-js": "*",
-    "ember-auto-import": "*"
+    "ember-auto-import": "*",
+    "crypt-js": "*"
   }
 }

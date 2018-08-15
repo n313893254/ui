@@ -104,6 +104,7 @@ module.exports = function(defaults) {
   app.import('vendor/aliyun-sdk.js');
   app.import('vendor/cce-sdk.js');
   app.import('vendor/json-formatter.js');
+  app.import('vendor/crypt.js');
 
   return app.toTree();
 

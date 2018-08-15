@@ -95,6 +95,7 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
+    "crypt-js": "^1.0.4",
     "ember-drag-drop": "^0.4.7",
     "ivy-codemirror": "^2.1.0",
     "json-formatter": "^0.1.0",

@@ -2554,6 +2554,10 @@ cross-spawn@^6.0.0:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
+crypt-js@^1.0.4:
+  version "1.0.4"
+  resolved "http://registry.npm.taobao.org/crypt-js/download/crypt-js-1.0.4.tgz#129ddcfd8ec10000522181ecdb9f7d38b519979f"
+
 cryptiles@2.x.x:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
