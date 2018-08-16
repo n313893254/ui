@@ -3,7 +3,6 @@ import ENV from 'ui/config/environment';
 
 export function initialize(instance) {
 
-  var application = instance.lookup('application:main');
   var k8sStore = instance.lookup('service:k8sStore');
   var cookies = instance.lookup('service:cookies');
 

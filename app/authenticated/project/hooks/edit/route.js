@@ -8,13 +8,10 @@ export default Route.extend({
   k8sStore:     service(),
   clusterStore:    service(),
 
-  model(params, transition) {
+  model(params) {
 
     const store = get(this, 'store');
     const k8sStore = this.get('k8sStore')
-    const clusterStore = get(this, 'clusterStore');
-    const cs = get(this, 'globalStore');
-    const projectId = transition.params['authenticated.project'].project_id;
 
     return hash({
       receiver: k8sStore.find('workloadAutoScaler', null, {

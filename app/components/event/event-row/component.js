@@ -24,7 +24,6 @@ export default Component.extend({
 
     const model = get(this, 'model')
 
-    console.log(model, 'model')
     const { attachPod = {} } = model
     let tplAttachPod = ``
 

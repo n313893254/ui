@@ -1,12 +1,11 @@
 import Route from '@ember/routing/route';
 import { hash } from 'rsvp';
-import { get } from '@ember/object'
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
   k8sStore:     service(),
 
-  model(params, transition) {
+  model(params) {
 
     const k8sStore = this.get('k8sStore')
 
@@ -18,8 +17,6 @@ export default Route.extend({
 
         const s = subscribers.findBy('id', params.subscriber_id)
 
-        console.log(subscribers, 'subscribers')
-        console.log(s, 's')
         if (!s) {
 
           this.replaceWith('authenticated.cluster.subscriber.index');

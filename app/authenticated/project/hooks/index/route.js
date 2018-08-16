@@ -12,15 +12,13 @@ export default Route.extend({
 
     const store = get(this, 'store');
     const k8sStore = this.get('k8sStore')
-    const clusterStore = get(this, 'clusterStore');
     const projectId = transition.params['authenticated.project'].project_id;
 
     return hash({
       hooks: store.findAll('workloadAutoScaler', {
         url:         `${ k8sStore.baseUrl }/v3/workloadAutoScaler`,
         forceReload: true,
-      })
-        .catch((err) => console.log(err)),
+      }),
       pageScope: 'project',
       projectId,
     })

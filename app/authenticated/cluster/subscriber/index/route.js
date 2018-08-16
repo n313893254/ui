@@ -12,7 +12,6 @@ export default Route.extend({
 
     const k8sStore = this.get('k8sStore')
     const clusterStore = get(this, 'clusterStore');
-    const cs = get(this, 'globalStore');
     const clusterId = transition.params['authenticated.cluster'].cluster_id;
 
     return hash({
@@ -20,16 +19,8 @@ export default Route.extend({
         url:         `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogSubscriber`,
         forceReload: true,
         filter:      { clusterId, }
-      })
-        .catch((err) => console.log(err))
+      }),
     })
-    // .then(hash => {
-    //   const {subscribers=[]} = hash
-    //   const filter = subscribers.filter(h => h.clusterId === clusterId)
-    //   return {
-    //     subscribers: filter,
-    //   }
-    // })
 
   },
 });

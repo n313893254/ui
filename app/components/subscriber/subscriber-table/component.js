@@ -2,9 +2,7 @@ import Component from '@ember/component';
 import layout from './template';
 import { inject as service } from '@ember/service'
 import { alias } from '@ember/object/computed';
-import {
-  set, get, computed, setProperties
-} from '@ember/object';
+import { set, get } from '@ember/object';
 import parseUri from 'shared/utils/parse-uri';
 
 export default Component.extend({
@@ -90,7 +88,6 @@ export default Component.extend({
 
       const eventType = get(this, 'eventType')
       const resourceKind = get(this, 'resourceKind')
-      const eventTime = get(this, 'eventTime')
       const namespaceId = get(this, 'namespaceId')
       const clusterId = get(this, 'scope.currentCluster.id')
       const k8sStore = this.get('k8sStore')

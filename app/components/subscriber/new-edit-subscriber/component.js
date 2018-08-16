@@ -3,7 +3,7 @@ import layout from './template';
 import { inject as service } from '@ember/service'
 import { alias } from '@ember/object/computed';
 import {
-  set, get, computed, setProperties
+  set, get, setProperties
 } from '@ember/object';
 import NewOrEdit from 'ui/mixins/new-or-edit';
 

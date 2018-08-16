@@ -12,8 +12,6 @@ export default Route.extend({
   model(params, transition) {
 
     const store = get(this, 'store');
-    const k8sStore = this.get('k8sStore')
-    const cs = get(this, 'globalStore');
     const projectId = transition.params['authenticated.project'].project_id;
 
     return hash({
@@ -27,7 +25,6 @@ export default Route.extend({
   createRecord(type, projectId) {
 
     const store = get(this, 'store')
-    const scope = get(this, 'scope')
     const newRecord = store.createRecord({
       type,
       projectId,
