@@ -34,6 +34,7 @@ module.exports = {
     "moment": true,
     "navigator": true,
     "window": true,
+    "sha512crypt": true,
   },
   env: {
     browser: true,
