@@ -32,7 +32,6 @@
     "dotenv": "^4.0.0",
     "ember-api-store": "2.6.9",
     "ember-assign-helper": "^0.1.2",
-    "ember-auto-import": "^1.2.9",
     "ember-basic-dropdown": "^1.0.3",
     "ember-browserify": "^1.2.0",
     "ember-cli": "~3.1.3",
