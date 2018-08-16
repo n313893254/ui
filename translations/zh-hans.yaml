@@ -109,6 +109,16 @@ generic:
   value: 值
   version: 版本
   yes: "是"
+  mbitS: "Mbit/s"
+  time: 产生时间
+  Size: 大小
+  requestor: Requestor
+  message: 事件
+  level: 级别
+  kind: 资源类型
+  reason: 行为
+  resourceName: 资源
+  address: 地址
 
 realmNames:
   all: 全部
@@ -2019,6 +2029,122 @@ clusterNew:
       placeholder: 例如：10.42.0.0/16
     alphaFeatures:
       label: Alpha功能
+  huaweicce:
+    access:
+      title: 账户访问
+      detail: 配置用于与CCE通讯的凭据
+    accessKey:
+      label: 访问密钥ID
+      placeholder: CCE访问密钥ID
+      help: 创建访问密钥ID参考<a href="https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html" target="_blank">这里</a>.
+    secretKey:
+      label: 访问密钥
+      placeholder: CCE访问密钥
+      help: 获取访问密钥参考<a href="https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html" target="_blank">这里</a>.
+    projectId:
+      label: 项目ID
+      placeholder: CCE项目ID
+      help: 获取项目ID参考<a href="https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606344.html" target="_blank">这里</a>.
+    zone:
+      label: 区域
+      helpText: 获取区域参考<a href="https://developer.huaweicloud.com/endpoint" target="_blank">这里</a>.
+    business:
+      label: 业务
+    checkAccount: "下一步: 配置集群"
+    checkingAccount: 用户校验中...
+    configureNode: "下一步: 配置节点"
+    configuringNode: 配置中...
+    clusterOption:
+      title: 集群选项
+      detail: 为集群自定义Kubernetes选项
+    clusterType:
+      label: 集群类型
+    masterVersion:
+      label: 版本
+    vpcId:
+      label: 虚拟私有云
+    subnetId:
+      label: 所在子网
+    highwaySubnet:
+      label: 高速网卡
+    nodeOption:
+      title: Nodes
+      detail: Customize the nodes that will be created
+    dataVolumeType:
+      label: 数据盘类型
+    dataVolumeSize:
+      label: 数据盘大小
+    description:
+      label: 描述
+      placeholder: e.g. 华为CCE集群
+    eipBandwidthSize:
+      label: 带宽
+    eipChargeMode:
+      label: 计费模式
+    eipCount:
+      label: 数量
+    availableZone:
+      label: 当前区域
+    billingMode:
+      label: 计费模式
+    containerNetworkCidr:
+      label: 容器网段
+      placeholder: e.g. 172.16.0.0/16
+    containerNetworkMode:
+      label: 网络模型
+    rootVolumeType:
+      label: 系统盘类型
+    rootVolumeSize:
+      label: 系统盘大小
+    nodeCount:
+      label: 节点个数
+    nodeFlavor:
+      label: 	节点规格
+    ssh:
+      label: 密钥对
+    eip:
+      label: 弹性IP
+    eipSelection:
+      none: 暂不使用
+      new: 创建新的
+      exist: 使用已有
+    eipIds:
+      label: 弹性IP
+      none: 无可用弹性IP
+    eipType:
+      label: Eip Type
+    clusterLabels:
+      label: 集群标签
+    nodeLabels:
+      label: 节点标签
+    shortLabel: 华为 CCE
+    clusterEipId:
+      label: Cluster Eip
+    externalServerEnabled:
+      label: 外部服务器
+      enabled: Enabled
+      disabled: Disabled
+    highAvailability:
+      label: 高可用
+    managementScale:
+      label: 集群管理规模
+    nodeOperationSystem:
+      label: Node Operation System
+    authenticatingProxyCa:
+      label: Certificate
+    validityPeriod:
+      label: Validity Period
+    bmsIsAutoRenew:
+      label: Auto Renew
+    loginMode:
+      label: 登录方式
+      password: 密码
+      keyPair: 密钥对
+    password:
+      label: 密码
+      placeholder: 请输入密码
+    userName:
+      label: 用户名
   rke:
     etcd:
       heartbeat:
@@ -4401,10 +4527,10 @@ modalImport:
     cluster1: 如果一个资源指定了命名空间，那么会自动创建命名空间，但是不会自动加入到项目中
     cluster2: 如果一个资源没有指定一个命名空间，它将被导入到default中
     cluster3: '该模式还支持没有命名空间的资源，例如: RoleTemplates'
-    
+
     project1: 不指定命名空间的资源将被导入到选定的默认命名空间中
     project2: 如果一个资源指定了一个不存在的命名空间，此命名空间将被创建并添加到这个项目中
-    
+
     namespace1: 所有资源将被导入到选定的命名空间中
     namespace2: 如果资源指定了不同的命名空间，则导入将失败
 
@@ -4455,7 +4581,7 @@ modalShortcuts:
   shift: Shift-{key}
   delete: 删除所选择的(在表视图中)
   kubectl: Kubectl Shell
-  
+
   viewGroup: 切换分组视图
   nextTab: 下一页
   search: 聚焦搜索字段
