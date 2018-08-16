@@ -80,7 +80,8 @@ export default Component.extend({
     {
       name:           'created',
       translationKey: 'generic.time',
-      width:          230
+      width:          230,
+      sort:           ['createdTS']
     },
     {
       name:           'source',
