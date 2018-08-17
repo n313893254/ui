@@ -5630,6 +5630,16 @@ searchableSelect:
   noMatch: 没有匹配
   noOptions: 没有可用的选项
 
+businessPage:
+  header: 业务
+  newBusiness: 创建业务
+  name:
+    label: 名称
+  description:
+    label: 描述
+  new:
+    title: 业务创建
+
 ##############################
 # Mixins
 ##############################
@@ -5725,6 +5735,7 @@ nav:
       auth: 访问控制
       registration: 主机注册
       advanced: 高级
+    business: 业务
   user:
     label: "用户菜单:{username}"
     logout: 注销
@@ -5742,6 +5753,9 @@ nav:
     alerts: 告警
     notifiers: 通知
     logging: 日志
+    event: 事件
+    subscriber: 订阅
+    hook: 自动扩缩容
   project:
     none: 项目/命名空间
     namespaces: 命名空间
@@ -5798,6 +5812,7 @@ action:
   mute: 静默
   unmute: 取消静默
   uncordon: 激活
+  addCluster: 创建集群
 
 ##############################
 # Resource Actions
@@ -6053,3 +6068,70 @@ rkeConfigComment:
     "       kubelet:"
     "         cluster_domain: cluster.local"
     "         cluster_dns_server: 10.43.0.10"
+subscriberPage:
+  name:
+    label: 名称
+    placeholder: 输入订阅名
+  subscriptionAddress:
+    label: 订阅地址
+    placeholder: 输入订阅地址
+  namespaceId:
+    label: 命名空间
+  expectedHttpResponseCode:
+    label: 接收状态码
+    placeholder: e.g. 200
+  attachHttpRequestHeader:
+    header: 添加Http头
+    key:
+      label: Http头
+      placeholder: e.g. Authorization
+    value:
+      label: 值
+      placeholder: e.g. Bearer token-xxxxx
+    addActionLabel: 添加头部
+  noMatch: 没有订阅匹配当前搜索
+hooksPage:
+  header: 自动扩缩容
+  new: 添加扩缩容
+  detail:
+    label: 详情
+  triggerUrl:
+    label: 触发URL
+  NewOrEdit:
+    header: 自动扩缩容
+    name:
+      label: 名称
+      placeholder: 输入名称
+    workloadId:
+      label: 工作负载
+      placeholder: 选择工作负载
+    isScaleUp:
+      label: 扩缩容
+      true: 扩容
+      false: 缩容
+    scaleStep:
+      label: 步进值
+    minimumScale:
+      label: 最小值
+    maximumScale:
+      label: 最大值
+    tolerance:
+      label: Tolerance
+    metricsType:
+      label: 指标类型
+    metricsCondition:
+      label: 指标表达式
+      placeholder: e.g. >50
+    unit:
+      mCpu: mCpu
+      mb: Mb
+      percentage: "%"
+eventPage:
+  header: 事件
+  resourceKind: 类型
+  namespace: 命名空间
+  resourceName: 资源
+  logLevel: 等级
+  time: 时间
+  startTime: 开始时间
+  endTime: 结束时间
