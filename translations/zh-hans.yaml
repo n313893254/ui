@@ -2068,8 +2068,8 @@ clusterNew:
     highwaySubnet:
       label: 高速网卡
     nodeOption:
-      title: Nodes
-      detail: Customize the nodes that will be created
+      title: 节点选项
+      detail: 为节点自定义选项
     dataVolumeType:
       label: 数据盘类型
     dataVolumeSize:
@@ -2129,7 +2129,7 @@ clusterNew:
     managementScale:
       label: 集群管理规模
     nodeOperationSystem:
-      label: Node Operation System
+      label: 操作系统
     authenticatingProxyCa:
       label: Certificate
     validityPeriod:
