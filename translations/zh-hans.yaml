@@ -2087,6 +2087,8 @@ clusterNew:
       label: 当前区域
     billingMode:
       label: 计费模式
+      payPerUse: 按需计费
+      yearly: 包年/包月
     containerNetworkCidr:
       label: 容器网段
       placeholder: e.g. 172.16.0.0/16
@@ -2131,7 +2133,7 @@ clusterNew:
     nodeOperationSystem:
       label: 操作系统
     authenticatingProxyCa:
-      label: Certificate
+      label: 	CA根证书
     validityPeriod:
       label: Validity Period
     bmsIsAutoRenew:
@@ -5639,6 +5641,11 @@ businessPage:
     label: 描述
   new:
     title: 业务创建
+    editTitle: 编辑业务
+    nodeCount:
+      label: 节点数
+    userId:
+      label: 管理员
 
 ##############################
 # Mixins
@@ -6069,6 +6076,8 @@ rkeConfigComment:
     "         cluster_domain: cluster.local"
     "         cluster_dns_server: 10.43.0.10"
 subscriberPage:
+  title: 订阅
+  newButton: 添加订阅
   name:
     label: 名称
     placeholder: 输入订阅名
@@ -6093,6 +6102,7 @@ subscriberPage:
 hooksPage:
   header: 自动扩缩容
   new: 添加扩缩容
+  newButton: 添加扩缩容
   detail:
     label: 详情
   triggerUrl:
@@ -6135,3 +6145,10 @@ eventPage:
   time: 时间
   startTime: 开始时间
   endTime: 结束时间
+  button:
+    search: 搜索
+    searching: 搜索中
+  eventLevelContent:
+    any: 全部
+    normal: 普通
+    warning: 告警

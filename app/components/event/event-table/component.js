@@ -11,6 +11,7 @@ import C from 'ui/utils/constants'
 export default Component.extend({
   scope:           service(),
   k8sStore:        service(),
+  intl:            service(),
   layout,
   loading:         false,
   searching:       false,

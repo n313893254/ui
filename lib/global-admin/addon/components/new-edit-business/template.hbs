@@ -4,7 +4,7 @@
       <h1>Business: {{business.name}}</h1>
     {{else}}
       {{#if editing}}
-        <h1>Edit Business</h1>
+        <h1>{{t 'businessPage.new.editTitle'}}</h1>
       {{else}}
         <h1>{{t 'businessPage.new.title'}}</h1>
       {{/if}}
@@ -24,7 +24,7 @@
 }}
 <div class="row">
   <div class="col span-6">
-    <label class="acc-label">Node Count</label>
+    <label class="acc-label">{{t 'businessPage.new.nodeCount.label'}}</label>
     {{#if readOnly}}
       <div>{{business.nodeCount}}</div>
     {{else}}
@@ -32,7 +32,7 @@
     {{/if}}
   </div>
   <div class="col span-6">
-    <label class="acc-label">Admin</label>
+    <label class="acc-label">{{t 'businessPage.new.userId.label'}}</label>
     {{#if readOnly}}
       <div>{{business.nodeCount}}</div>
     {{else}}

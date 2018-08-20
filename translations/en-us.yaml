@@ -2109,6 +2109,8 @@ clusterNew:
       label: Zone
     billingMode:
       label: Billing Mode
+      payPerUse: Pay-per-use
+      yearly: Yearly/Monthly
     containerNetworkCidr:
       label: Container Network Cidr
       placeholder: e.g. 172.16.0.0/16
@@ -5657,7 +5659,11 @@ businessPage:
     label: Description
   new:
     title: Add Business
-
+    editTitle: Edit Business
+    nodeCount:
+      label: Node Count
+    userId:
+      label: Admin
 ##############################
 # Mixins
 ##############################
@@ -6088,6 +6094,8 @@ rkeConfigComment:
     "         cluster_dns_server: 10.43.0.10"
 
 subscriberPage:
+  title: Subscriber
+  newButton: Add Subscriber
   name:
     label: Name
     placeholder: Enter your subscriber Name
@@ -6113,6 +6121,7 @@ subscriberPage:
 hooksPage:
   header: Auto Scaler
   new: Add Auto Scaler
+  newButton: Add Auto Scaler
   detail:
     label: Detail
   triggerUrl:
@@ -6156,3 +6165,10 @@ eventPage:
   time: Time
   startTime: Start Time
   endTime: End Time
+  button:
+    search: Search
+    searching: Searching
+  eventLevelContent:
+    any: Any log level
+    normal: Normal
+    warning: Warning
