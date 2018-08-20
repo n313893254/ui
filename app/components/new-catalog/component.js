@@ -504,6 +504,10 @@ export default Component.extend(NewOrEdit, {
     errors.pushObjects(get(this, 'namespaceErrors') || []);
     errors.pushObjects(get(this, 'selectedTemplateModel').validationErrors() || []);
 
+    if (!get(this, 'catalogApp.description')) {
+      errors.pushObject('Description is required')
+    }
+
     if (errors.length) {
 
       set(this, 'errors', errors.uniq());
