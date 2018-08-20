@@ -38,17 +38,18 @@ const App = Resource.extend(StateCounts, EndpointPorts, {
 
   }),
   services: computed('namespace.services.@each.labels', function() {
-
     return (get(this, 'namespace.services') || []).filter((item) => {
-
       if ( item['labels'] ) {
-
         return item['labels']['io.cattle.field/appId'] === get(this, 'name');
-
       }
-
     });
-
+  }),
+  dnsRecords: computed('namespace.dnsRecords.@each.labels', function() {
+    return (get(this, 'namespace.dnsRecords') || []).filter((item) => {
+      if ( item['labels'] ) {
+        return item['labels']['io.cattle.field/appId'] === get(this, 'name');
+      }
+    });
   }),
   workloads: computed('namespace.workloads.@each.workloadLabels', function() {
 

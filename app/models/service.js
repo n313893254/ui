@@ -1,32 +1,12 @@
 import Resource from 'ember-api-store/models/resource';
+import { get, computed } from '@ember/object';
 import { reference } from 'ember-api-store/utils/denormalize';
-import {
-  computed, get, set
-} from '@ember/object';
-import { equal } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-
-export const ARECORD = 'arecord';
-export const CNAME = 'cname';
-export const ALIAS = 'alias';
-export const WORKLOAD = 'workload';
-export const SELECTOR = 'selector';
-export const CLUSTERIP = 'clusterIp';
-export const UNKNOWN = 'unknown';
-
-const FIELD_MAP = {
-  [ARECORD]:   'ipAddresses',
-  [CNAME]:     'hostname',
-  [ALIAS]:     'targetDnsRecordIds',
-  [WORKLOAD]:  'targetWorkloadIds',
-  [SELECTOR]:  'selector',
-  [CLUSTERIP]: 'clusterIp',
-};
 
 export default Resource.extend({
   namespace: reference('namespaceId', 'namespace', 'clusterStore'),
 
-  displayType: computed('intl.locale', 'kind', function() {
+  displayKind: computed('intl.locale', 'kind', function() {
 
     const intl = get(this, 'intl');
 
@@ -38,27 +18,6 @@ export default Resource.extend({
 
       return intl.t('model.service.displayKind.generic');
 
-    }
-
-  }),
-
-  displayTarget: computed('ports.[]', function() {
-
-    let parts = [];
-    const endpoints = (get(this, 'ports') || []).sort(Util.compareDisplayEndpoint);
-
-    endpoints.forEach((endpoint) => {
-      const {name, port, targetPort} = endpoint
-      parts.push('<span>' + Util.escapeHtml(name === targetPort ? port : targetPort) + '</span>');
-    });
-
-    let pub = parts.join(', ');
-
-    if (pub) {
-      return pub.htmlSafe();
-    }
-    else {
-      return '';
     }
 
   }),
