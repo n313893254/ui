@@ -19,6 +19,9 @@ export default Component.extend(NewOrEdit, {
   }, {
     label: 'Memory',
     value: 'memory',
+  }, {
+    label: 'Custom',
+    value: 'custom',
   }],
   receiver:        alias('model.receiver'),
   primaryResource: alias('model.receiver'),

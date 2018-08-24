@@ -69,10 +69,15 @@ export default Component.extend(NewOrEdit, {
   editing:                  notEmpty('catalogApp.id'),
   requiredNamespace: alias('selectedTemplateModel.requiredNamespace'),
 
+  randomStr: Math.random().toString(36).substring(7),
+
   cceName: computed('catalogApp.description', function() {
     const description = get(this, 'catalogApp.description') || ''
     let name = description.replace(/[\_\.]/g, '-').replace(/[^A-Za-z0-9\-]/g, '')
-    return name
+    if (!name) {
+      return ''
+    }
+    return `${name}-${get(this, 'randomStr')}`
   }),
 
   filenames: computed('selectedTemplateModel', 'selectedTemplateModel.filesAsArray.[]', function(){

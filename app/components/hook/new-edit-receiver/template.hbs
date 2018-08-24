@@ -4,7 +4,7 @@
 
 <section>
   <div class="row">
-    <div class="col {{if (eq model.pageScope 'project') 'span-6' 'span-12'}}">
+    <div class="col span-12">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.name.label'}}{{field-required}}</label>
       {{input class="form-control"
               type="text"
@@ -12,17 +12,6 @@
               placeholder=(t 'hooksPage.NewOrEdit.name.placeholder')
       }}
     </div>
-    {{#if (eq model.pageScope 'project')}}
-      <div class="col span-6">
-        <label class="acc-label">{{t 'hooksPage.NewOrEdit.workloadId.label'}}{{field-required}}</label>
-        {{searchable-select
-          class="form-control"
-          content=workloadContent
-          value=primaryResource.workloadId
-          placeholder=(t 'hooksPage.NewOrEdit.workloadId.placeholder')
-        }}
-      </div>
-    {{/if}}
   </div>
   <div class="row">
     <div class="col span-6">
@@ -66,14 +55,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col span-6">
-      <label class="acc-label">{{t 'hooksPage.NewOrEdit.tolerance.label'}}</label>
-      <div class="input-group">
-        {{input-integer min=0 value=primaryResource.tolerance}}
-        <span class="input-group-addon bg-default">{{t 'generic.seconds'}}</span>
-      </div>
-    </div>
-    <div class="col span-6">
+    <div class="col {{if (eq model.pageScope 'project') 'span-4' 'span-6'}}">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.metricsType.label'}}</label>
       {{searchable-select
         class="form-control"
@@ -81,9 +63,18 @@
         value=primaryResource.metricsType
       }}
     </div>
-  </div>
-  <div class="row">
-    <div class="col span-6">
+    {{#if (eq model.pageScope 'project')}}
+      <div class="col span-4">
+        <label class="acc-label">{{t 'hooksPage.NewOrEdit.workloadId.label'}}{{field-required}}</label>
+        {{searchable-select
+          class="form-control"
+          content=workloadContent
+          value=primaryResource.workloadId
+          placeholder=(t 'hooksPage.NewOrEdit.workloadId.placeholder')
+        }}
+      </div>
+    {{/if}}
+    <div class="col {{if (eq model.pageScope 'project') 'span-4' 'span-6'}}">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.metricsCondition.label'}}{{field-required}}</label>
       <div class="input-group">
         {{input class="form-control"
@@ -95,13 +86,24 @@
           {{#if (eq model.pageScope 'project')}}
             {{#if (eq primaryResource.metricsType 'cpu')}}
               {{t 'hooksPage.NewOrEdit.unit.mCpu'}}
-            {{else}}
+            {{else if (eq primaryResource.metricsType 'memory')}}
               {{t 'hooksPage.NewOrEdit.unit.mb'}}
+            {{else}}
+              {{t 'hooksPage.NewOrEdit.unit.percentage'}}
             {{/if}}
           {{else}}
             {{t 'hooksPage.NewOrEdit.unit.percentage'}}
           {{/if}}
         </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col {{if (eq model.pageScope 'project') 'span-4' 'span-6'}}">
+      <label class="acc-label">{{t 'hooksPage.NewOrEdit.tolerance.label'}}</label>
+      <div class="input-group">
+        {{input-integer min=0 value=primaryResource.tolerance}}
+        <span class="input-group-addon bg-default">{{t 'generic.seconds'}}</span>
       </div>
     </div>
   </div>
