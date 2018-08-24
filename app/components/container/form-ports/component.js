@@ -155,7 +155,7 @@ export default Component.extend({
 
     ports.forEach((obj) => {
 
-      if ( get(obj, 'kind') === 'HostPort' ) {
+      if ( get(obj, 'kind') === 'HostPort' || get(obj, 'kind') === 'LoadBalancer' ) {
 
         const ip = get(obj, 'hostIp');
         const port = get(obj, 'sourcePort');
