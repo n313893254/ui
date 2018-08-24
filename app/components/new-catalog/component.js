@@ -69,6 +69,12 @@ export default Component.extend(NewOrEdit, {
   editing:                  notEmpty('catalogApp.id'),
   requiredNamespace: alias('selectedTemplateModel.requiredNamespace'),
 
+  cceName: computed('catalogApp.description', function() {
+    const description = get(this, 'catalogApp.description') || ''
+    let name = description.replace(/[\_\.]/g, '-').replace(/[^A-Za-z0-9\-]/g, '')
+    return name
+  }),
+
   filenames: computed('selectedTemplateModel', 'selectedTemplateModel.filesAsArray.[]', function(){
 
     let files = get(this, 'selectedTemplateModel.filesAsArray').map( (file) => ({
@@ -534,6 +540,8 @@ export default Component.extend(NewOrEdit, {
 
     }
 
+    set(this, 'primaryResource.name', get(this, 'cceName'));
+
     return this._super(...arguments);
 
   },
@@ -549,6 +557,8 @@ export default Component.extend(NewOrEdit, {
       return false;
 
     }
+    set(this, 'catalogApp.name', get(this, 'cceName'))
+
     if ( get(this, 'actuallySave') ) {
 
       if (get(this, 'selectedTemplateModel.questions')) {

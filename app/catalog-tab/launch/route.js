@@ -47,13 +47,6 @@ export default Route.extend({
         let neuNSN = results.tpl.get('displayName');
         let dupe = results.namespaces.findBy('id', neuNSN);
 
-        if ( dupe ) {
-
-          neuNSN = `${ get(dupe, 'displayName') }-${ Math.random().toString(36)
-            .substring(7) }`; // generate a random 5 char string for the dupename
-
-        }
-
         results.namespace = clusterStore.createRecord({
           type:      'namespace',
           name:      neuNSN,
