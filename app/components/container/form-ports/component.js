@@ -64,7 +64,7 @@ export default Component.extend({
 
       }
 
-      if ( get(obj, 'kind') === 'HostPort' ) {
+      if ( get(obj, 'kind') === 'HostPort' || get(obj, 'kind') === 'LoadBalancer') {
 
         let port = get(obj, '_ipPort') || '';
         let ip;
