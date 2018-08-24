@@ -52,7 +52,7 @@ export default Component.extend({
 
       }
 
-      if (obj.kind === 'LoadBalancer' && !get(obj, 'sourcePort')) {
+      if (obj.kind === 'LoadBalancer' && !get(obj, '_ipPort')) {
 
         errors.push(intl.t('formPorts.error.loadBalancer.sourcePortRequired'));
 

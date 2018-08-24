@@ -70,11 +70,7 @@
               {{else if (or (eq port.kind "HostPort") (eq port.kind "LoadBalancer"))}}
                 <div class="row">
                   {{#if editing}}
-                    {{#if (eq port.kind "HostPort")}}
-                      {{input class="form-control input-sm" type="text" value=port._ipPort placeholder=(t 'formPorts.sourcePort.ipPlaceholder')}}
-                    {{else}}
-                      {{input class="form-control input-sm" type="text" value=port.sourcePort placeholder=(t 'formPorts.sourcePort.ipPlaceholder')}}
-                    {{/if}}
+                    {{input class="form-control input-sm" type="text" value=port._ipPort placeholder=(t 'formPorts.sourcePort.ipPlaceholder')}}
                   {{else if port.hostIp}}
                     {{port.hostIp}}:{{port.sourcePort}}
                   {{else}}
