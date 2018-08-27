@@ -124,6 +124,19 @@ export default Component.extend(ViewNewEdit, ChildHook, {
       this.sendAction('cancel');
 
     },
+    setLabels(labels) {
+
+      let out = {};
+
+      labels.forEach((row) => {
+
+        out[row.key] = row.value;
+
+      });
+
+      set(this, 'primaryResource.labels', out);
+
+    },
   },
 
   willSave() {

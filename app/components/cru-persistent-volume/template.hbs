@@ -129,6 +129,16 @@
       </div>
     </div>
   {{/accordion-list-item}}
+  {{form-labels-annotations
+    classNames="accordion-wrapper"
+    labelErrors=labelErrors
+    initialLabels=primaryResource.labels
+    setLabels=(action 'setLabels')
+    expandAll=al.expandAll
+    expandFn=expandFn
+    model=primaryResource
+    annotationErrors=annotationErrors
+  }}
 {{/accordion-list}}
 
 {{#unless isView}}

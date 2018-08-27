@@ -100,6 +100,19 @@ export default Component.extend(ViewNewEdit, {
       set(this, 'primaryResource.mountOptions', ary);
 
     },
+    setLabels(labels) {
+
+      let out = {};
+
+      labels.forEach((row) => {
+
+        out[row.key] = row.value;
+
+      });
+
+      set(this, 'primaryResource.labels', out);
+
+    },
   },
 
   willSave() {
