@@ -27,6 +27,23 @@ export default Component.extend(ViewNewEdit, ChildHook, {
 
   canUseStorageClass: gt('storageClasses.length', 0),
 
+  init() {
+    this._super(...arguments)
+    const scope = get(this, 'scope')
+    const {currentCluster={}} = scope
+    const {provider} = currentCluster
+    if (get(this, 'mode') === 'new' && provider === 'huaweicce') {
+      set(this, 'primaryResource.labels', {
+        'failure-domain.beta.kubernetes.io/region': 'cn-north-1',
+        'failure-domain.beta.kubernetes.io/zone': 'cn-north-1a',
+      })
+      set(this, 'primaryResource.annotations', {
+        'volume.beta.kubernetes.io/storage-class': 'sata',
+        'volume.beta.kubernetes.io/storage-provisioner': 'flexvolume-huawei.com/fuxivol',
+      })
+    }
+  },
+
   headerToken: function() {
 
     let k = 'cruPersistentVolumeClaim.';
