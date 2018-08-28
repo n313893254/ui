@@ -31,11 +31,13 @@ export default Component.extend(ViewNewEdit, ChildHook, {
     this._super(...arguments)
     const scope = get(this, 'scope')
     const {currentCluster={}} = scope
-    const {provider} = currentCluster
+    const {provider, huaweiCloudContainerEngineConfig={}} = currentCluster
+    const {availableZone, zone} = huaweiCloudContainerEngineConfig
     if (get(this, 'mode') === 'new' && provider === 'huaweicce') {
+      set(this, 'primaryResource.storageClassId', 'sata')
       set(this, 'primaryResource.labels', {
-        'failure-domain.beta.kubernetes.io/region': 'cn-north-1',
-        'failure-domain.beta.kubernetes.io/zone': 'cn-north-1a',
+        'failure-domain.beta.kubernetes.io/region': zone,
+        'failure-domain.beta.kubernetes.io/zone': availableZone,
       })
       set(this, 'primaryResource.annotations', {
         'volume.beta.kubernetes.io/storage-class': 'sata',
