@@ -6151,6 +6151,7 @@ hooksPage:
     metricsCondition:
       label: Metrics Condition
       placeholder: e.g. >50
+      textareaPlaceholder: Input Metrics Condition
     unit:
       mCpu: mCpu
       mb: Mb

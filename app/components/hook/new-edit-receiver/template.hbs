@@ -76,26 +76,34 @@
     {{/if}}
     <div class="col {{if (eq model.pageScope 'project') 'span-4' 'span-6'}}">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.metricsCondition.label'}}{{field-required}}</label>
-      <div class="input-group">
-        {{input class="form-control"
-                type="text"
-                value=primaryResource.metricsCondition
-                placeholder=(t 'hooksPage.NewOrEdit.metricsCondition.placeholder')
-        }}
-        <span class="input-group-addon bg-default">
-          {{#if (eq model.pageScope 'project')}}
-            {{#if (eq primaryResource.metricsType 'cpu')}}
-              {{t 'hooksPage.NewOrEdit.unit.mCpu'}}
-            {{else if (eq primaryResource.metricsType 'memory')}}
-              {{t 'hooksPage.NewOrEdit.unit.mb'}}
+      {{#if (not-eq primaryResource.metricsType 'custom')}}
+        <div class="input-group">
+          {{input class="form-control"
+                  type="text"
+                  value=primaryResource.metricsCondition
+                  placeholder=(t 'hooksPage.NewOrEdit.metricsCondition.placeholder')
+          }}
+          <span class="input-group-addon bg-default">
+            {{#if (eq model.pageScope 'project')}}
+              {{#if (eq primaryResource.metricsType 'cpu')}}
+                {{t 'hooksPage.NewOrEdit.unit.mCpu'}}
+              {{else if (eq primaryResource.metricsType 'memory')}}
+                {{t 'hooksPage.NewOrEdit.unit.mb'}}
+              {{else}}
+                {{t 'hooksPage.NewOrEdit.unit.percentage'}}
+              {{/if}}
             {{else}}
               {{t 'hooksPage.NewOrEdit.unit.percentage'}}
             {{/if}}
-          {{else}}
-            {{t 'hooksPage.NewOrEdit.unit.percentage'}}
-          {{/if}}
-        </span>
-      </div>
+          </span>
+        </div>
+      {{else}}
+        {{textarea-autogrow
+          value=primaryResource.metricsCondition
+          classNames="form-control text-small"
+          placeholder="hooksPage.NewOrEdit.metricsCondition.textareaPlaceholder"
+        }}
+      {{/if}}
     </div>
   </div>
   <div class="row">
