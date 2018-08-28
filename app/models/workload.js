@@ -14,6 +14,8 @@ import StateCounts from 'ui/mixins/state-counts';
 import EndpointPorts from 'ui/mixins/endpoint-ports';
 import { inject as service } from '@ember/service';
 import DisplayImage from 'shared/mixins/display-image';
+import fetchYaml from 'shared/utils/fetch-yaml';
+import YAML from 'npm:yamljs';
 
 var Workload = Resource.extend(DisplayImage, StateCounts, EndpointPorts, {
   pods:         hasMany('id', 'pod', 'workloadId'),
@@ -221,6 +223,7 @@ var Workload = Resource.extend(DisplayImage, StateCounts, EndpointPorts, {
   scope:         service(),
   router:        service(),
   clusterStore: service(),
+  store:        service('store'),
 
   init() {
 
@@ -305,7 +308,7 @@ var Workload = Resource.extend(DisplayImage, StateCounts, EndpointPorts, {
 
       }
       set(this, 'scale', scale);
-      this.saveScale();
+      this.saveScale(scale);
 
     },
 
@@ -317,7 +320,7 @@ var Workload = Resource.extend(DisplayImage, StateCounts, EndpointPorts, {
       scale -= get(this, 'scaleIncrement') || 1;
       scale = Math.max(scale, min);
       set(this, 'scale', scale);
-      this.saveScale();
+      this.saveScale(scale);
 
     },
 
@@ -381,7 +384,7 @@ var Workload = Resource.extend(DisplayImage, StateCounts, EndpointPorts, {
   },
 
   scaleTimer: null,
-  saveScale() {
+  saveScale(scale) {
 
     if ( get(this, 'scaleTimer') ) {
 
@@ -391,11 +394,29 @@ var Workload = Resource.extend(DisplayImage, StateCounts, EndpointPorts, {
 
     var timer = later(this, function() {
 
-      this.save().catch((err) => {
+      window.jsyaml||(window.jsyaml=jsyaml);
+      if ( get(this, 'links.yaml') ) {
+        let yamlLink = get(this, 'links.yaml');
+        fetchYaml(yamlLink).then((yaml) => {
+          let jsonObj = jsyaml.load(yaml)
+          set(jsonObj, 'spec.replicas', scale)
 
-        get(this, 'growl').fromError('Error updating scale', err);
+          get(this,'store').request({
+            data: JSON.stringify(jsonObj),
+            url: yamlLink,
+            method: 'PUT'
+          }).catch(() => {
+            get(this, 'growl').fromError('Error updating scale', err);
+          });
 
-      });
+        });
+      }
+
+      // this.save().catch((err) => {
+      //
+      //   get(this, 'growl').fromError('Error updating scale', err);
+      //
+      // });
 
     }, 500);
 
