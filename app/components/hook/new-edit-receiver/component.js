@@ -25,6 +25,7 @@ export default Component.extend(NewOrEdit, {
   }],
   receiver:        alias('model.receiver'),
   primaryResource: alias('model.receiver'),
+  advanced:        false,
 
   workloadContent: computed('model.workloads.[]', function() {
 

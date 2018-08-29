@@ -74,7 +74,7 @@
         }}
       </div>
     {{/if}}
-    <div class="col {{if (eq model.pageScope 'project') 'span-4' 'span-6'}}">
+    <div class="col {{if (eq model.pageScope 'project') 'span-4' 'span-6'}} mb-20">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.metricsCondition.label'}}{{field-required}}</label>
       {{#if (not-eq primaryResource.metricsType 'custom')}}
         <div class="input-group">
@@ -106,15 +106,17 @@
       {{/if}}
     </div>
   </div>
-  <div class="row">
-    <div class="col {{if (eq model.pageScope 'project') 'span-4' 'span-6'}}">
-      <label class="acc-label">{{t 'hooksPage.NewOrEdit.tolerance.label'}}</label>
-      <div class="input-group">
-        {{input-integer min=0 value=primaryResource.tolerance}}
-        <span class="input-group-addon bg-default">{{t 'generic.seconds'}}</span>
+  {{#advanced-section advanced=advanced}}
+    <div class="row">
+      <div class="col {{if (eq model.pageScope 'project') 'span-4' 'span-6'}}">
+        <label class="acc-label">{{t 'hooksPage.NewOrEdit.tolerance.label'}}</label>
+        <div class="input-group">
+          {{input-integer min=0 value=primaryResource.tolerance}}
+          <span class="input-group-addon bg-default">{{t 'generic.seconds'}}</span>
+        </div>
       </div>
     </div>
-  </div>
+  {{/advanced-section}}
 </section>
 
 {{top-errors errors=errors}}
