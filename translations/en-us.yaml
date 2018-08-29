@@ -3693,6 +3693,7 @@ formPorts:
     label: On listening port
     placeholder: "e.g. 80"
     ipPlaceholder: "e.g. 80 or 19.82.2.24:80"
+    l4Placeholder: "e.g. 19.82.2.24:80"
     clusterIpDefault: "Same as container port"
   nodePort:
     placeholder: "e.g. 30000"
