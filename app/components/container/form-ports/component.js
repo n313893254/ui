@@ -42,7 +42,7 @@ export default Component.extend({
   protocolOptions,
   elbTypeContent,
 
-  portsChanged: observer('ports.@each.{containerPort,dnsName,hostIp,kind,name,protocol,sourcePort,_ipPort}', function() {
+  portsChanged: observer('ports.@each.{containerPort,dnsName,hostIp,kind,name,protocol,sourcePort,_ipPort,elbType}', function() {
 
     const errors = [];
     const intl = get(this, 'intl');
@@ -98,7 +98,8 @@ export default Component.extend({
             toSet['hostIp'] = ip;
 
             if (get(obj, 'kind') === 'LoadBalancer') {
-              const elbType = get(this, 'elbType')
+              const elbType = get(obj, 'elbType')
+              console.log(elbType, 'elbType')
               toSet['hostIp'] = `${ip}:${elbType}`;
             }
 
@@ -132,8 +133,6 @@ export default Component.extend({
     this._super(...arguments);
     this.initPorts();
     this.initKindChoices();
-    set(this, 'elbType', 'elasticity')
-
   },
 
   actions: {
@@ -144,6 +143,7 @@ export default Component.extend({
         kind:          'NodePort',
         protocol:      'TCP',
         containerPort: '',
+        elbType:       'elasticity',
       }));
 
       next(() => {
@@ -181,7 +181,10 @@ export default Component.extend({
         if (get(obj, 'kind') === 'LoadBalancer') {
           let arr = ip.split(':')
           if (arr.length > 0) {
-            ip = ip.split(':')[0]
+            ip = arr[0]
+            set(obj, 'elbType', arr[1])
+          } else {
+            set(obj, 'elbType', 'elasticity')
           }
         }
 

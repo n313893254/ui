@@ -49,10 +49,10 @@
               {{searchable-select
                 class="form-control"
                 content=elbTypeContent
-                value=elbType
+                value=port.elbType
               }}
             {{else}}
-              {{port.kind}}
+              {{port.elbType}}
             {{/if}}
           </div>
         {{/if}}

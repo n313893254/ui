@@ -7,6 +7,17 @@ import {
 } from '@ember/object';
 import NewOrEdit from 'ui/mixins/new-or-edit';
 
+const resourceTypeContent = [
+  {
+    label: 'Pod',
+    value: 'Pod',
+  },
+  {
+    label: 'Node',
+    value: 'Node',
+  },
+]
+
 export default Component.extend(NewOrEdit, {
   scope:    service(),
   k8sStore: service(),
@@ -14,6 +25,7 @@ export default Component.extend(NewOrEdit, {
   layout,
   subscriber:      alias('model.subscriber'),
   primaryResource: alias('model.subscriber'),
+  resourceTypeContent,
 
   init() {
 
@@ -26,6 +38,7 @@ export default Component.extend(NewOrEdit, {
         'subscriber.clusterId':                get(this, 'scope.currentCluster.id'),
         'subscriber.expectedHttpResponseCode': 200,
         'subscriber.attachHttpRequestHeader':  {},
+        'subscriber.resourceType':             'Pod',
       })
 
     }

@@ -1,5 +1,5 @@
 <section class="header clearfix">
-  <div class="pull-left pt-10"><h1>Subscriber</h1></div>
+  <div class="pull-left pt-10"><h1>{{t 'subscriberPage.title'}}</h1></div>
 </section>
 
 <section>
@@ -22,6 +22,14 @@
     </div>
   </div>
   <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">{{t 'subscriberPage.resourceType.label'}}</label>
+      {{searchable-select
+        class="form-control"
+        content=resourceTypeContent
+        value=subscriber.resourceType
+      }}
+    </div>
     <div class="col span-6">
       <label class="acc-label">{{t 'subscriberPage.expectedHttpResponseCode.label'}}</label>
       {{input class="form-control"

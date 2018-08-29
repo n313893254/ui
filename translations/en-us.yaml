@@ -6118,6 +6118,8 @@ subscriberPage:
       placeholder: e.g. Bearer token-xxxxx
     addActionLabel: Add Header
   noMatch: No subscribers match the current search
+  resourceType:
+    label: Resource Kind
 
 hooksPage:
   header: Auto Scaler
