@@ -91,6 +91,7 @@ export default Component.extend({
       get(this, 'modalService').toggleModal('modal-new-pvc', {
         model:     get(this, 'model.pvc'),
         namespace: get(this, 'namespace'),
+        business:  get(this, 'business'),
         callback:  (pvc) => {
 
           set(this, 'model.pvc', pvc);

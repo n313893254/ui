@@ -1,7 +1,7 @@
 import { inject as service } from '@ember/service';
-import { gt } from '@ember/object/computed';
+import { gt, reads } from '@ember/object/computed';
 import {
-  get, set, computed
+  get, set, computed, observer
 } from '@ember/object';
 import { parseSi } from 'shared/utils/parse-unit';
 import Component from '@ember/component';
@@ -12,6 +12,7 @@ import layout from './template';
 export default Component.extend(ViewNewEdit, ChildHook, {
   intl:  service(),
   scope: service(),
+  k8sStore: service(),
 
   layout,
   model:             null,
@@ -22,6 +23,8 @@ export default Component.extend(ViewNewEdit, ChildHook, {
   actuallySave:      true,
   useStorageClass:   true,
   capacity:          null,
+  availableZones:    [],
+  provider: reads('scope.currentCluster.provider'),
 
   titleKey: 'cruPersistentVolumeClaim.title',
 
@@ -30,19 +33,36 @@ export default Component.extend(ViewNewEdit, ChildHook, {
   init() {
     this._super(...arguments)
     const scope = get(this, 'scope')
+    const k8sStore = get(this, 'k8sStore')
     const {currentCluster={}} = scope
     const {provider, huaweiCloudContainerEngineConfig={}} = currentCluster
-    const {availableZone, zone} = huaweiCloudContainerEngineConfig
-    if (get(this, 'mode') === 'new' && provider === 'huaweicce') {
+    const primaryResource = get(this, 'primaryResource')
+
+    if (provider === 'huaweicce' && get(this, 'mode') === 'new') {
       set(this, 'primaryResource.storageClassId', 'sata')
-      set(this, 'primaryResource.labels', {
-        'failure-domain.beta.kubernetes.io/region': zone,
-        'failure-domain.beta.kubernetes.io/zone': availableZone,
+      const {availableZone, zone, labels={}, projectId} = huaweiCloudContainerEngineConfig
+
+      let businessId = labels.business
+      const business = get(this, 'business') && get(this, 'business').content || []
+      businessId = businessId.replace('_', ':')
+      const filter = business.filter(b => b.id === businessId)[0]
+
+      filter.doAction('getHuaweiCloudApiInfo', {
+        projectId,
+        zone,
+      }, {
+        url: `${k8sStore.baseUrl}/v3/business/${businessId}?action=getHuaweiCloudApiInfo`
+      }).then((res) => {
+        const filter = res.availabilityZoneInfo.filter(z => z && z.zoneState && z.zoneState.available)
+        set(this, 'availableZones', res.availabilityZoneInfo.filter(z => z && z.zoneState && z.zoneState.available))
+        set(this, 'availableZoneId', availableZone)
       })
-      set(this, 'primaryResource.annotations', {
-        'volume.beta.kubernetes.io/storage-class': 'sata',
-        'volume.beta.kubernetes.io/storage-provisioner': 'flexvolume-huawei.com/fuxivol',
-      })
+      const pvcLabels = get(this, 'primaryResource.labels') || {}
+      const annotations = get(this, 'primaryResource.annotations') || {}
+      delete pvcLabels['failure-domain.beta.kubernetes.io/region']
+      delete pvcLabels['failure-domain.beta.kubernetes.io/zone']
+      delete annotations['volume.beta.kubernetes.io/storage-class']
+      delete annotations['volume.beta.kubernetes.io/storage-provisioner']
     }
   },
 
@@ -159,6 +179,24 @@ export default Component.extend(ViewNewEdit, ChildHook, {
   },
 
   willSave() {
+    const poi = get(this, 'scope.currentCluster.provider')
+    if (get(this, 'scope.currentCluster.provider') === 'huaweicce') {
+      const zone = get(this, 'scope.currentCluster.huaweiCloudContainerEngineConfig.zone')
+      const labels = get(this, 'primaryResource.labels') || {}
+      const annotations = get(this, 'primaryResource.annotations') || {}
+      let _labels = labels
+      let _annotations = annotations
+      Object.assign(_labels, {
+        'failure-domain.beta.kubernetes.io/region': zone,
+        'failure-domain.beta.kubernetes.io/zone': get(this, 'availableZoneId'),
+      })
+      Object.assign(_annotations, {
+        'volume.beta.kubernetes.io/storage-class': get(this, 'primaryResource.storageClassId'),
+        'volume.beta.kubernetes.io/storage-provisioner': 'flexvolume-huawei.com/fuxivol',
+      })
+      set(this, 'primaryResource.labels', _labels)
+      set(this, 'primaryResource.annotations', _annotations)
+    }
 
     const pr = get(this, 'primaryResource');
     const intl = get(this, 'intl');

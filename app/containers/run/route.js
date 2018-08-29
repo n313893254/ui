@@ -10,12 +10,14 @@ export default Route.extend({
   prefs:        service(),
   clusterStore: service(),
   globalStore:  service(),
+  k8sStore:     service(),
 
   queryParams: { launchConfigIndex: { refreshModel: true } },
 
   model(params/* , transition*/) {
 
     var store = get(this, 'store');
+    var k8sStore = get(this, 'k8sStore');
 
     const gs = get(this, 'globalStore');
     const project = window.l('route:application').modelFor('authenticated.project')
@@ -56,9 +58,11 @@ export default Route.extend({
       dataMap: promise,
       clusterLogging,
       projectLogging,
+      business:          k8sStore.findAll('business', {url:`${k8sStore.baseUrl}/v3/business`, forceReload: true}),
     }).then((hash) => ({
       loggingEnabled: hash.clusterLogging || hash.projectLogging,
       dataMap:        hash.dataMap,
+      business:       hash.business,
     }))
 
   },

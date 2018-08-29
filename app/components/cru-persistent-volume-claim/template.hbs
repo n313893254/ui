@@ -110,15 +110,26 @@
           {{input-number classNames="form-control" value=capacity}}
           <span class="input-group-addon bg-default">{{t 'cruPersistentVolumeClaim.capacity.unit'}}</span>
         </div>
-      {{else}}
-        <label class="acc-label">{{t 'cruPersistentVolumeClaim.pv.label'}}</label>
-        {{new-select
-          content=persistentVolumeChoices
-          prompt="cruPersistentVolumeClaim.pv.prompt"
-          localizedPrompt=true
-          required=true
-          value=primaryResource.volumeId
+
+        <label class="acc-label mt-20">{{t 'clusterNew.huaweicce.availableZone.label'}}</label>
+        {{searchable-select
+          class="form-control"
+          content=availableZones
+          value=availableZoneId
+          optionValuePath="zoneName"
+          optionLabelPath="zoneName"
         }}
+      {{else}}
+        {{#if (eq provider 'huaweicce')}}
+          <label class="acc-label">{{t 'cruPersistentVolumeClaim.pv.label'}}</label>
+          {{new-select
+            content=persistentVolumeChoices
+            prompt="cruPersistentVolumeClaim.pv.prompt"
+            localizedPrompt=true
+            required=true
+            value=primaryResource.volumeId
+          }}
+        {{/if}}
       {{/if}}
     </div>
   </div>
@@ -152,6 +163,7 @@
     expandFn=expandFn
     model=primaryResource
     annotationErrors=annotationErrors
+    poi=poi
   }}
 {{/accordion-list}}
 

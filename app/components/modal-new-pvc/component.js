@@ -12,6 +12,7 @@ export default Component.extend(ModalBase, {
   callback:  alias('modalService.modalOpts.callback'),
   namespace: alias('modalService.modalOpts.namespace'),
   model:     alias('modalService.modalOpts.model'),
+  business:     alias('modalService.modalOpts.business'),
   init() {
 
     this._super(...arguments);
