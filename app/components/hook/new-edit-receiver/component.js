@@ -148,7 +148,7 @@ export default Component.extend(NewOrEdit, {
 
         return this.mergeResult(newData);
 
-      });
+      }).catch(err => this.send('error', err););
 
   },
 
