@@ -5,6 +5,30 @@ import { alias } from '@ember/object/computed';
 import { set, get } from '@ember/object';
 import parseUri from 'shared/utils/parse-uri';
 
+const headers = [
+  {
+    name:           'name',
+    translationKey: 'generic.name',
+    sort:           ['created'],
+    searchField:    ['name', 'subscriptionAddress']
+  },
+  {
+    name:           'resourceType',
+    translationKey: 'subscriberPage.resourceType.label',
+    sort:           false,
+  },
+  {
+    name:           'resourceReason',
+    translationKey: 'subscriberPage.resourceReason.label',
+    sort:           false,
+  },
+  {
+    name:           'address',
+    translationKey: 'generic.address',
+    sort:           false,
+  },
+]
+
 export default Component.extend({
   scope:    service(),
   k8sStore: service(),
@@ -47,19 +71,7 @@ export default Component.extend({
       value: 'lastHour'
     }
   ],
-  headers: [
-    {
-      name:           'name',
-      translationKey: 'generic.name',
-      sort:           ['created'],
-      searchField:    ['name', 'subscriptionAddress']
-    },
-    {
-      name:           'address',
-      translationKey: 'generic.address',
-      sort:           false,
-    },
-  ],
+  headers,
 
   rows: alias('model.subscribers'),
 

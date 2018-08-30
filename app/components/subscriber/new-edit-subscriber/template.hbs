@@ -31,6 +31,16 @@
       }}
     </div>
     <div class="col span-6">
+      <label class="acc-label">{{t 'subscriberPage.resourceReason.label'}}</label>
+      {{input class="form-control"
+              type="text"
+              value=subscriber.resourceReason
+              placeholder=(t 'subscriberPage.resourceReason.placeholder')
+      }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col span-6">
       <label class="acc-label">{{t 'subscriberPage.expectedHttpResponseCode.label'}}</label>
       {{input class="form-control"
               type="text"

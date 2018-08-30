@@ -5454,6 +5454,16 @@ pagination:
     =0 {No Workloads}
     =1 {{count} {count, plural, =1 {Workload} other {Workloads}}}
     other {{from} - {to} of {count} Workloads}}
+  subscriber: |
+    {pages, plural,
+    =0 {No Subscribers}
+    =1 {{count} {count, plural, =1 {Subscriber} other {Subscribers}}}
+    other {{from} - {to} of {count} Subscribers}}
+  scaler: |
+    {pages, plural,
+    =0 {No Scalers}
+    =1 {{count} {count, plural, =1 {Scaler} other {Scalers}}}
+    other {{from} - {to} of {count} Scalers}}
 
 projectRow:
   none: No description
@@ -6120,6 +6130,9 @@ subscriberPage:
   noMatch: No subscribers match the current search
   resourceType:
     label: Resource Kind
+  resourceReason:
+    label: Resource Reason
+    placeholder: Input the reason you want to subscriber.
 
 hooksPage:
   header: Auto Scaler

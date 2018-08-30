@@ -5435,6 +5435,16 @@ pagination:
     =0{无工作负载}
     =1{{count}{count, plural,=1{个工作负载}other{个工作负载}}}
     other{{count}个工作负载中的{from}-{to}}}
+  subscriber: |
+    {pages, plural,
+    =0 {无订阅}
+    =1 {{count} {count, plural, =1 {个订阅} other {个订阅}}}
+    other{{count}个订阅中的{from}-{to}}}
+  scaler: |
+    {pages, plural,
+    =0 {无扩缩容}
+    =1 {{count} {count, plural, =1 {个扩缩容} other {个扩缩容}}}
+    other{{count}个扩缩容中的{from}-{to}}}
 
 projectRow:
   none: 无描述
@@ -6099,6 +6109,12 @@ subscriberPage:
       placeholder: e.g. Bearer token-xxxxx
     addActionLabel: 添加头部
   noMatch: 没有订阅匹配当前搜索
+  resourceType:
+    label: 资源类型
+  resourceReason:
+    label: 资源行为
+    placeholder: 输入订阅的资源行为
+
 hooksPage:
   header: 自动扩缩容
   new: 添加扩缩容
@@ -6136,6 +6152,7 @@ hooksPage:
       mCpu: mCpu
       mb: Mb
       percentage: "%"
+
 eventPage:
   header: 事件
   resourceKind: 类型
