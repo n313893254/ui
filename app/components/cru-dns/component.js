@@ -89,8 +89,9 @@ export default Component.extend(ViewNewEdit, ChildHook, {
   },
 
   willSave() {
-
-    get(this, 'model').clearTypesExcept(get(this, 'recordType'));
+    // get(this, 'model').clearTypesExcept(get(this, 'type'));
+    const model = get(this, 'model')
+    delete model.clusterIp
     set(this, 'model.namespaceId', get(this, 'namespace.id') || '__placeholder__');
     const self = this;
     const sup = this._super;
