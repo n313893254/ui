@@ -71,11 +71,15 @@
     <div class="row">
       <div class="col span-6">
         <label class="acc-label">{{t 'formNameDescription.description.label'}}{{field-required}}</label>
-        {{input class="form-control"
-                type="text"
-                value=catalogApp.description
-                placeholder=(t 'formNameDescription.description.placeholder')
-        }}
+        {{#if editing}}
+          <div class="mt-20">{{catalogApp.description}}</div>
+        {{else}}
+          {{input class="form-control"
+                  type="text"
+                  value=catalogApp.description
+                  placeholder=(t 'formNameDescription.description.placeholder')
+          }}
+        {{/if}}
       </div>
       <div class="col span-6" style="padding-top: 6px;"> {{!-- matches styles of form-name-description --}}
         <label for="" class="acc-label">{{t 'newCatalog.templateVersion'}}</label>
