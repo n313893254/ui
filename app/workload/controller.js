@@ -25,4 +25,12 @@ export default Controller.extend({
     return envs;
 
   }),
+
+  actions: {
+    cancel() {
+
+      this.send('goToPrevious');
+
+    },
+  }
 });

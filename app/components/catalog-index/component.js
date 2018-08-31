@@ -179,7 +179,10 @@ export default Component.extend({
 
         });
 
-    }
+    },
+    cancel() {
+      this.sendAction('cancel')
+    },
   },
 
 });

@@ -119,6 +119,7 @@ generic:
   reason: 行为
   resourceName: 资源
   address: 地址
+  goback: 返回
 
 realmNames:
   all: 全部

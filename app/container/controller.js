@@ -45,7 +45,12 @@ export default Controller.extend({
 
       set(this, 'selectedContainer', container);
 
-    }
+    },
+    cancel() {
+
+      this.send('goToPrevious');
+
+    },
   },
 
 });

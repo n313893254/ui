@@ -44,6 +44,11 @@ export default Controller.extend({
       catalogTab.send('refresh');
 
     },
+    cancel() {
+
+      this.send('goToPrevious');
+
+    },
 
   }
 });

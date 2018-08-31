@@ -24,7 +24,7 @@
         <label class="acc-label vertical-middle p-0"> {{t 'podPage.image'}}:</label>
         {{selectedContainer.image}} {{copy-to-clipboard clipboardText=container.image size="small"}}
       </div>
-      
+
     {{/if}}
     <div class="vertical-middle">
       <label class="acc-label vertical-middle p-0">{{t 'servicePage.multistat.namespace'}}</label>
@@ -224,3 +224,7 @@
     {{/accordion-list}}
   </section>
 {{/each}}
+
+<div class="section" style="display: flex; justify-content: center;">
+  <button {{action "cancel"}} class="btn bg-primary">{{t 'generic.goback'}}</button>
+</div>
