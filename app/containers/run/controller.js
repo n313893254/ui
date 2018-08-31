@@ -32,7 +32,8 @@ export default Controller.extend({
 
     cancel() {
 
-      this.send('transitionOut');
+      // this.send('transitionOut');
+      this.send('goToPrevious');
 
     },
 
