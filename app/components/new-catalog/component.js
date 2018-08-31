@@ -69,7 +69,7 @@ export default Component.extend(NewOrEdit, {
   editing:                  notEmpty('catalogApp.id'),
   requiredNamespace: alias('selectedTemplateModel.requiredNamespace'),
 
-  randomStr: Math.random().toString(36).substring(7),
+  randomStr: null,
 
   cceName: computed('catalogApp.description', function() {
     const description = get(this, 'catalogApp.description') || ''
@@ -293,7 +293,7 @@ export default Component.extend(NewOrEdit, {
         }
 
       }
-
+      set(this, 'randomStr', Math.random().toString(36).substring(7))
     });
 
   },
