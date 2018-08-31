@@ -26,11 +26,4 @@ export default Controller.extend({
 
   }),
 
-  actions: {
-    cancel() {
-
-      this.send('goToPrevious');
-
-    },
-  }
 });

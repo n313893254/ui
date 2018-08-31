@@ -51,8 +51,11 @@ export function initialize(/* application */) {
 
     },
 
-    goToPrevious(def) {
-
+    goToPrevious(def, parent=false) {
+      if (parent) {
+        this.goToParent();
+        return
+      }
       // var appRoute = getOwner(this).lookup('route:application');
       const appRoute = window.l('route:application'); // The global one, not the per-engine application
 

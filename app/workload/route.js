@@ -17,5 +17,13 @@ export default Route.extend({
 
     controller.setProperties({ launchConfig: lc, });
 
+  },
+
+  actions: {
+    cancel() {
+
+      this.transitionTo('containers.index')
+
+    },
   }
 });
