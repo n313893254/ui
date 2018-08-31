@@ -44,12 +44,13 @@
         </div>
         {{#if (eq port.kind "LoadBalancer")}}
           <div class="col span-2">
-            <label class="acc-label">Elb Type</label>
+            <label class="acc-label">{{t 'formPorts.elbType.label'}}</label>
             {{#if editing}}
               {{searchable-select
                 class="form-control"
                 content=elbTypeContent
                 value=port.elbType
+                localizedLabel=true
               }}
             {{else}}
               {{port.elbType}}

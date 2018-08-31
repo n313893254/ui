@@ -18,15 +18,14 @@ const protocolOptions = [
     value: 'UDP'
   }
 ];
-
 const elbTypeContent = [
   {
-    label: 'Elasticity',
-    value: 'elasticity',
+    label: 'formPorts.elbType.content.union',
+    value: 'union',
   },
   {
-    label: 'Union',
-    value: 'union',
+    label: 'formPorts.elbType.content.elasticity',
+    value: 'elasticity',
   },
 ]
 
@@ -143,7 +142,7 @@ export default Component.extend({
         kind:          'NodePort',
         protocol:      'TCP',
         containerPort: '',
-        elbType:       'elasticity',
+        elbType:       'union',
       }));
 
       next(() => {
@@ -184,7 +183,7 @@ export default Component.extend({
             ip = arr[0]
             set(obj, 'elbType', arr[1])
           } else {
-            set(obj, 'elbType', 'elasticity')
+            set(obj, 'elbType', 'union')
           }
         }
 

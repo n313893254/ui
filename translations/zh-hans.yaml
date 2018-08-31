@@ -3695,6 +3695,11 @@ formPorts:
     mixedIpPort: "Port{ip}:{port}/{proto}有超过一条映射规则"
     mixedPort: "Port{port}/{proto}有超过一条映射规则"
   showAdvanced: 显示端口命名选项
+  elbType:
+    label: Elb类型
+    content:
+      union: 增强型
+      elasticity: 经典型
 
 formScale:
   label: 工作负载类型

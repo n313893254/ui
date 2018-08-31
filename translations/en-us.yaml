@@ -3719,6 +3719,11 @@ formPorts:
     mixedIpPort: "Port {ip}:{port}/{proto} has more than one mapping."
     mixedPort: "Port {port}/{proto} has more than one mapping."
   showAdvanced: Show Port Naming Options
+  elbType:
+    label: Elb Type
+    content:
+      union: Enhanced
+      elasticity: Classic
 
 formScale:
   label: Workload Type
