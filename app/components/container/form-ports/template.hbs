@@ -8,7 +8,7 @@
           {{#if editing}}
             {{input-integer class="form-control input-sm public" min="1" max="65535" value=port.containerPort placeholder=(t 'formPorts.containerPort.placeholder')}}
           {{else}}
-            {{port.containerPort}}
+            <div>{{port.containerPort}}</div>
           {{/if}}
         </div>
         <div class="col span-1">
@@ -20,7 +20,7 @@
                 value=port.protocol
             }}
           {{else}}
-            {{port.protocol}}
+            <div>{{port.protocol}}</div>
           {{/if}}
         </div>
         <div class="col span-3">
@@ -36,7 +36,7 @@
             }}
           {{else}}
             {{#if port.kind}}
-              {{port.kind}}
+              <div>{{port.kind}}</div>
             {{else}}
               <span class="text-muted">{{t 'generic.na'}}</span>
             {{/if}}
@@ -53,7 +53,7 @@
                 localizedLabel=true
               }}
             {{else}}
-              {{port.elbType}}
+            <div>{{t (concat 'formPorts.elbType.content.' port.elbType)}}</div>
             {{/if}}
           </div>
         {{/if}}
@@ -72,17 +72,19 @@
             <div class="row">
               {{#if editing}}
                 {{input class="form-control input-sm" type="text" value=port._ipPort placeholder=(t (if (eq port.kind "HostPort") 'formPorts.sourcePort.ipPlaceholder' 'formPorts.sourcePort.l4Placeholder'))}}
+              {{else if (eq port.kind "LoadBalancer")}}
+                <div>{{port._ipPort}}</div>
               {{else if port.hostIp}}
-                {{port.hostIp}}:{{port.sourcePort}}
+                <div>{{port.hostIp}}:{{port.sourcePort}}</div>
               {{else}}
-                {{port.sourcePort}}
+                <div>{{port.sourcePort}}</div>
               {{/if}}
             </div>
           {{else}}
             {{#if editing}}
               {{input-integer class="form-control input-sm" min="1" max="65535" value=port.sourcePort placeholder=(t 'formPorts.sourcePort.placeholder')}}
             {{else}}
-              {{port.sourcePort}}
+              <div>{{port.sourcePort}}</div>      
             {{/if}}
           {{/if}}
         </div>

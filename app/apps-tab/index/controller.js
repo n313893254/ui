@@ -28,7 +28,7 @@ export default Controller.extend({
 
     }
 
-    return out.sortBy('displayName');
+    return out.sortBy('createdTS');
 
   }),
   templatesObsvr: observer('model.apps.[]', function() {
