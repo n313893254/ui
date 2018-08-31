@@ -11,6 +11,7 @@ import {
   ARECORD, CNAME, ALIAS, WORKLOAD, SELECTOR
 } from 'ui/models/dnsrecord';
 import ChildHook from 'shared/mixins/child-hook';
+import Errors from 'ui/utils/errors';
 
 export default Component.extend(ViewNewEdit, ChildHook, {
   intl: service(),
@@ -85,6 +86,20 @@ export default Component.extend(ViewNewEdit, ChildHook, {
 
       set(this, 'model.selector', map);
 
+    },
+    error(err={}) {
+      if (err)
+      {
+        var body = Errors.stringify(err);
+        if (err.status === 422) {
+          body = 'You can not edit this page'
+        }
+        set(this, 'errors', [body]);
+      }
+      else
+      {
+        set(this, 'errors', null);
+      }
     },
   },
 
