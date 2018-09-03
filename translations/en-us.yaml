@@ -121,6 +121,7 @@ generic:
   reason: Reason
   resourceName: Resource name
   address: Address
+  goback: Cancel
 
 realmNames:
   all: All
