@@ -28,11 +28,11 @@
         {{progress-bar-multi
             labelKey="state"
             valueKey="count"
-            values=model.podStates.byColor
-            tooltipValues=model.podStates.byName
+            values=filterWorkloads.podStates.byColor
+            tooltipValues=filterWorkloads.podStates.byName
         }}
         <small class="text-muted">
-          {{model.pods.length}}
+          {{filterWorkloads.pods.length}}
         </small>
       </div>
       <div class="col span-7 clip text-small">

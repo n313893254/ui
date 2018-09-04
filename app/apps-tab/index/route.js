@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import { on } from '@ember/object/evented';
 import C from 'ui/utils/constants';
+import { hash } from 'rsvp';
 
 export default Route.extend({
   catalog: service(),
@@ -15,8 +16,12 @@ export default Route.extend({
   }),
   model() {
 
-    return this.get('store').findAll('app')
-      .then((apps) => ({ apps, }));
+    var store = this.get('store');
+    return hash({
+      workloads: store.findAll('workload'),
+      pods:      store.findAll('pod'),
+      apps:     store.findAll('app'),
+    });
 
   },
 

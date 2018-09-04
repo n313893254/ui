@@ -170,9 +170,9 @@ export default Route.extend({
 
     },
 
-    goToPrevious(def) {
+    goToPrevious(def, parent) {
 
-      this.goToPrevious(def);
+      this.goToPrevious(def, parent);
 
     },
 

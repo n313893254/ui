@@ -8,7 +8,7 @@
 
 <section class="pl-0 pr-0">
   {{#each filteredApps as |ns|}}
-    {{namespace-app model=ns}}
+    {{namespace-app model=ns pods=model.pods workloads=model.workloads}}
   {{else}}
     {{empty-table disabled=(rbac-prevents resource="app" scope="project" permission="create") resource="container" newRoute="catalog-tab" newTranslationKey="nav.apps.launch"}}
   {{/each}}

@@ -46,7 +46,7 @@ export default Controller.extend({
     },
     cancel() {
 
-      this.send('goToPrevious');
+      this.send('goToPrevious', null, true);
 
     },
 
