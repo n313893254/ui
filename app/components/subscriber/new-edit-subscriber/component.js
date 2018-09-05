@@ -23,10 +23,10 @@ export default Component.extend(NewOrEdit, {
   k8sStore: service(),
 
   layout,
-  subscriber:      alias('model.subscriber'),
-  primaryResource: alias('model.subscriber'),
   resourceTypeContent,
 
+  subscriber:      alias('model.subscriber'),
+  primaryResource: alias('model.subscriber'),
   init() {
 
     this._super(...arguments)
@@ -103,7 +103,8 @@ export default Component.extend(NewOrEdit, {
 
         return this.mergeResult(newData);
 
-      }).catch(err => this.send('error', err));
+      })
+      .catch((err) => this.send('error', err));
 
   },
 

@@ -97,9 +97,12 @@ export default Component.extend({
             toSet['hostIp'] = ip;
 
             if (get(obj, 'kind') === 'LoadBalancer') {
+
               const elbType = get(obj, 'elbType')
+
               console.log(elbType, 'elbType')
-              toSet['hostIp'] = `${ip}:${elbType}`;
+              toSet['hostIp'] = `${ ip }:${ elbType }`;
+
             }
 
           }
@@ -132,6 +135,7 @@ export default Component.extend({
     this._super(...arguments);
     this.initPorts();
     this.initKindChoices();
+
   },
 
   actions: {
@@ -178,13 +182,20 @@ export default Component.extend({
         const port = get(obj, 'sourcePort');
 
         if (get(obj, 'kind') === 'LoadBalancer') {
+
           let arr = ip.split(':')
+
           if (arr.length > 0) {
+
             ip = arr[0]
             set(obj, 'elbType', arr[1])
+
           } else {
+
             set(obj, 'elbType', 'union')
+
           }
+
         }
 
         set(obj, '_ipPort', (ip ? `${ ip  }:` : '') + port);

@@ -17,10 +17,11 @@ export default Route.extend({
   model() {
 
     var store = this.get('store');
+
     return hash({
       workloads: store.findAll('workload'),
       pods:      store.findAll('pod'),
-      apps:     store.findAll('app'),
+      apps:      store.findAll('app'),
     });
 
   },

@@ -60,7 +60,7 @@ var Namespace = Resource.extend(StateCounts, {
   secrets:      hasMany('id', 'namespacedSecret', 'namespaceId', 'projectStore', null, 'clusterStore'),
   ingress:      hasMany('id', 'ingress', 'namespaceId', 'projectStore', null, 'clusterStore'),
   volumes:      hasMany('id', 'persistentVolumeClaim', 'namespaceId', 'projectStore', null, 'clusterStore'),
-  project:   reference('projectId', 'project', 'globalStore'),
+  project:    reference('projectId', 'project', 'globalStore'),
 
   availableActions: computed('projectId', () => {
 

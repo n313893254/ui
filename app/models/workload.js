@@ -394,22 +394,30 @@ var Workload = Resource.extend(DisplayImage, StateCounts, EndpointPorts, {
 
     var timer = later(this, function() {
 
-      window.jsyaml||(window.jsyaml=jsyaml);
+      window.jsyaml || (window.jsyaml = jsyaml);
       if ( get(this, 'links.yaml') ) {
+
         let yamlLink = get(this, 'links.yaml');
+
         fetchYaml(yamlLink).then((yaml) => {
+
           let jsonObj = jsyaml.load(yaml)
+
           set(jsonObj, 'spec.replicas', scale)
 
-          get(this,'store').request({
-            data: JSON.stringify(jsonObj),
-            url: yamlLink,
+          get(this, 'store').request({
+            data:   JSON.stringify(jsonObj),
+            url:    yamlLink,
             method: 'PUT'
-          }).catch(() => {
-            get(this, 'growl').fromError('Error updating scale', err);
-          });
+          })
+            .catch(() => {
+
+              get(this, 'growl').fromError('Error updating scale', err);
+
+            });
 
         });
+
       }
 
       // this.save().catch((err) => {

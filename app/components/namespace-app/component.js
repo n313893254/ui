@@ -12,6 +12,13 @@ export default Component.extend({
   srcSet:        false,
   latestVersion: null,
 
+  filterWorkloads: computed('pods.[]', 'model.targetNamespace', function() {
+
+    const filter = get(this, 'workloads').filter((w) => w.namespaceId === get(this, 'model.targetNamespace'))
+
+    return filter.length > 0 ? filter[0] : []
+
+  }),
   didRender() {
 
     if (!this.get('srcSet')) {
@@ -30,8 +37,4 @@ export default Component.extend({
 
   },
 
-  filterWorkloads: computed('pods.[]', 'model.targetNamespace', function() {
-    const filter = get(this, 'workloads').filter(w => w.namespaceId === get(this, 'model.targetNamespace'))
-    return filter.length > 0 ? filter[0] : []
-  }),
 });

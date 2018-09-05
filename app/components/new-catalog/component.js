@@ -63,24 +63,32 @@ export default Component.extend(NewOrEdit, {
   noAppReadme:              null,
   selectedFileContetnt:     null,
 
+  randomStr: null,
+
   isGKE:                    alias('scope.currentCluster.isGKE'),
 
   primaryResource:          alias('namespaceResource'),
   editing:                  notEmpty('catalogApp.id'),
   requiredNamespace: alias('selectedTemplateModel.requiredNamespace'),
 
-  randomStr: null,
-
   cceName: computed('catalogApp.description', function() {
+
     if (get(this, 'mode') === 'edit') {
+
       return ''
+
     }
     const description = get(this, 'catalogApp.description') || ''
     let name = description.replace(/[\_\.]/g, '-').replace(/[^A-Za-z0-9\-]/g, '')
+
     if (!name) {
+
       return ''
+
     }
-    return `${name}-${get(this, 'randomStr')}`
+
+    return `${ name }-${ get(this, 'randomStr') }`
+
   }),
 
   filenames: computed('selectedTemplateModel', 'selectedTemplateModel.filesAsArray.[]', function(){
@@ -297,10 +305,16 @@ export default Component.extend(NewOrEdit, {
 
       }
       if (get(this, 'mode') === 'new') {
-        set(this, 'randomStr', Math.random().toString(36).substring(7))
+
+        set(this, 'randomStr', Math.random().toString(36)
+          .substring(7))
+
       } else {
+
         set(this, 'cceName', get(this, 'catalogApp.displayName'))
+
       }
+
     });
 
   },
@@ -523,7 +537,9 @@ export default Component.extend(NewOrEdit, {
     errors.pushObjects(get(this, 'selectedTemplateModel').validationErrors() || []);
 
     if (!get(this, 'catalogApp.description')) {
+
       errors.pushObject('Description is required')
+
     }
 
     if (errors.length) {

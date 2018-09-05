@@ -12,7 +12,7 @@ export default Route.extend({
     const store = get(this, 'store');
 
     return hash({
-      app: store.find('app', get(params, 'app_id')),
+      app:       store.find('app', get(params, 'app_id')),
       ingresses: store.findAll('ingress'),
     });
 

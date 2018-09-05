@@ -87,25 +87,33 @@ export default Component.extend(ViewNewEdit, ChildHook, {
       set(this, 'model.selector', map);
 
     },
-    error(err={}) {
-      if (err)
-      {
+    error(err = {}) {
+
+      if (err) {
+
         var body = Errors.stringify(err);
+
         if (err.status === 422) {
+
           body = 'You can not edit this page'
+
         }
         set(this, 'errors', [body]);
-      }
-      else
-      {
+
+      } else {
+
         set(this, 'errors', null);
+
       }
+
     },
   },
 
   willSave() {
+
     // get(this, 'model').clearTypesExcept(get(this, 'type'));
     const model = get(this, 'model')
+
     delete model.clusterIp
     set(this, 'model.namespaceId', get(this, 'namespace.id') || '__placeholder__');
     const self = this;

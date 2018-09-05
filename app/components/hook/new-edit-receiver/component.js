@@ -23,10 +23,10 @@ export default Component.extend(NewOrEdit, {
     label: 'Custom',
     value: 'custom',
   }],
-  receiver:        alias('model.receiver'),
-  primaryResource: alias('model.receiver'),
   advanced:        false,
 
+  receiver:        alias('model.receiver'),
+  primaryResource: alias('model.receiver'),
   workloadContent: computed('model.workloads.[]', function() {
 
     const workloads = get(this, 'model.workloads').content || []
@@ -148,7 +148,8 @@ export default Component.extend(NewOrEdit, {
 
         return this.mergeResult(newData);
 
-      }).catch(err => this.send('error', err));
+      })
+      .catch((err) => this.send('error', err));
 
   },
 

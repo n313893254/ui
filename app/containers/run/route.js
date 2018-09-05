@@ -57,10 +57,13 @@ export default Route.extend({
     }
 
     return hash({
-      dataMap: promise,
+      dataMap:  promise,
       clusterLogging,
       projectLogging,
-      business:          clusterStore.findAll('business', {url:`${k8sStore.baseUrl}/v3/business`, forceReload: true}),
+      business:          clusterStore.findAll('business', {
+        url:         `${ k8sStore.baseUrl }/v3/business`,
+        forceReload: true
+      }),
     }).then((hash) => ({
       loggingEnabled: hash.clusterLogging || hash.projectLogging,
       dataMap:        hash.dataMap,

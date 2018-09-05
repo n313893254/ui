@@ -10,8 +10,8 @@ import ChildHook from 'shared/mixins/child-hook';
 import layout from './template';
 
 export default Component.extend(ViewNewEdit, ChildHook, {
-  intl:  service(),
-  scope: service(),
+  intl:     service(),
+  scope:    service(),
   k8sStore: service(),
 
   layout,
@@ -24,47 +24,11 @@ export default Component.extend(ViewNewEdit, ChildHook, {
   useStorageClass:   true,
   capacity:          null,
   availableZones:    [],
+  titleKey:          'cruPersistentVolumeClaim.title',
+
   provider: reads('scope.currentCluster.provider'),
 
-  titleKey: 'cruPersistentVolumeClaim.title',
-
   canUseStorageClass: gt('storageClasses.length', 0),
-
-  init() {
-    this._super(...arguments)
-    const scope = get(this, 'scope')
-    const k8sStore = get(this, 'k8sStore')
-    const {currentCluster={}} = scope
-    const {provider, huaweiCloudContainerEngineConfig={}} = currentCluster
-    const primaryResource = get(this, 'primaryResource')
-
-    if (provider === 'huaweicce' && get(this, 'mode') === 'new') {
-      set(this, 'primaryResource.storageClassId', 'sata')
-      const {availableZone, zone, labels={}, projectId} = huaweiCloudContainerEngineConfig
-
-      let businessId = labels.business
-      const business = get(this, 'business') && get(this, 'business').content || []
-      businessId = businessId.replace('_', ':')
-      const filter = business.filter(b => b.id === businessId)[0]
-
-      filter.doAction('getHuaweiCloudApiInfo', {
-        projectId,
-        zone,
-      }, {
-        url: `${k8sStore.baseUrl}/v3/business/${businessId}?action=getHuaweiCloudApiInfo`
-      }).then((res) => {
-        const filter = res.availabilityZoneInfo.filter(z => z && z.zoneState && z.zoneState.available)
-        set(this, 'availableZones', res.availabilityZoneInfo.filter(z => z && z.zoneState && z.zoneState.available))
-        set(this, 'availableZoneId', availableZone)
-      })
-      const pvcLabels = get(this, 'primaryResource.labels') || {}
-      const annotations = get(this, 'primaryResource.annotations') || {}
-      delete pvcLabels['failure-domain.beta.kubernetes.io/region']
-      delete pvcLabels['failure-domain.beta.kubernetes.io/zone']
-      delete annotations['volume.beta.kubernetes.io/storage-class']
-      delete annotations['volume.beta.kubernetes.io/storage-provisioner']
-    }
-  },
 
   headerToken: function() {
 
@@ -110,6 +74,51 @@ export default Component.extend(ViewNewEdit, ChildHook, {
       .sortBy('label');
 
   }),
+  init() {
+
+    this._super(...arguments)
+    const scope = get(this, 'scope')
+    const k8sStore = get(this, 'k8sStore')
+    const { currentCluster = {} } = scope
+    const { provider, huaweiCloudContainerEngineConfig = {} } = currentCluster
+    const primaryResource = get(this, 'primaryResource')
+
+    if (provider === 'huaweicce' && get(this, 'mode') === 'new') {
+
+      set(this, 'primaryResource.storageClassId', 'sata')
+      const {
+        availableZone, zone, labels = {}, projectId
+      } = huaweiCloudContainerEngineConfig
+
+      let businessId = labels.business
+      const business = get(this, 'business') && get(this, 'business').content || []
+
+      businessId = businessId.replace('_', ':')
+      const filter = business.filter((b) => b.id === businessId)[0]
+
+      filter.doAction('getHuaweiCloudApiInfo', {
+        projectId,
+        zone,
+      }, { url: `${ k8sStore.baseUrl }/v3/business/${ businessId }?action=getHuaweiCloudApiInfo` }).then((res) => {
+
+        const filter = res.availabilityZoneInfo.filter((z) => z && z.zoneState && z.zoneState.available)
+
+        set(this, 'availableZones', res.availabilityZoneInfo.filter((z) => z && z.zoneState && z.zoneState.available))
+        set(this, 'availableZoneId', availableZone)
+
+      })
+      const pvcLabels = get(this, 'primaryResource.labels') || {}
+      const annotations = get(this, 'primaryResource.annotations') || {}
+
+      delete pvcLabels['failure-domain.beta.kubernetes.io/region']
+      delete pvcLabels['failure-domain.beta.kubernetes.io/zone']
+      delete annotations['volume.beta.kubernetes.io/storage-class']
+      delete annotations['volume.beta.kubernetes.io/storage-provisioner']
+
+    }
+
+  },
+
   didReceiveAttrs() {
 
     if ( !get(this, 'persistentVolumes') ) {
@@ -179,23 +188,28 @@ export default Component.extend(ViewNewEdit, ChildHook, {
   },
 
   willSave() {
+
     const poi = get(this, 'scope.currentCluster.provider')
+
     if (get(this, 'scope.currentCluster.provider') === 'huaweicce') {
+
       const zone = get(this, 'scope.currentCluster.huaweiCloudContainerEngineConfig.zone')
       const labels = get(this, 'primaryResource.labels') || {}
       const annotations = get(this, 'primaryResource.annotations') || {}
       let _labels = labels
       let _annotations = annotations
+
       Object.assign(_labels, {
         'failure-domain.beta.kubernetes.io/region': zone,
-        'failure-domain.beta.kubernetes.io/zone': get(this, 'availableZoneId'),
+        'failure-domain.beta.kubernetes.io/zone':   get(this, 'availableZoneId'),
       })
       Object.assign(_annotations, {
-        'volume.beta.kubernetes.io/storage-class': get(this, 'primaryResource.storageClassId'),
+        'volume.beta.kubernetes.io/storage-class':       get(this, 'primaryResource.storageClassId'),
         'volume.beta.kubernetes.io/storage-provisioner': 'flexvolume-huawei.com/fuxivol',
       })
       set(this, 'primaryResource.labels', _labels)
       set(this, 'primaryResource.annotations', _annotations)
+
     }
 
     const pr = get(this, 'primaryResource');

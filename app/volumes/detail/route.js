@@ -4,7 +4,7 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
-  k8sStore: service(),
+  k8sStore:     service(),
   clusterStore: service(),
   model(params) {
 
@@ -16,7 +16,10 @@ export default Route.extend({
       persistentVolumes: clusterStore.findAll('persistentVolume'),
       storageClasses:    clusterStore.findAll('storageClass'),
       pvc:               store.find('persistentVolumeClaim', params.volume_id),
-      business:          clusterStore.findAll('business', {url:`${k8sStore.baseUrl}/v3/business`, forceReload: true}),
+      business:          clusterStore.findAll('business', {
+        url:         `${ k8sStore.baseUrl }/v3/business`,
+        forceReload: true
+      }),
     });
 
   },
