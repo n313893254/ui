@@ -73,7 +73,7 @@ export default Component.extend(NewOrEdit, {
 
   cceName: computed('catalogApp.description', function() {
 
-    if (get(this, 'mode') === 'edit') {
+    if (get(this, 'editing') === 'edit') {
 
       return ''
 
@@ -304,7 +304,7 @@ export default Component.extend(NewOrEdit, {
         }
 
       }
-      if (get(this, 'mode') === 'new') {
+      if (!get(this, 'editing')) {
 
         set(this, 'randomStr', Math.random().toString(36)
           .substring(7))
