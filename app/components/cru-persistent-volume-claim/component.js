@@ -96,17 +96,20 @@ export default Component.extend(ViewNewEdit, ChildHook, {
       businessId = businessId.replace('_', ':')
       const filter = business.filter((b) => b.id === businessId)[0]
 
-      filter.doAction('getHuaweiCloudApiInfo', {
-        projectId,
-        zone,
-      }, { url: `${ k8sStore.baseUrl }/v3/business/${ businessId }?action=getHuaweiCloudApiInfo` }).then((res) => {
+      if (filter && filter.doAction) {
+        filter.doAction('getHuaweiCloudApiInfo', {
+          projectId,
+          zone,
+        }, { url: `${ k8sStore.baseUrl }/v3/business/${ businessId }?action=getHuaweiCloudApiInfo` }).then((res) => {
 
-        const filter = res.availabilityZoneInfo.filter((z) => z && z.zoneState && z.zoneState.available)
+          const filter = res.availabilityZoneInfo.filter((z) => z && z.zoneState && z.zoneState.available)
 
-        set(this, 'availableZones', res.availabilityZoneInfo.filter((z) => z && z.zoneState && z.zoneState.available))
-        set(this, 'availableZoneId', availableZone)
+          set(this, 'availableZones', res.availabilityZoneInfo.filter((z) => z && z.zoneState && z.zoneState.available))
+          set(this, 'availableZoneId', availableZone)
 
-      })
+        })
+      }
+
       const pvcLabels = get(this, 'primaryResource.labels') || {}
       const annotations = get(this, 'primaryResource.annotations') || {}
 
