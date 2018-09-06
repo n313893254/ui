@@ -2301,6 +2301,7 @@ confirmDelete:
   confirmAction: 删除
   cancelAction: 取消
   largeDeleteText: '{key}及{othersCount}其他'
+  deleteNamespace: 同时删除命名空间
 
 containerLogs:
   title: "日志: "

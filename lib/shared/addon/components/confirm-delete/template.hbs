@@ -22,6 +22,13 @@
     {{t 'confirmDelete.clusterNote' appName=settings.appName}}
   </div>
 {{/if}}
+{{#if canDeleteNamespace}}
+  <div class="clearfix">
+    <div class="pull-right">
+      {{input type="checkbox" classNames="form-control" checked=deleteNamespace}}{{t 'confirmDelete.deleteNamespace'}}
+    </div>
+  </div>
+{{/if}}
 <div class="footer-actions">
   <button {{action "confirm"}} class="btn bg-error">{{t 'confirmDelete.confirmAction'}}</button>
   <button {{action "cancel"}} class="btn bg-transparent">{{t 'confirmDelete.cancelAction'}}</button>
