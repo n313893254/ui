@@ -11,6 +11,7 @@
   .stack-info {
     display: table;
     width: 100%;
+    max-width: 600px;
   }
   .catalog-icon {
     @include catalog-img(transparent);
@@ -19,6 +20,7 @@
     display: table-cell;
     vertical-align: middle;
     width: 120px;
+    min-width: 120px;
     padding: 0 10px;
     text-align: center;
 
@@ -37,7 +39,7 @@
     }
     .stack-info-bottom {
       padding-top: 10px;
-
+      max-width: 444px;
       .multi-bar {
         // margin-top: 10px;
         float: right;
@@ -46,6 +48,7 @@
     }
     .stack-info-top {
       padding-top: 20px;
+      max-width: 444px;
       .badge-state {
         padding: 2px 6px;
       }

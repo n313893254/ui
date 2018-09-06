@@ -4,7 +4,7 @@
   </div>
   <div class="stack-info-row box">
     <div class="stack-info-top row">
-      <div class="col">
+      <div class="col clip span-5">
         {{#link-to "apps-tab.detail" model.id}}
           {{model.displayName}}
         {{/link-to}}
@@ -38,6 +38,17 @@
       <div class="col span-7 clip text-small">
         {{model.displayEndpoints}}
       </div>
+      {{!-- <div class="col span-5 text-center">
+        {{progress-bar-multi
+            labelKey="state"
+            valueKey="count"
+            values=filterWorkloads.podStates.byColor
+            tooltipValues=filterWorkloads.podStates.byName
+        }}
+        <small class="text-muted">
+          {{filterWorkloads.pods.length}}
+        </small>
+      </div> --}}
     </div>
   </div>
 </div>
