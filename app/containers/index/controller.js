@@ -73,7 +73,7 @@ export default Controller.extend({
       break
 
     }
-
+    console.log(out, 'out')
     return out;
 
   }.property('group', 'model.workloads.@each.{namespaceId,isBalancer}', 'model.pods.@each.{workloadId,namespaceId}'),
