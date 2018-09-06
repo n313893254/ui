@@ -941,6 +941,9 @@ cruPersistentVolumeClaim:
   storageClass:
     label: 存储类
     prompt: 使用默认的类
+  availableZoneId:
+    label: availableZone
+    placeholder: e.g. cn-north-1
 
 cruVolume:
   sourcePrompt: 需要先选择一个上面的卷插件...

@@ -943,6 +943,9 @@ cruPersistentVolumeClaim:
   storageClass:
     label: Storage Class
     prompt: Use the default class
+  availableZoneId:
+    label: availableZone
+    placeholder: e.g. cn-north-1
 
 cruVolume:
   sourcePrompt: Choose a Volume Source above...

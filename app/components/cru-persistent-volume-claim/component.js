@@ -8,6 +8,7 @@ import Component from '@ember/component';
 import ViewNewEdit from 'shared/mixins/view-new-edit';
 import ChildHook from 'shared/mixins/child-hook';
 import layout from './template';
+import Errors from 'ui/utils/errors';
 
 export default Component.extend(ViewNewEdit, ChildHook, {
   intl:     service(),
@@ -276,6 +277,10 @@ export default Component.extend(ViewNewEdit, ChildHook, {
 
         return sup.apply(self, ...arguments);
 
+      }).catch((err) => {
+        const errors = [];
+        errors.push('namespaces is forbidden: you are forbidden to create namespaces');
+        set(this, 'errors', errors);
       });
 
     } else {
