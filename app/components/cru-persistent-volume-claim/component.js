@@ -30,6 +30,8 @@ export default Component.extend(ViewNewEdit, ChildHook, {
 
   canUseStorageClass: gt('storageClasses.length', 0),
 
+  businessCustome:      false,
+
   headerToken: function() {
 
     let k = 'cruPersistentVolumeClaim.';
@@ -108,6 +110,8 @@ export default Component.extend(ViewNewEdit, ChildHook, {
           set(this, 'availableZoneId', availableZone)
 
         })
+      } else {
+        set(this, 'businessCustome', true)
       }
 
       const pvcLabels = get(this, 'primaryResource.labels') || {}
