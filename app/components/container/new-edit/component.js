@@ -240,6 +240,12 @@ export default Component.extend(NewOrEdit, ChildHook, {
 
     },
 
+    cancelSidekick() {
+
+      this.sendAction('cancelSidekick');
+
+    },
+
     toggleSeparateLivenessCheck() {
 
       set(this, 'separateLivenessCheck', !get(this, 'separateLivenessCheck'));

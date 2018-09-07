@@ -250,4 +250,9 @@
 {{/accordion-list}}
 
 {{top-errors errors=errors}}
-{{save-cancel createLabel=(if isUpgrade 'newContainer.saveUpgrade' 'newContainer.saveNew') save="save" cancel="cancel"}}
+
+{{#if isSidekick}}
+  {{save-cancel createLabel=(if isUpgrade 'newContainer.saveUpgrade' 'newContainer.saveNew') save="save" cancel="cancelSidekick"}}
+{{else}}
+  {{save-cancel createLabel=(if isUpgrade 'newContainer.saveUpgrade' 'newContainer.saveNew') save="save" cancel="cancel"}}
+{{/if}}

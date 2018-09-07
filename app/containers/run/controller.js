@@ -42,6 +42,12 @@ export default Controller.extend({
       set(this, 'launchConfigIndex', null)
     },
 
+    cancelSidekick() {
+      set(this, 'dataMap.selectLaunchConfig', true)
+      set(this, 'launchConfigIndex', null)
+      set(this, 'addSidekick', null)
+    },
+
     promptRemove(idx) {
 
       let slc = get(this, 'dataMap.workload.secondaryLaunchConfigs').objectAt(idx);
