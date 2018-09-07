@@ -8,8 +8,9 @@ import { formatSi } from 'shared/utils/parse-unit';
 import { later } from '@ember/runloop';
 import { gt } from '@ember/object/computed';
 import DisplayImage from 'shared/mixins/display-image';
+import StateCounts from 'ui/mixins/state-counts';
 
-var Pod = Resource.extend(DisplayImage, {
+var Pod = Resource.extend(DisplayImage, StateCounts, {
   namespace:    reference('namespaceId', 'namespace', 'clusterStore'),
   node:          reference('nodeId', 'node', 'globalStore'),
   workload:      reference('workloadId'),
