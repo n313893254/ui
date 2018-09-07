@@ -38,14 +38,16 @@ export default Controller.extend({
     },
 
     goback() {
-      set(this, 'dataMap.selectLaunchConfig', true)
-      set(this, 'launchConfigIndex', null)
+      if (get(this, 'dataMap.workload.secondaryLaunchConfigs.length') > 0) {
+        set(this, 'dataMap.selectLaunchConfig', true)
+        set(this, 'launchConfigIndex', null)
+      } else {
+        this.send('transitionOut');
+      }
     },
 
     cancelSidekick() {
-      set(this, 'dataMap.selectLaunchConfig', true)
-      set(this, 'launchConfigIndex', null)
-      set(this, 'addSidekick', null)
+      this.send('transitionOut');
     },
 
     promptRemove(idx) {
