@@ -32,9 +32,14 @@ export default Controller.extend({
 
     cancel() {
 
-      // this.send('transitionOut');
-      this.send('goToPrevious');
+      this.send('transitionOut');
 
+
+    },
+
+    goback() {
+      set(this, 'dataMap.selectLaunchConfig', true)
+      set(this, 'launchConfigIndex', null)
     },
 
     promptRemove(idx) {
