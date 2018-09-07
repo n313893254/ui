@@ -48,6 +48,16 @@ export default Controller.extend({
 
     cancelSidekick() {
       this.send('transitionOut');
+      // const secondaryLaunchConfigs = get(this, 'dataMap.workload.secondaryLaunchConfigs') || []
+      // console.log(secondaryLaunchConfigs, 'secondaryLaunchConfigs')
+      // if (get(this, 'dataMap.workload.secondaryLaunchConfigs.length') > 0) {
+      //   set(this, 'dataMap.selectLaunchConfig', true)
+      //   set(this, 'launchConfigIndex', null)
+      //   set(this, 'addSidekick', null)
+      //   set(this, 'upgrade', true)
+      // } else {
+      //   this.send('transitionOut');
+      // }
     },
 
     promptRemove(idx) {
