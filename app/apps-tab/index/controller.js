@@ -16,8 +16,8 @@ export default Controller.extend({
 
 
   tags:              alias('projectController.tags'),
-  filteredApps: computed('model.apps.@each.{type,isFromCatalog,tags,state}', 'tags', function() {
-
+  filteredApps: computed('model.apps.@each.{type,isFromCatalog,tags,state}', 'tags', 'model.workloads.[]', 'model.pods.[]', function() {
+    console.log(get(this, 'model.apps'), 'apps')
     var needTags = get(this, 'tags');
 
     var out = get(this, 'model.apps').filter((ns) => !C.REMOVEDISH_STATES.includes(get(ns, 'state')));

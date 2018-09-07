@@ -12,13 +12,13 @@ export default Component.extend({
   srcSet:        false,
   latestVersion: null,
 
-  // filterWorkloads: computed('pods.[]', 'model.targetNamespace', function() {
-  //
-  //   const filter = get(this, 'workloads').filter((w) => w.namespaceId === get(this, 'model.targetNamespace'))
-  //
-  //   return filter.length > 0 ? filter[0] : []
-  //
-  // }),
+  filterWorkloads: computed('pods.[]', 'model.targetNamespace', function() {
+
+    const filter = get(this, 'workloads').filter((w) => w.namespaceId === get(this, 'model.targetNamespace'))
+
+    return filter.length > 0 ? filter[0] : []
+
+  }),
   filterPods: computed('pods.[]', 'model.targetNamespace', function() {
 
     const filter = get(this, 'pods').filter((p) => p.namespaceId === get(this, 'model.targetNamespace'))

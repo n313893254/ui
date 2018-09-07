@@ -8,7 +8,7 @@ import EndpointPorts from 'ui/mixins/endpoint-ports';
 
 const App = Resource.extend(StateCounts, EndpointPorts, {
   namespace:    reference('targetNamespace', 'namespace', 'clusterStore'),
-  pods:      computed('namespace.pods.@each.workloadId', 'workloads.@each.workloadLabels', function() {
+  pods:      computed('namespace.pods.@each.{workloadId,state}', 'workloads.@each.workloadLabels', function() {
 
     return (get(this, 'namespace.pods') || []).filter((item) => {
 

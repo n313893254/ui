@@ -32,7 +32,8 @@
             tooltipValues=model.podStates.byName
         }}
         <small class="text-muted">
-          {{filterPods.length}}
+          {{model.pods.length}}
+          {{!-- {{filterPods.length}} --}}
         </small>
       </div>
       <div class="col span-7 clip text-small">
@@ -52,3 +53,7 @@
     </div>
   </div>
 </div>
+{{#if filterPods.length}}
+{{/if}}
+{{#if filterWorkloads.length}}
+{{/if}}
