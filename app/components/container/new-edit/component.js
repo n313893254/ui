@@ -322,6 +322,9 @@ export default Component.extend(NewOrEdit, ChildHook, {
     let service = get(this, 'service');
 
     let readinessProbe = get(lc, 'readinessProbe');
+    let livenessProbe = get(lc, 'livenessProbe');
+    console.log(livenessProbe, 'livenessProbe')
+    console.log(readinessProbe, 'readinessProbe')
 
     if (!get(this, 'separateLivenessCheck')) {
 
