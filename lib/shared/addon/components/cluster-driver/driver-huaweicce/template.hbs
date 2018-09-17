@@ -496,11 +496,19 @@
           {{#if editing}}
             <div>{{config.nodeFlavor}}</div>
           {{else}}
-            {{new-select
-              classNames="form-control"
-              value=config.nodeFlavor
-              content=nodeFlavorContent
-            }}
+            {{#if (eq config.clusterType 'VirtualMachine')}}
+              {{new-select
+                classNames="form-control"
+                value=vmNodeFlavor
+                content=nodeFlavorContent
+              }}
+            {{else}}
+              {{new-select
+                classNames="form-control"
+                value=bmNodeFlavor
+                content=nodeFlavorContent
+              }}
+            {{/if}}
           {{/if}}
         </div>
         <div class="col span-6 mb-0">
