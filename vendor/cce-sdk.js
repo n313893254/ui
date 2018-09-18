@@ -95,6 +95,15 @@ ECS.prototype.getNetwork = function (callback) {
   }, _callback)
 }
 
+ECS.prototype.getBareMetalFlavor = function (callback) {
+  var _callback = this.logging(callback, 'ECS.getBareMetalFlavor')
+  this.validated(function () {
+    // var resource = `/v2.0/networks?provider:network_type=geneve&tenant_id=${this.projectId}`
+    var resource = `/v2/${this.projectId}/flavors/detail`
+    this.requestor.get(resource, null, _callback)
+  }, _callback)
+}
+
 
 module.exports = ECS
 
