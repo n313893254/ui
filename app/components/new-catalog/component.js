@@ -311,7 +311,7 @@ export default Component.extend(NewOrEdit, {
 
       } else {
 
-        set(this, 'cceName', get(this, 'catalogApp.displayName'))
+        set(this, 'cceName', get(this, 'catalogApp.namespace.id'))
 
       }
 
