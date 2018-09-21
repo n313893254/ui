@@ -126,6 +126,12 @@ loggingPage:
     topic: Topic
     topicPlaceholder: e.g. message
     topicHelpText: Logs will be send to this topic
+    principal:
+      label: Principal
+      placeholder: Input kerberos principal
+    keytab:
+      label: keytab
+      placeholder: Input kerberos keytab
   syslog:
     endpointPlaceholder: 'e.g. 192.168.1.10:514'
     header: Syslog Configuration
@@ -163,3 +169,5 @@ loggingPage:
     header: Docker Configuration
     label: Docker Root Dictionary
     placeholder: Enter docker root dictionary, default value is {dir}
+  kerberos:
+    header: Kerberos Configuration

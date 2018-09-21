@@ -69,6 +69,39 @@
   </div>
 </div>
 
+{{#if (eq brokerType 'broker')}}
+  <div class="mt-20 clearfix">
+    <h2 class="pt-30">
+      {{t 'loggingPage.kerberos.header'}}
+    </h2>
+    <hr/>
+    <div class="row">
+      <div class="col span-6 mt-0">
+        <div class="clearfix">
+          <label class="acc-label pt-5">{{t 'loggingPage.kafka.keytab.label'}}</label>
+          {{input
+              type="text"
+              value=config.keytab
+              classNames="form-control"
+              placeholder=(t 'loggingPage.kafka.keytab.placeholder')
+          }}
+        </div>
+      </div>
+      <div class="col span-6 mt-0">
+        <div class="clearfix">
+          <label class="acc-label pt-5">{{t 'loggingPage.kafka.principal.label'}}</label>
+          {{input
+              type="text"
+              value=config.principal
+              classNames="form-control"
+              placeholder=(t 'loggingPage.kafka.principal.placeholder')
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
+
 {{#if showSSLConfig}}
   {{logging/form-log-ssl config=config targetType=targetType}}
 {{/if}}

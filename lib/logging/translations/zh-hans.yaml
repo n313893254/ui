@@ -142,3 +142,5 @@ loggingPage:
       notice: notice
       info: Info
       debug: Debug
+  kerberos:
+    header: Kerberos配置
