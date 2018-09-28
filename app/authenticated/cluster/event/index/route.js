@@ -31,7 +31,7 @@ export default Route.extend({
         filter:      { clusterEventId: clusterId, },
         sortOrder:   'desc',
         limit:       1000,
-      }),
+      }).catch(err => console.log(err)),
       namespaces: clusterStore.findAll('namespace'),
       projects:   cs.findAll('project'),
       nodes:      this.get('globalStore').findAll('node'),
