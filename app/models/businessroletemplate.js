@@ -49,7 +49,7 @@ export default Resource.extend({
 
       let k8sStore = this.get('k8sStore') || {}
 
-      window.open(`${ k8sStore.baseUrl }/v3/businessRoleTemplate/${ this.get('id') }`, '_blank')
+      window.open(`${ k8sStore.baseUrl }/businessRoleTemplate/${ this.get('id') }`, '_blank')
 
     },
   },

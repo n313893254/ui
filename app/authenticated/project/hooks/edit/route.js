@@ -15,7 +15,7 @@ export default Route.extend({
 
     return hash({
       receiver: k8sStore.find('workloadAutoScaler', null, {
-        url:         `${ k8sStore.baseUrl }/v3/workloadAutoScaler`,
+        url:         `${ k8sStore.baseUrl }/workloadAutoScaler`,
         forceReload: true
       }).then((hooks) => {
 

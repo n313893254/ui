@@ -16,7 +16,7 @@ export default Route.extend({
 
     return hash({
       hooks: clusterStore.findAll('nodeAutoScaler', {
-        url:         `${ k8sStore.baseUrl }/v3/nodeAutoScaler`,
+        url:         `${ k8sStore.baseUrl }/nodeAutoScaler`,
         forceReload: true,
         filter:      { clusterId, }
       }),

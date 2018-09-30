@@ -61,7 +61,7 @@ export default Route.extend({
       clusterLogging,
       projectLogging,
       business:          clusterStore.findAll('business', {
-        url:         `${ k8sStore.baseUrl }/v3/business`,
+        url:         `${ k8sStore.baseUrl }/business`,
         forceReload: true
       }).catch((err) => console.log(err)),
     }).then((hash) => ({

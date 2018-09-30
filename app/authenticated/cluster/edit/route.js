@@ -28,7 +28,7 @@ export default Route.extend({
       clusterRoleTemplateBinding: globalStore.findAll('clusterRoleTemplateBinding'),
       me:                         get(this, 'access.principal'),
       business:                   clusterStore.findAll('business', {
-        url:         `${ k8sStore.baseUrl }/v3/business`,
+        url:         `${ k8sStore.baseUrl }/business`,
         forceReload: true
       }).catch((err) => console.log(err)),
     });

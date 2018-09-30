@@ -25,7 +25,7 @@ export default Route.extend({
 
     return hash({
       clusterEventLogs: k8sStore.find('huaWeiClusterEventLog', null, {
-        url:         `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog`,
+        url:         `${ k8sStore.baseUrl }/huaWeiClusterEventLog`,
         forceReload: true,
         depaginate:  false,
         filter:      { clusterEventId: clusterId, },

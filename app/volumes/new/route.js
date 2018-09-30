@@ -17,7 +17,7 @@ export default Route.extend({
       storageClasses:    clusterStore.findAll('storageClass'),
       pvc:               store.createRecord({ type: 'persistentVolumeClaim', }),
       business:          clusterStore.findAll('business', {
-        url:         `${ k8sStore.baseUrl }/v3/business`,
+        url:         `${ k8sStore.baseUrl }/business`,
         forceReload: true
       }).catch((err) => console.log(err)),
     });

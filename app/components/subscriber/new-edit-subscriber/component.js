@@ -90,7 +90,7 @@ export default Component.extend(NewOrEdit, {
   doSave() {
 
     const k8sStore = get(this, 'k8sStore')
-    let url = `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogSubscriber`
+    let url = `${ k8sStore.baseUrl }/huaWeiClusterEventLogSubscriber`
 
     if (get(this, 'model.mode') === 'edit') {
 

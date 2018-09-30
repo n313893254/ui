@@ -103,7 +103,7 @@ export default Component.extend(ViewNewEdit, ChildHook, {
         filter.doAction('getHuaweiCloudApiInfo', {
           projectId,
           zone,
-        }, { url: `${ k8sStore.baseUrl }/v3/business/${ businessId }?action=getHuaweiCloudApiInfo` }).then((res) => {
+        }, { url: `${ k8sStore.baseUrl }/business/${ businessId }?action=getHuaweiCloudApiInfo` }).then((res) => {
 
           const filter = res.availabilityZoneInfo.filter((z) => z && z.zoneState && z.zoneState.available)
 

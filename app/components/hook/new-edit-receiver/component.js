@@ -129,11 +129,11 @@ export default Component.extend(NewOrEdit, {
 
     if (currentPageScope === 'project') {
 
-      url = `${ k8sStore.baseUrl }/v3/workloadautoscalers`
+      url = `${ k8sStore.baseUrl }/workloadautoscalers`
 
     } else {
 
-      url = `${ k8sStore.baseUrl }/v3/nodeAutoScaler`
+      url = `${ k8sStore.baseUrl }/nodeAutoScaler`
 
     }
 

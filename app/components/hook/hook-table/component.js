@@ -137,7 +137,7 @@ export default Component.extend({
 
       }
       k8sStore.find('huaWeiClusterEventLog', null, {
-        url:         `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog`,
+        url:         `${ k8sStore.baseUrl }/huaWeiClusterEventLog`,
         forceReload: true,
         filter,
       }).then((res) => set(this, 'model.clusterEventLogs', res))
@@ -159,7 +159,7 @@ export default Component.extend({
 
         const urlParser = parseUri(next) || {}
         const query = urlParser.query
-        let url = `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLog`
+        let url = `${ k8sStore.baseUrl }/huaWeiClusterEventLog`
 
         if (query) {
 

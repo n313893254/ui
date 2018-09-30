@@ -16,7 +16,7 @@ export default Route.extend({
 
     return hash({
       subscribers: clusterStore.findAll('huaWeiClusterEventLogSubscriber', {
-        url:         `${ k8sStore.baseUrl }/v3/huaWeiClusterEventLogSubscriber`,
+        url:         `${ k8sStore.baseUrl }/huaWeiClusterEventLogSubscriber`,
         forceReload: true,
         filter:      { clusterId, }
       }),
