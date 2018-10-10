@@ -22,6 +22,7 @@ export default Component.extend({
   filterPods: computed('pods.[]', 'model.targetNamespace', function() {
 
     const filter = get(this, 'pods').filter((p) => p.namespaceId === get(this, 'model.targetNamespace'))
+
     console.log(filter, 'filter')
 
     return filter

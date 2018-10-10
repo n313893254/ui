@@ -323,6 +323,7 @@ export default Component.extend(NewOrEdit, ChildHook, {
 
     let readinessProbe = get(lc, 'readinessProbe');
     let livenessProbe = get(lc, 'livenessProbe');
+
     console.log(livenessProbe, 'livenessProbe')
     console.log(readinessProbe, 'readinessProbe')
 

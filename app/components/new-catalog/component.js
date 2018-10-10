@@ -79,7 +79,8 @@ export default Component.extend(NewOrEdit, {
 
     }
     const description = get(this, 'catalogApp.description') || ''
-    let name = description.replace(/[\_\.]/g, '-').replace(/[^A-Za-z0-9\-]/g, '').toLowerCase()
+    let name = description.replace(/[\_\.]/g, '-').replace(/[^A-Za-z0-9\-]/g, '')
+      .toLowerCase()
 
     if (!name) {
 

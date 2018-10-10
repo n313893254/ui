@@ -38,15 +38,22 @@ export default Controller.extend({
     },
 
     goback() {
+
       if (get(this, 'dataMap.workload.secondaryLaunchConfigs.length') > 0) {
+
         set(this, 'dataMap.selectLaunchConfig', true)
         set(this, 'launchConfigIndex', null)
+
       } else {
+
         this.send('transitionOut');
+
       }
+
     },
 
     cancelSidekick() {
+
       this.send('transitionOut');
       // const secondaryLaunchConfigs = get(this, 'dataMap.workload.secondaryLaunchConfigs') || []
       // console.log(secondaryLaunchConfigs, 'secondaryLaunchConfigs')
@@ -58,6 +65,7 @@ export default Controller.extend({
       // } else {
       //   this.send('transitionOut');
       // }
+
     },
 
     promptRemove(idx) {

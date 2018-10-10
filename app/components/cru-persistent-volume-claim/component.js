@@ -27,11 +27,11 @@ export default Component.extend(ViewNewEdit, ChildHook, {
   availableZones:    [],
   titleKey:          'cruPersistentVolumeClaim.title',
 
+  businessCustome:      false,
+
   provider: reads('scope.currentCluster.provider'),
 
   canUseStorageClass: gt('storageClasses.length', 0),
-
-  businessCustome:      false,
 
   headerToken: function() {
 
@@ -100,6 +100,7 @@ export default Component.extend(ViewNewEdit, ChildHook, {
       const filter = business.filter((b) => b.id === businessId)[0]
 
       if (filter && filter.doAction) {
+
         filter.doAction('getHuaweiCloudApiInfo', {
           projectId,
           zone,
@@ -111,8 +112,11 @@ export default Component.extend(ViewNewEdit, ChildHook, {
           set(this, 'availableZoneId', availableZone)
 
         })
+
       } else {
+
         set(this, 'businessCustome', true)
+
       }
 
       const pvcLabels = get(this, 'primaryResource.labels') || {}
@@ -277,11 +281,15 @@ export default Component.extend(ViewNewEdit, ChildHook, {
 
         return sup.apply(self, ...arguments);
 
-      }).catch((err) => {
-        const errors = [];
-        errors.push('namespaces is forbidden: you are forbidden to create namespaces');
-        set(this, 'errors', errors);
-      });
+      })
+        .catch((err) => {
+
+          const errors = [];
+
+          errors.push('namespaces is forbidden: you are forbidden to create namespaces');
+          set(this, 'errors', errors);
+
+        });
 
     } else {
 

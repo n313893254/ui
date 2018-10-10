@@ -130,8 +130,19 @@ loggingPage:
       label: Principal
       placeholder: Input kerberos principal
     keytab:
-      label: keytab
-      placeholder: Input kerberos keytab
+      label: Keytab
+      placeholder: Input kerberos Keytab
+    realm:
+      label: Realm
+      placeholder: Input Realm
+    kdcServer:
+      label: Kdc Server
+      placeholder: Input Kdc Server
+    adminServer:
+      label: Admin Server
+      placeholder: Input Admin Server
+
+
   syslog:
     endpointPlaceholder: 'e.g. 192.168.1.10:514'
     header: Syslog Configuration

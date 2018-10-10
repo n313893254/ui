@@ -212,6 +212,7 @@ export default Component.extend({
       this.checkChanged()
 
     });
+
   },
 
 });
