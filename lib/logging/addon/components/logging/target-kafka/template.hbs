@@ -108,11 +108,14 @@
       <div class="col span-6 mt-0">
         <div class="clearfix">
           <label class="acc-label pt-5">{{t 'loggingPage.kafka.keytab.label'}}</label>
-          {{input
-              type="text"
+          {{input-text-file
+              classNames="box"
               value=config.keytab
-              classNames="form-control"
-              placeholder=(t 'loggingPage.kafka.keytab.placeholder')
+              canChangeName=false
+              accept="text/plain,.pem,.pkey,.key"
+              minHeight=60
+              placeholder="loggingPage.kafka.keytab.placeholder"
+              shouldChangeName=false
           }}
         </div>
       </div>
