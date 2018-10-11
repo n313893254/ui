@@ -12,7 +12,8 @@
     "ember-cli-htmlbars": "*",
     "ember-cli-babel": "*",
     "ember-cli-clipboard": "*",
-    "ember-href-to": "*"
+    "ember-href-to": "*",
+    "crypto-js": "*"
   },
   "ember-addon": {
     "paths": [

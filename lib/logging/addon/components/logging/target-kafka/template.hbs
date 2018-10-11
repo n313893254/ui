@@ -66,35 +66,6 @@
       }}
       <p class="text-info text-small">{{t 'loggingPage.kafka.topicHelpText'}}</p>
     </div>
-    <div class="col span-6 mt-0 pt-0">
-      <label class="acc-label" for="">{{t 'loggingPage.kafka.realm.label'}}</label>
-      {{input
-          type="text"
-          value=config.realm
-          classNames="form-control"
-          placeholder=(t 'loggingPage.kafka.realm.placeholder')
-      }}
-    </div>
-  </div>
-  <div class="row">
-    <div class="col span-6 mt-0 pt-0">
-      <label class="acc-label" for="">{{t 'loggingPage.kafka.adminServer.label'}}</label>
-      {{input
-          type="text"
-          value=config.adminServer
-          classNames="form-control"
-          placeholder=(t 'loggingPage.kafka.adminServer.placeholder')
-      }}
-    </div>
-    <div class="col span-6 mt-0 pt-0">
-      <label class="acc-label" for="">{{t 'loggingPage.kafka.kdcServer.label'}}</label>
-      {{input
-          type="text"
-          value=config.kdcServer
-          classNames="form-control"
-          placeholder=(t 'loggingPage.kafka.kdcServer.placeholder')
-      }}
-    </div>
   </div>
 </div>
 
@@ -107,15 +78,12 @@
     <div class="row">
       <div class="col span-6 mt-0">
         <div class="clearfix">
-          <label class="acc-label pt-5">{{t 'loggingPage.kafka.keytab.label'}}</label>
-          {{input-text-file
-              classNames="box"
-              value=config.keytab
-              canChangeName=false
-              accept="text/plain,.pem,.pkey,.key"
-              minHeight=60
-              placeholder="loggingPage.kafka.keytab.placeholder"
-              shouldChangeName=false
+          <label class="acc-label" for="">{{t 'loggingPage.kafka.realm.label'}}</label>
+          {{input
+              type="text"
+              value=config.realm
+              classNames="form-control"
+              placeholder=(t 'loggingPage.kafka.realm.placeholder')
           }}
         </div>
       </div>
@@ -129,6 +97,40 @@
               placeholder=(t 'loggingPage.kafka.principal.placeholder')
           }}
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col span-6 mt-0 pt-0">
+        <label class="acc-label" for="">{{t 'loggingPage.kafka.adminServer.label'}}</label>
+        {{input
+            type="text"
+            value=config.adminServer
+            classNames="form-control"
+            placeholder=(t 'loggingPage.kafka.adminServer.placeholder')
+        }}
+      </div>
+      <div class="col span-6 mt-0 pt-0">
+        <label class="acc-label" for="">{{t 'loggingPage.kafka.kdcServer.label'}}</label>
+        {{input
+            type="text"
+            value=config.kdcServer
+            classNames="form-control"
+            placeholder=(t 'loggingPage.kafka.kdcServer.placeholder')
+        }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col span-6 mt-0 pt-0">
+        <label class="acc-label pt-5">{{t 'loggingPage.kafka.keytab.label'}}</label>
+        {{input-bin-file
+            classNames="box"
+            value=config.keytab
+            canChangeName=false
+            accept="text/plain,.pem,.pkey,.key,.keytab"
+            minHeight=60
+            placeholder="loggingPage.kafka.keytab.placeholder"
+            shouldChangeName=false
+        }}
       </div>
     </div>
   </div>
