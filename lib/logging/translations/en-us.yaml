@@ -131,7 +131,7 @@ loggingPage:
       placeholder: Input kerberos principal
     keytab:
       label: Keytab
-      placeholder: Input kerberos Keytab which is encoded by base64.
+      placeholder: Upload a Keytab file.
     realm:
       label: Realm
       placeholder: Input Realm
