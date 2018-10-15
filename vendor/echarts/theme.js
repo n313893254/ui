@@ -47,7 +47,11 @@
             },
             "lineStyle": {
                 "normal": {
+<<<<<<< HEAD
                     "width": "1"
+=======
+                    "width": "3"
+>>>>>>> alerting
                 }
             },
             "symbolSize": "8",
@@ -62,7 +66,11 @@
             },
             "lineStyle": {
                 "normal": {
+<<<<<<< HEAD
                     "width": "1"
+=======
+                    "width": "3"
+>>>>>>> alerting
                 }
             },
             "symbolSize": "8",
@@ -282,7 +290,10 @@
             "splitLine": {
                 "show": true,
                 "lineStyle": {
+<<<<<<< HEAD
                     "type": 'dashed',
+=======
+>>>>>>> alerting
                     "color": [
                         "#eeeeee"
                     ]
@@ -320,7 +331,10 @@
             "splitLine": {
                 "show": true,
                 "lineStyle": {
+<<<<<<< HEAD
                     "type": 'dashed',
+=======
+>>>>>>> alerting
                     "color": [
                         "#eeeeee"
                     ]
@@ -358,7 +372,10 @@
             "splitLine": {
                 "show": true,
                 "lineStyle": {
+<<<<<<< HEAD
                     "type": 'dashed',
+=======
+>>>>>>> alerting
                     "color": [
                         "#eeeeee"
                     ]
@@ -396,7 +413,10 @@
             "splitLine": {
                 "show": true,
                 "lineStyle": {
+<<<<<<< HEAD
                     "type": 'dashed',
+=======
+>>>>>>> alerting
                     "color": [
                         "#eeeeee"
                     ]
@@ -513,4 +533,8 @@
             }
         }
     });
+<<<<<<< HEAD
 }));
+=======
+}));
+>>>>>>> alerting

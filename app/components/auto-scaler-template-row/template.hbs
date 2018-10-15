@@ -1,0 +1,18 @@
+<td class="row-check" valign="middle" style="padding-top: 2px;">
+  {{check-box nodeId=model.id}}
+</td>
+
+<td data-title="{{dt.name}}" class="clip">
+  {{model.displayName}}
+  {{#if model.showTransitioningMessage}}
+    <div class="clip text-small {{model.stateColor}}">{{uc-first model.transitioningMessage}}</div>
+  {{/if}}
+</td>
+
+<td data-title="{{dt.templateInstance}}">
+  {{model.templateInstance}}
+</td>
+
+<td data-title="{{dt.actions}}" class="actions">
+  {{action-menu model=model}}
+</td>

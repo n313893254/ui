@@ -25,6 +25,57 @@
       </div>
     </div>
 
+
+
+    <div class="row">
+      <div class="col span-3">
+        <label>
+          {{radio-button selection=model._targetType value="podSelector"}} Pod Selector
+        </label>
+      </div>
+      <div class="col span-8 mt-0">
+        {{#if (eq model._targetType 'podSelector')}}
+          {{form-key-value
+              addActionLabel="alertPage.addSelectorLabel"
+              initialMap=model.targetPod.selector
+              changed=(action (mut model.targetPod.selector))
+          }}
+        {{else}}
+          <button {{action "noop"}} style="cursor:not-allowed;" class="btn bg-disabled icon-btn">
+            <span class="darken"><i class="icon icon-plus text-small"/></span>
+            <span>{{t 'alertPage.addSelectorLabel'}}</span>
+          </button>
+        {{/if}}
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col span-3">
+        <label>
+          {{radio-button selection=model._targetType value="podNamespace"}} Pod in namespace
+        </label>
+      </div>
+      <div class="col span-8 mt-0">
+        {{searchable-select
+            content=namespaces
+            class="form-control"
+            value=model.targetNamespace.namespaceId
+            placeholder="Choose a namespace"
+            readOnly=(not-eq model._targetType 'podNamespace')
+        }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col span-3">
+        <label>
+          {{radio-button selection=model._targetType value="podOfProject"}} Pod in current project
+        </label>
+      </div>
+    </div>
+
+
     <div class="row">
       <div class="col span-3">
         <label>
@@ -43,6 +94,7 @@
         }}
       </div>
     </div>
+
     <div class="row">
       <div class="col span-3">
         <label>
@@ -65,6 +117,7 @@
       </div>
 
     </div>
+
   </div>
 </section>
 <hr/>

@@ -1,0 +1,103 @@
+ <section>
+    {{metrics-action
+      duration=duration
+      dashboards=dashboards
+      dashboardName="Kubernetes Cluster Nodes"
+      queryAction="query"
+    }}
+    <div class="row mt-30">
+      <div class="col span-6 pl-20">
+        <h2 class="text-left">{{t 'infoMultiStats.cpuSection.labelText'}}</h2>
+        {{graph-area
+          model=stats
+          lines=lines
+          fields=cpuFields
+          formatter="percent"
+          minMax=100
+          loading=loading
+        }}
+      </div>
+
+      <div class="col span-6">
+        <h2 class="text-left">{{t 'infoMultiStats.loadSection.labelText'}}</h2>
+        {{graph-area
+          model=stats
+          lines=lines
+          fields=loadFields
+          minMax=1
+          loading=loading
+        }}
+      </div>
+    </div>
+
+    <div class="row mt-30">
+    <div class="col span-6 pl-20">
+        <h2 class="text-left">{{t 'infoMultiStats.memorySection.labelText'}}</h2>
+        {{graph-area
+          model=stats
+          lines=lines
+          fields=memoryFields
+          formatter="percent"
+          minMax=100
+          loading=loading
+        }}
+      </div>
+      <div class="col span-6">
+          <h2 class="text-left">{{t 'infoMultiStats.memoryPageSection.labelText'}}</h2>
+          {{graph-area
+            model=stats
+            lines=lines
+            fields=memoryPageFields
+            formatter="kbps"
+            loading=loading
+          }}
+        </div>
+    </div>
+
+    <div class="row mt-30">
+      <div class="col span-6 pl-20">
+        <h2 class="text-left">{{t 'infoMultiStats.diskSection.labelText'}}</h2>
+        {{graph-area
+          model=stats
+          lines=lines
+          fields=diskFields
+          formatter="percent"
+          minMax=100
+          loading=loading
+        }}
+      </div>
+      <div class="col span-6">
+        <h2 class="text-left">{{t 'infoMultiStats.storageSection.labelText'}}</h2>
+        {{graph-area
+          model=stats
+          lines=lines
+          fields=storageFields
+          formatter="kbps"
+          loading=loading
+        }}
+      </div>
+    </div>
+
+    <div class="row mt-30">
+      <div class="col span-6 pl-20">
+        <h2 class="text-left">{{t 'infoMultiStats.networkSection.labelText'}}</h2>
+        {{graph-area
+          model=stats
+          lines=lines
+          fields=networkFields
+          formatter="kbps"
+          loading=loading
+        }}
+      </div>
+      <div class="col span-6">
+        <h2 class="text-left">{{t 'infoMultiStats.networkPacketSection.labelText'}}</h2>
+        {{graph-area
+          model=stats
+          lines=lines
+          fields=networkPacketFields
+          loading=loading
+        }}
+      </div>
+
+    </div>
+  </section>

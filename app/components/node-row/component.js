@@ -45,25 +45,22 @@ export const headersAll = [
     name:           'cpu',
     sort:           ['cpuUsage', 'displayName'],
     searchField:    null,
-    width:          100,
+    width:          200,
     translationKey: 'nodesPage.table.cpu',
-    classNames:     ['text-right'],
   },
   {
     name:           'memory',
     sort:           ['memoryUsage', 'displayName'],
     searchField:    null,
-    width:          150,
+    width:          200,
     translationKey: 'nodesPage.table.memory',
-    classNames:     ['text-right'],
   },
   {
     name:           'pod',
     sort:           ['podUsage', 'displayName'],
     searchField:    null,
-    width:          100,
+    width:          200,
     translationKey: 'nodesPage.table.pod',
-    classNames:     ['text-right'],
   },
 ];
 

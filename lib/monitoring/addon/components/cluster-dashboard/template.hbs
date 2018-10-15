@@ -29,7 +29,7 @@
             </div>
           </div>
         {{/each}}
-          
+
         {{#if scope.currentCluster.isMonitoringReady}}
           {{cluster-dashboard-tabs nodes=nodes dashboards=dashboards}}
         {{else if monitoringEnabled}}

@@ -6,6 +6,7 @@ import { alias } from '@ember/object/computed';
 export default Controller.extend({
   scope:  service(),
   router: service(),
+  scope:  service(),
 
   monitoringEnabled: alias('scope.currentCluster.isMonitoringReady'),
 

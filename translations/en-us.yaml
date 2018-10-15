@@ -117,6 +117,7 @@ generic:
   value: Value
   version: Version
   yes: "Yes"
+  workload: workload
 
 realmNames:
   all: All
@@ -771,9 +772,9 @@ clustersPage:
   nodes:
     label: Nodes
   cpu:
-    label: CPU
+    label: CPU Reservation
   memory:
-    label: RAM
+    label: RAM Reservation
   pod:
     label: Pods
   storage:
@@ -840,7 +841,7 @@ clusterDashboard:
   notActive: This cluster is currently <b>{state}</b>.
   notReady: This cluster is currently <b>{state}</b>; areas that interact directly with it will not be available until the API is ready.
 metricsAction:
-  grafana: 
+  grafana:
     label: See Grafana Dashboard
   summary:
     label: Summary
@@ -1021,10 +1022,10 @@ nodesPage:
   table:
     clusterName: Cluster
     role: Roles
-    cpu: CPU
-    memory: RAM
+    cpu: CPU Reservation
+    memory: Memory Reservation
     disk: Disk
-    pod: Pods
+    pod: Pod Usage
     version: Version
     docker: Docker
     unschedulable: Unschedulable
@@ -5834,7 +5835,7 @@ volumesPage:
   storageClass:
     label: Storage Class
 
-    
+
 vmConsole:
   header: "Console:"
   protip: "ProTip: Hold the {key} key when opening shell access to launch a new window."

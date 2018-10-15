@@ -1,0 +1,28 @@
+{{#sortable-table
+  tableClassNames="bordered"
+  paging=true
+  pagingLabel="pagination.scaler"
+  headers=headers
+  body=rows
+  sortBy="name"
+  showHeader=true
+  customer="event"
+  as |sortable kind obj dt|
+}}
+  {{#if (eq kind "row")}}
+    {{hook/hook-row
+      model=obj
+      autoScalerTemplates=model.autoScalerTemplates
+      toggle=(action "toggleExpand" obj.id)
+      expanded=(array-includes expandedLogs obj.id)
+      searchText=searchText
+      subMatches=sortable.subMatches
+      fullColspan=sortable.fullColspan
+      dt=dt
+    }}
+  {{else if (eq kind "nomatch")}}
+    <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">{{t 'persistentVolumePage.noMatch'}}</td></tr>
+  {{else if (eq kind "norows")}}
+    <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">No data</td></tr>
+  {{/if}}
+{{/sortable-table}}

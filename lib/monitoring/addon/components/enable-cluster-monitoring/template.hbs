@@ -1,0 +1,53 @@
+<div class="banner bg-info">
+  <div class="banner-icon p-20"><i class="icon icon-info"></i></div>
+  <div class="banner-message p-20">
+    {{t 'monitoringPage.helpText.disabled' htmlSafe=true}}
+  </div>
+</div>
+
+{{#if enabled}}
+  <section>
+    <div class="banner {{if (or isReady justDeployed) 'bg-success' 'bg-error'}}">
+      <div class="banner-icon"><i class="icon icon-2x {{if (or isReady justDeployed) 'icon-check' 'icon-alert'}}" /></div>
+      <div class="banner-message text-left">
+        <p>
+          {{t (concat 'monitoringPage.' status) htmlSafe=true}} <a href="{{href-to 'apps-tab' cluster.systemProject.id}}">{{cluster.systemProject.displayName}}</a> {{t 'generic.project'}}.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="text-center">
+    {{#if confirmDisable}}
+      {{#if disabling}}
+        <button class="btn bg-disabled" disabled="disabled">
+          <i class="icon icon-spinner icon-spin"></i> {{t 'generic.saving'}}
+        </button>
+      {{else}}
+      <button class="btn bg-primary" {{action "disable"}}>
+        <i class="icon icon-alert"></i> {{t 'monitoringPage.actions.confirm'}}
+      </button>
+      {{/if}}
+    {{else}}
+      <button class="btn bg-primary" {{action "promptDisable"}}>
+        <i class="icon icon-umbrella"></i> {{t 'monitoringPage.actions.disable'}}
+      </button>
+    {{/if}}
+  </div>
+{{else}}
+  <section>
+    <div class="text-center text-muted">
+      {{t 'monitoringPage.disabled'}}
+    </div>
+    <hr/>
+  </section>
+
+  <div class="text-center">
+    {{save-cancel
+        cancelDisabled=true
+        editLabel="monitoringPage.actions.enable"
+        editing=true
+        save="enable"
+    }}
+  </div>
+{{/if}}

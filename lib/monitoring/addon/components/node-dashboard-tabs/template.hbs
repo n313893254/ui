@@ -1,0 +1,23 @@
+<section class="header has-tabs clearfix pb-0 text-left">
+  {{#each tabs as |tab|}}
+    <ul class="tab-nav">
+      <li>
+        <a class="{{if (eq mode tab) 'active'}} hand no-select" {{action 'switchTab' tab}}>
+          {{t (concat 'clusterDashboard.sections.' tab)}}
+        </a>
+      </li>
+    </ul>
+  {{/each}}
+</section>
+
+{{#if (eq mode 'node')}}
+  {{node-metrics node=node duration=duration dashboards=dashboards}}
+{{/if}}
+
+{{#if (eq mode 'nodeReservation')}}
+  <section>
+    {{nodes-reservation nodes=nodes}}
+  </section>
+{{/if}}
+
+<hr class="mt-30"/>

@@ -16,9 +16,9 @@ const ClusterAlert = Resource.extend(alertMixin, {
   },
 
   targetType: function() {
-    const targetSystemService = get(this, 'targetSystemService');
-    const targetNode = get(this, 'targetNode');
-    const targetEvent = get(this, 'targetEvent');
+    const targetSystemService = get(this, 'systemServiceRule');
+    const targetNode = get(this, 'nodeRule');
+    const targetEvent = get(this, 'eventRule');
 
     if (targetSystemService && targetSystemService.condition) {
       return 'systemService';
@@ -32,7 +32,7 @@ const ClusterAlert = Resource.extend(alertMixin, {
     if (targetEvent && targetEvent.resourceKind) {
       return 'event';
     }
-  }.property('targetSystemService.{condition}', 'targetNode{nodeId,selector}', 'targetEvent.{resourceKind}'),
+  }.property('systemServiceRule.{condition}', 'nodeRule{nodeId,selector}', 'eventRule.{resourceKind}'),
 
   displayTargetType: function() {
     const t = get(this, 'targetType');

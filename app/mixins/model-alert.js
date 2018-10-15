@@ -12,8 +12,8 @@ export default Mixin.create({
 
   canClone: false,
 
-  relevantState: computed('combinedState', 'alertState', function() {
-    return this.get('combinedState') || this.get('alertState') || 'unknown';
+  relevantState: computed('combinedState', 'state', function() {
+    return this.get('combinedState') || this.get('state') || 'unknown';
   }),
 
   init() {
@@ -128,9 +128,9 @@ export default Mixin.create({
     },
   },
 
-  availableActions: computed('actionLinks.{mute,unmute,activate,deactivate}', function() {
+  availableActions: computed('actionLinks.{mute,unmute,activate,deactivate}', 'type', function() {
     // let al = this.get('actionlinks');
-    const state = this.get('alertState');
+    const state = this.get('state');
 
     return [
       {

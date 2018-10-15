@@ -48,6 +48,8 @@ alertPage:
     nodeSelectorRequired: Node Selector required
     recipient:
       helpText: The value set in the Notifier is used by default. You can override this with another value.
+    expression:
+      placeholder: Input Expression
   resourceKinds:
     # backend use capitalized name
     Pod: Pod

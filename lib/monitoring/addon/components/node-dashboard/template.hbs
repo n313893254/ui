@@ -14,12 +14,12 @@
 
           <div class="text-left">
             <label class="text-muted">{{t 'hostsPage.hostPage.ipAddress'}}:</label>
-            <div class="inline-block">{{node-ip model=model.node textMuted=false}}</div>          
+            <div class="inline-block">{{node-ip model=model.node textMuted=false}}</div>
           </div>
 
           <hr class="mt-15 mb-15"/>
 
-          <div class="text-left">  
+          <div class="text-left">
             <label class="text-muted">{{t 'generic.cpu'}}:</label>
             {{model.node.cpuTotal}}
           </div>
@@ -31,7 +31,7 @@
           </div>
           <hr class="mt-15 mb-15"/>
 
-          <div class="text-left">  
+          <div class="text-left">
             <label class="text-muted">{{t 'hostsPage.hostPage.kubeletVersion'}}:</label>
             {{model.node.info.kubernetes.kubeletVersion}}
           </div>
@@ -48,19 +48,19 @@
             {{model.node.info.os.dockerVersion}}
           </div>
           <hr class="mt-15 mb-15"/>
-          
+
           <div class="text-left">
             <label class="text-muted">{{t 'hostsPage.hostPage.kernelVersion'}}:</label>
             {{model.node.info.os.kernelVersion}}
           </div>
           <hr class="mt-15 mb-15"/>
-          
+
           <div class="text-left">
             <label class="text-muted">{{t 'hostsPage.hostPage.operatingSystem'}}:</label>
             {{model.node.osBlurb}}
           </div>
           <hr class="mt-15 mb-15"/>
-          
+
           <div class="text-left">
             <label class="text-muted">{{t 'generic.created'}}:</label>
             {{date-calendar model.node.created}}
@@ -79,7 +79,7 @@
       {{node-metrics id=model.node.id dashboards=dashboards}}
       <hr class="mt-30"/>
     {{/if}}
-    
+
     {{#accordion-list as |al expandFn|}}
       {{resource-condition-list
         resourceType=(t 'generic.node')
