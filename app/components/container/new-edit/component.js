@@ -432,7 +432,10 @@ export default Component.extend(NewOrEdit, ChildHook, {
 
       } else {
 
-        set(lc, 'name', name);
+        if (!get(this, 'editing')) {
+          set(lc, 'name', name);
+        }
+        
         containers[0] = lc
 
       }
