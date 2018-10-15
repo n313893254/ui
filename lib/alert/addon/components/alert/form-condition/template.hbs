@@ -1,0 +1,27 @@
+<div class="row">
+  <label>Condition</label>
+</div>
+<hr/>
+
+<div class="mb-10 pt-5">
+  {{#each condictions as |condiction|}}
+    {{alert/form-condition-row
+        removeRule=(action 'removeRule')
+        condictions=condictions
+        condiction=condiction
+        ingress=ingress
+        editing=editing
+    }}
+  {{else}}
+    <div class="p-20">{{t 'formIngress.noRules'}}</div>
+  {{/each}}
+</div>
+
+{{#if editing}}
+  <div class="row">
+    <button class="btn bg-link icon-btn inline-block pull-right" {{action "addRule"}}>
+      <span class="darken"><i class="icon icon-plus text-small"></i></span>
+      <span>Add Condiction</span>
+    </button>
+  </div>
+{{/if}}

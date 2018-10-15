@@ -3,12 +3,12 @@ import { get } from '@ember/object';
 import { inject as service } from '@ember/service';
 import alertMixin from 'ui/mixins/model-alert';
 
-const ProjectAlert = Resource.extend(alertMixin, {
+const projectAlertRule = Resource.extend(alertMixin, {
   intl:         service(),
   projectStore: service('store'),
   canClone:     true,
 
-  type:              'projectalert',
+  type:              'projectAlertRule',
   // _targetType is used for edit,
   _targetType: 'pod',
 
@@ -19,8 +19,8 @@ const ProjectAlert = Resource.extend(alertMixin, {
     return intl.t(`alertPage.targetTypes.${ t }`);
   }.property('targetType'),
 
-  podName: function() {
-    const id = get(this, 'targetPod.podId');
+  podName: computed('podRule.podId', function() {
+    const id = get(this, 'podRule.podId');
     const pod = get(this, 'projectStore').all('pod').filterBy('id', id).get('firstObject');
 
     if (!pod) {
@@ -28,10 +28,10 @@ const ProjectAlert = Resource.extend(alertMixin, {
     }
 
     return pod.get('displayName');
-  }.property('targetPod.podId'),
+  }),
 
-  workloadName: function() {
-    const id = get(this, 'targetWorkload.workloadId');
+  workloadName: computed('workloadRule.workloadId', function() {
+    const id = get(this, 'workloadRule.workloadId');
     const workload = get(this, 'projectStore').all('workload').filterBy('id', id).get('firstObject');
 
     if (!workload) {
@@ -39,18 +39,18 @@ const ProjectAlert = Resource.extend(alertMixin, {
     }
 
     return workload.get('displayName');
-  }.property('targetWorkload.workloadId'),
+  }),
 
-  displayCondition: function() {
+  displayCondition: computed('targetType', 'podRule.{condition,restartTimes,restartIntervalSeconds}', 'workloadRule.{availablePercentage}', function() {
     const t = get(this, 'targetType');
     const intl = get(this, 'intl');
 
     if (t === 'pod') {
-      const c = get(this, 'targetPod.condition');
+      const c = get(this, 'podRule.condition');
 
       if (c === 'restarts') {
-        const times = get(this, 'targetPod.restartTimes');
-        const interval = get(this, 'targetPod.restartIntervalSeconds');
+        const times = get(this, 'podRule.restartTimes');
+        const interval = get(this, 'podRule.restartIntervalSeconds');
 
         return intl.t('alertPage.index.table.displayCondition.restarted', {
           times,
@@ -67,15 +67,16 @@ const ProjectAlert = Resource.extend(alertMixin, {
       return intl.t('alertPage.na');
     }
     if (t === 'workload' || t === 'workloadSelector') {
-      const percent = get(this, 'targetWorkload.availablePercentage');
+      const percent = get(this, 'workloadRule.availablePercentage');
 
       return intl.t('alertPage.index.table.displayCondition.available', { percent });
     }
-  }.property('targetType', 'targetPod.{condition,restartTimes,restartIntervalSeconds}', 'targetWorkload.{availablePercentage}'),
+  }),
 
-  targetType: function() {
-    const tp = get(this, 'targetPod');
-    const tw = get(this, 'targetWorkload');
+  targetType: computed('podRule.{podId}', 'workloadRule.{workloadId,selector}', 'metricRule.expression', function() {
+    const tp = get(this, 'podRule');
+    const tw = get(this, 'workloadRule');
+    const metric = get(this, 'metricRule')
 
     if (tp && tp.podId) {
       return 'pod';
@@ -86,7 +87,10 @@ const ProjectAlert = Resource.extend(alertMixin, {
     if (tw && tw.selector) {
       return 'workloadSelector';
     }
-  }.property('targetPod.{podId}', 'targetWorkload.{workloadId,selector}'),
+    if (metric && metric.expression) {
+      return 'metric'
+    }
+  }),
 
   actions: {
     clone() {
@@ -96,4 +100,4 @@ const ProjectAlert = Resource.extend(alertMixin, {
 
 });
 
-export default ProjectAlert;
+export default projectAlertRule;

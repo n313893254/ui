@@ -1,11 +1,11 @@
 import Resource from 'ember-api-store/models/resource';
-import { get } from '@ember/object';
+import { get, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import alertMixin from 'ui/mixins/model-alert';
 
-const ClusterAlert = Resource.extend(alertMixin, {
+const clusterAlertRule = Resource.extend(alertMixin, {
   intl:       service(),
-  type: 'clusteralert',
+  type: 'clusterAlertRule',
 
   _targetType: 'systemService',
 
@@ -15,24 +15,28 @@ const ClusterAlert = Resource.extend(alertMixin, {
     this._super(...args);
   },
 
-  targetType: function() {
-    const targetSystemService = get(this, 'targetSystemService');
-    const targetNode = get(this, 'targetNode');
-    const targetEvent = get(this, 'targetEvent');
+  targetType: computed('systemServiceRule.{condition}', 'nodeRule.{nodeId,selector}', 'eventRule.{resourceKind}', 'metricRule.{expression}', function() {
+    const systemServiceRule = get(this, 'systemServiceRule');
+    const nodeRule = get(this, 'nodeRule');
+    const eventRule = get(this, 'eventRule');
+    const metricRule = get(this, 'metricRule');
 
-    if (targetSystemService && targetSystemService.condition) {
+    if (systemServiceRule && systemServiceRule.condition) {
       return 'systemService';
     }
-    if (targetNode && targetNode.nodeId) {
+    if (nodeRule && nodeRule.nodeId) {
       return 'node'
     }
-    if (targetNode && targetNode.selector) {
+    if (nodeRule && nodeRule.selector) {
       return 'nodeSelector';
     }
-    if (targetEvent && targetEvent.resourceKind) {
+    if (eventRule && eventRule.resourceKind) {
       return 'event';
     }
-  }.property('targetSystemService.{condition}', 'targetNode{nodeId,selector}', 'targetEvent.{resourceKind}'),
+    if (metricRule && metricRule.expression) {
+      return 'metric'
+    }
+  }),
 
   displayTargetType: function() {
     const t = get(this, 'targetType');
@@ -88,6 +92,12 @@ const ClusterAlert = Resource.extend(alertMixin, {
     return null;
   }.property('targetType', 'targetNode.{memThreshold,cpuThreshold,condition}'),
 
+  validationErrors() {
+    let errors = [];
+
+    return errors;
+  },
+
   actions: {
     clone() {
       get(this, 'router').transitionTo('authenticated.cluster.alert.new', { queryParams: { id: get(this, 'id'),  } });
@@ -96,4 +106,4 @@ const ClusterAlert = Resource.extend(alertMixin, {
 
 });
 
-export default ClusterAlert;
+export default clusterAlertRule;

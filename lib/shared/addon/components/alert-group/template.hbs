@@ -1,0 +1,18 @@
+<tr class="group-row">
+  <td colspan={{sub fullColspan 1}} class="pl-10">
+    {{group.name}}
+    <p class="text-small text-muted m-0">{{linkify group.description}}</p>
+  </td>
+  <td data-title="{{dt.actions}}" class="actions">
+    {{#if group}}
+      {{action-menu model=group}}
+    {{/if}}
+  </td>
+</tr>
+{{#if group.showTransitioningMessage}}
+  <tr class="group-row group-row-error">
+    <td colspan="{{fullColspan}}" class="text-small {{group.stateColor}}">
+      {{uc-first group.transitioningMessage}}
+    </td>
+  </tr>
+{{/if}}

@@ -81,7 +81,7 @@
     {{#if scope.currentCluster.isMonitoringReady}}
       {{container-metrics id=model.id}}
     {{/if}}
-    
+
     {{#accordion-list as |al expandFn|}}
       {{#accordion-list-item
         title=(t 'containerPage.portsTab.header')
