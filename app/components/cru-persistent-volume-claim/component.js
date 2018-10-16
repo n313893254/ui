@@ -85,6 +85,11 @@ export default Component.extend(ViewNewEdit, ChildHook, {
     const { currentCluster = {} } = scope
     const { provider, huaweiCloudContainerEngineConfig = {} } = currentCluster
     const primaryResource = get(this, 'primaryResource')
+    const storageClasses = get(this, 'storageClasses') || []
+    const storageClass = get(storageClasses, 'firstObject')
+    if (get(this, 'mode') === 'new') {
+      set(this, 'primaryResource.storageClassId', storageClass.id)
+    }
 
     if (provider === 'huaweicce' && get(this, 'mode') === 'new') {
 
