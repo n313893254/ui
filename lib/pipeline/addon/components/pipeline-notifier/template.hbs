@@ -28,6 +28,14 @@
     </div>
   </div>
 
+  {{#unless haveNotifiers}}
+    <div class="banner bg-warning">
+      <div class="banner-icon p-10"><i class="icon icon-alert"></i></div>
+      <div class="banner-message">
+        {{t 'alertPage.newOrEdit.noNotifierHelpText'}} {{#link-to-external 'notifier' clusterId}} {{t 'alertPage.newOrEdit.createOne'}} {{/link-to-external}}.
+      </div>
+    </div>
+  {{/unless}}
   <div class="row">
     <div class="col span-1">
       <div class="pt-10">
