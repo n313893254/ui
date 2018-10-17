@@ -76,6 +76,8 @@
               <p class="help-block">{{t 'editPipelineConfig.timeout.helpText'}}</p>
             </div>
           </div>
+
+          {{pipeline-notifier type="pipeline" branchOnly=true config=pipeline.notification}}
         {{/advanced-section}}
       {{/if}}
     {{/if}}

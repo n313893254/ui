@@ -1,0 +1,54 @@
+<div class="acc-label pb-5 pt-10">Notification</div>
+<section class="box">
+  <div class="row">
+    <div class="col span-1">
+      <div class="pt-10">
+        When
+      </div>
+    </div>
+    <div class="col span-10">
+      {{searchable-select
+        classNames="form-control"
+        content=conditionContent
+        value=condition
+        placeholder="Select a condition"
+      }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col span-1">
+      <div class="pt-10">
+        Send a
+      </div>
+    </div>
+    <div class="col span-10">
+      {{input value=message
+              placeholder="Message"
+      }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col span-1">
+      <div class="pt-10">
+      </div>
+    </div>
+    <div class="col span-10">
+      {{#each recipients as |recipient idx|}}
+        {{form-recipient-item
+            disableRemove=disableRemove
+            remove="remove"
+            isFirst=(eq idx 0)
+            notifiers=notifiers
+            model=recipients
+        }}
+      {{/each}}
+      <div class="mt-15">
+        <button class="btn bg-link icon-btn p-0" {{action "add"}}>
+          <span class="darken"><i class="icon icon-plus text-small"/></span>
+          <span>{{t 'alertPage.newOrEdit.addRecipient'}}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
