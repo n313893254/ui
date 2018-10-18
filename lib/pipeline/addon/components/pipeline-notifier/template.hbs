@@ -10,7 +10,7 @@
       {{searchable-select
         classNames="form-control"
         content=conditionContent
-        value=condition
+        value=config.condition
         placeholder="Select a condition"
       }}
     </div>
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="col span-10">
-      {{input value=message
+      {{input value=config.message
               placeholder="Message"
       }}
     </div>
@@ -42,13 +42,13 @@
       </div>
     </div>
     <div class="col span-10">
-      {{#each recipients as |recipient idx|}}
+      {{#each config.recipients as |recipient idx|}}
         {{form-recipient-item
             disableRemove=disableRemove
             remove="remove"
             isFirst=(eq idx 0)
             notifiers=notifiers
-            model=recipients
+            model=recipient
         }}
       {{/each}}
       <div class="mt-15">
