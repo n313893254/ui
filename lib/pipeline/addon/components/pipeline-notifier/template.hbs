@@ -7,12 +7,43 @@
       </div>
     </div>
     <div class="col span-10">
-      {{searchable-select
+      {{!-- {{searchable-select
         classNames="form-control"
         content=conditionContent
         value=config.condition
         placeholder="Select a condition"
+      }} --}}
+      {{!-- {{#power-select-multiple options=conditionContent
+                               classNames="form-control"
+                               selected=config.condition
+                               placeholder="Select a condition"
+                               onchange=(action (mut config.condition))
+                               triggerComponent=(component 'multiple-select-trigger')
+                               searchEnabled=false
+         as |condition|
       }}
+        {{condition}}
+      {{/power-select-multiple}} --}}
+      <div class="pt-10">
+        <div class="checkbox inline-block">
+          <label>
+            {{input type="checkbox" checked=accessROX}}
+            Success
+          </label>
+        </div>
+        <div class="checkbox inline-block ml-10">
+          <label>
+            {{input type="checkbox" checked=accessROX1}}
+            Changed
+          </label>
+        </div>
+        <div class="checkbox inline-block ml-10">
+          <label>
+            {{input type="checkbox" checked=accessROX2}}
+            Failed
+          </label>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">

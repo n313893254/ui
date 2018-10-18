@@ -93,11 +93,12 @@
     "semver": "^5.4.1",
     "shell-quote": "^1.6.1",
     "url-regex": "^4.1.1",
-    "xterm": "^3.7.0",
     "webpack": "^4.12.0",
+    "xterm": "^3.7.0",
     "yamljs": "^0.3.0"
   },
   "dependencies": {
+    "ember-power-select": "^2.0.9",
     "mysql": "^2.15.0",
     "request": "^2.83.0",
     "sendgrid": "^4.7.1",
