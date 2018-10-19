@@ -56,13 +56,13 @@ export default Component.extend(NewOrEdit, {
   init() {
 
     this._super(...arguments)
-    const annotations = get(this, 'ingress.annotations')
+    const annotations = get(this, 'ingress.annotations') || {}
 
     if (get(this, 'isCCE')) {
 
       setProperties(this, {
         eipIp:   annotations['kubernetes.io/elb.ip'] || null,
-        eipPort: annotations['kubernetes.io/elb.port'].slice(1, -1) || null,
+        eipPort: (annotations['kubernetes.io/elb.port'] || '').slice(1, -1) || null,
       })
 
     }
@@ -71,9 +71,9 @@ export default Component.extend(NewOrEdit, {
 
       setProperties(this, {
         targetType:     annotations['alb.ingress.kubernetes.io/target-type'] || null,
-        listenPorts:    annotations['alb.ingress.kubernetes.io/listen-ports'].slice(1, -1) || null,
-        subnets:        annotations['alb.ingress.kubernetes.io/subnets'].slice(1, -1) || null,
-        securityGroups: annotations['alb.ingress.kubernetes.io/security-groups'].slice(1, -1) || null,
+        listenPorts:    (annotations['alb.ingress.kubernetes.io/listen-ports'] || '').slice(1, -1) || null,
+        subnets:        (annotations['alb.ingress.kubernetes.io/subnets'] || '').slice(1, -1) || null,
+        securityGroups: (annotations['alb.ingress.kubernetes.io/security-groups'] || '').slice(1, -1) || null,
       })
 
     }
