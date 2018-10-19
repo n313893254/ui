@@ -18,6 +18,9 @@ export default Resource.extend(ResourceUsage, {
   machines:                    alias('nodes'),
   roleTemplateBindings:        alias('clusterRoleTemplateBindings'),
   isGKE:                       equal('driver', 'googleKubernetesEngine'),
+  isCCE:                       equal('driver', 'huaweiCloudContainerEngine'),
+  isEKS:                       equal('driver', 'imported'),
+  isLocal:                     equal('id', 'local'),
 
   configName: computed(function() {
 

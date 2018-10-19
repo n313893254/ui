@@ -1,12 +1,20 @@
 import { resolve } from 'rsvp';
 import {
-  get, set, computed
+  get, set, computed, setProperties
 } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import NewOrEdit from 'shared/mixins/new-or-edit';
 import layout from './template';
+
+const TARGET_TYPE = [{
+  label: 'ip',
+  value: 'ip',
+}, {
+  label: 'instance',
+  value: 'instance',
+}]
 
 export default Component.extend(NewOrEdit, {
   intl:  service(),
@@ -20,8 +28,12 @@ export default Component.extend(NewOrEdit, {
   certificates:           null,
 
   isGKE: alias('scope.currentCluster.isGKE'),
+  isCCE: alias('scope.currentCluster.isCCE'),
+  isEKS: alias('scope.currentCluster.isEKS'),
+  isLocal: alias('scope.currentCluster.isLocal'),
 
   primaryResource: alias('ingress'),
+  targetTypeContent: TARGET_TYPE,
 
   headerLabel: computed('intl.locale', 'existing', function() {
 
@@ -40,6 +52,26 @@ export default Component.extend(NewOrEdit, {
     return get(this, 'intl').t(k);
 
   }),
+
+  init() {
+    this._super(...arguments)
+    const annotations = get(this, 'ingress.annotations')
+    if (get(this, 'isCCE')) {
+      setProperties(this, {
+        eipIp: annotations['kubernetes.io/elb.ip'] || null,
+        eipPort: annotations['kubernetes.io/elb.port'].slice(1, -1) || null,
+      })
+    }
+
+    if (get(this, 'isEKS') && !get(this, 'isLocal')) {
+      setProperties(this, {
+        targetType: annotations['alb.ingress.kubernetes.io/target-type'] || null,
+        listenPorts: annotations['alb.ingress.kubernetes.io/listen-ports'].slice(1, -1) || null,
+        subnets: annotations['alb.ingress.kubernetes.io/subnets'].slice(1, -1) || null,
+        securityGroups: annotations['alb.ingress.kubernetes.io/security-groups'].slice(1, -1) || null,
+      })
+    }
+  },
 
   actions: {
     done() {
@@ -79,6 +111,46 @@ export default Component.extend(NewOrEdit, {
     let ok = this.validate();
 
     set(pr, 'namespaceId', nsId);
+
+    let annotations = get(this, 'ingress.annotations') || {}
+
+    if (get(this, 'isCCE')) {
+      if (get(this, 'eipIp')) {
+        Object.assign(annotations, {
+          'kubernetes.io/elb.ip': get(this, 'eipIp'),
+        })
+      }
+      if (get(this, 'eipPort')) {
+        Object.assign(annotations, {
+          'kubernetes.io/elb.port': `"${get(this, 'eipPort')}"`,
+        })
+      }
+    }
+
+    if (get(this, 'isEKS') && !get(this, 'isLocal')) {
+      if (get(this, 'targetType')) {
+        Object.assign(annotations, {
+          'alb.ingress.kubernetes.io/target-type': get(this, 'targetType'),
+        })
+      }
+      if (get(this, 'listenPorts')) {
+        Object.assign(annotations, {
+          'alb.ingress.kubernetes.io/listen-ports': `'${get(this, 'listenPorts')}'`,
+        })
+      }
+      if (get(this, 'subnets')) {
+        Object.assign(annotations, {
+          'alb.ingress.kubernetes.io/subnets': `'${get(this, 'subnets')}'`,
+        })
+      }
+      if (get(this, 'securityGroups')) {
+        Object.assign(annotations, {
+          'alb.ingress.kubernetes.io/security-groups': `'${get(this, 'securityGroups')}'`,
+        })
+      }
+    }
+
+    set(this, 'ingress.annotations', annotations)
 
     return ok;
 

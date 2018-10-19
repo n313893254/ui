@@ -21,6 +21,68 @@
   </div>
 </div>
 
+{{#if isCCE}}
+  <div class="row">
+    <div class="col span-11-of-23 mt-0 mb-0">
+      <label class="acc-label">Eip Ip</label>
+      {{input type="text"
+              value=eipIp
+              classNames="form-control"
+              placeholder="e.g. 192.168.0.39"
+      }}
+    </div>
+    <div class="col span-11-of-23 mt-0 mb-0 offset-1-of-23">
+      <label class="acc-label">Eip Port</label>
+      {{input-integer type="text"
+                      value=eipPort
+                      classNames="form-control"
+                      placeholder="e.g. 80"
+                      min=0
+      }}
+    </div>
+  </div>
+{{/if}}
+
+{{#if (and isEKS (not isLocal))}}
+  <div class="row">
+    <div class="col span-11-of-23 mt-0 mb-0">
+      <label class="acc-label">Target Type</label>
+      {{searchable-select
+        class="form-control"
+        content=targetTypeContent
+        value=targetType
+        placeholder="Select A Target Type"
+      }}
+    </div>
+    <div class="col span-11-of-23 mt-0 mb-0 offset-1-of-23">
+      <label class="acc-label">Listen Ports</label>
+      {{input type="text"
+              value=listenPorts
+              classNames="form-control"
+              placeholder="e.g. [{'HTTP':80,'HTTPS': 443}]"
+      }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col span-11-of-23 mt-0 mb-0">
+      <label class="acc-label">Subnet</label>
+      {{input type="text"
+              value=subnets
+              classNames="form-control"
+              placeholder="e.g. subnet-xxx, ..."
+      }}
+    </div>
+    <div class="col span-11-of-23 mt-0 mb-0 offset-1-of-23">
+      <label class="acc-label">Security Groups</label>
+      {{input type="text"
+              value=securityGroups
+              classNames="form-control"
+              placeholder="e.g. sg-xxx, ..."
+      }}
+    </div>
+  </div>
+{{/if}}
+
 <section class="mt-40 horizontal-form container-fluid">
   {{form-ingress-rule
     ingress=ingress
