@@ -137,20 +137,15 @@ export default Component.extend(NewOrEdit, ChildHook, {
     if (!get(this, 'isSidekick')) {
 
       this.setProperties({
-        name:        get(this, 'service.name'),
         description: get(this, 'service.description'),
         scale:       get(this, 'service.scale'),
         scheduling:  get(this, 'service.scheduling'),
       });
 
     } else {
-
-      this.setProperties({
-        name:        get(this, 'launchConfig.name'),
-        description: get(this, 'launchConfig.description'),
-      });
-
+      set(this, 'description', get(this, 'launchConfig.description'));
     }
+    set(this, 'name', get(this, 'launchConfig.name'));
 
     let namespaceId = null;
 
@@ -432,10 +427,7 @@ export default Component.extend(NewOrEdit, ChildHook, {
 
       } else {
 
-        if (!get(this, 'editing')) {
-          set(lc, 'name', name);
-        }
-        
+        set(lc, 'name', name);
         containers[0] = lc
 
       }
