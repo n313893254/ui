@@ -100,7 +100,6 @@ export default Component.extend({
 
               const elbType = get(obj, 'elbType')
 
-              console.log(elbType, 'elbType')
               toSet['hostIp'] = `${ ip }:${ elbType }`;
 
             }

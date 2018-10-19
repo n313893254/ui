@@ -73,7 +73,6 @@ export default Controller.extend({
       break
 
     }
-    console.log(out, 'out')
 
     return out;
 

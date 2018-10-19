@@ -1,4 +1,6 @@
-import { get, set, observer } from '@ember/object';
+import {
+  get, set, observer
+} from '@ember/object';
 import Component from '@ember/component';
 import layout from './template';
 import VolumeSource from 'shared/mixins/volume-source';
@@ -29,11 +31,6 @@ export default Component.extend(VolumeSource, {
 
   }.property('mounts.[]'),
 
-  mountPathChange: observer('mount.mountPath', function() {
-    const mountPath = get(this, 'mount.mountPath')
-    set(this, 'volume.flexVolume.options.logDir', mountPath)
-  }),
-
   useCustomRegexChange: function() {
 
     const useCustomRegex = get(this, 'useCustomRegex');
@@ -50,6 +47,14 @@ export default Component.extend(VolumeSource, {
     }
 
   }.observes('useCustomRegex'),
+
+  mountPathChange: observer('mount.mountPath', function() {
+
+    const mountPath = get(this, 'mount.mountPath')
+
+    set(this, 'volume.flexVolume.options.logDir', mountPath)
+
+  }),
 
   init() {
 

@@ -11,7 +11,6 @@ export default Route.extend({
   clusterStore: service(),
   globalStore:  service(),
   k8sStore:     service(),
-  clusterStore: service(),
 
   queryParams: { launchConfigIndex: { refreshModel: true } },
 
@@ -63,7 +62,7 @@ export default Route.extend({
       business:          clusterStore.findAll('business', {
         url:         `${ k8sStore.baseUrl }/business`,
         forceReload: true
-      }).catch((err) => console.log(err)),
+      }).catch(),
     }).then((hash) => ({
       loggingEnabled: hash.clusterLogging || hash.projectLogging,
       dataMap:        hash.dataMap,

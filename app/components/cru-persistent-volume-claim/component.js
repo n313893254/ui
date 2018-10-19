@@ -1,14 +1,13 @@
 import { inject as service } from '@ember/service';
 import { gt, reads } from '@ember/object/computed';
 import {
-  get, set, computed, observer
+  get, set, computed
 } from '@ember/object';
 import { parseSi } from 'shared/utils/parse-unit';
 import Component from '@ember/component';
 import ViewNewEdit from 'shared/mixins/view-new-edit';
 import ChildHook from 'shared/mixins/child-hook';
 import layout from './template';
-import Errors from 'ui/utils/errors';
 
 export default Component.extend(ViewNewEdit, ChildHook, {
   intl:     service(),
@@ -84,11 +83,13 @@ export default Component.extend(ViewNewEdit, ChildHook, {
     const k8sStore = get(this, 'k8sStore')
     const { currentCluster = {} } = scope
     const { provider, huaweiCloudContainerEngineConfig = {} } = currentCluster
-    const primaryResource = get(this, 'primaryResource')
     const storageClasses = get(this, 'storageClasses') || []
     const storageClass = get(storageClasses, 'firstObject')
+
     if (get(this, 'mode') === 'new') {
+
       set(this, 'primaryResource.storageClassId', storageClass.id)
+
     }
 
     if (provider === 'huaweicce' && get(this, 'mode') === 'new') {
@@ -110,8 +111,6 @@ export default Component.extend(ViewNewEdit, ChildHook, {
           projectId,
           zone,
         }, { url: `${ k8sStore.baseUrl }/business/${ businessId }?action=getHuaweiCloudApiInfo` }).then((res) => {
-
-          const filter = res.availabilityZoneInfo.filter((z) => z && z.zoneState && z.zoneState.available)
 
           set(this, 'availableZones', res.availabilityZoneInfo.filter((z) => z && z.zoneState && z.zoneState.available))
           set(this, 'availableZoneId', availableZone)
@@ -206,8 +205,6 @@ export default Component.extend(ViewNewEdit, ChildHook, {
 
   willSave() {
 
-    const poi = get(this, 'scope.currentCluster.provider')
-
     if (get(this, 'scope.currentCluster.provider') === 'huaweicce') {
 
       const zone = get(this, 'scope.currentCluster.huaweiCloudContainerEngineConfig.zone')
@@ -287,7 +284,7 @@ export default Component.extend(ViewNewEdit, ChildHook, {
         return sup.apply(self, ...arguments);
 
       })
-        .catch((err) => {
+        .catch(() => {
 
           const errors = [];
 

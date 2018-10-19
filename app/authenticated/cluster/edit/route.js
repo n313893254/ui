@@ -30,7 +30,7 @@ export default Route.extend({
       business:                   clusterStore.findAll('business', {
         url:         `${ k8sStore.baseUrl }/business`,
         forceReload: true
-      }).catch((err) => console.log(err)),
+      }).catch(),
     });
 
   },

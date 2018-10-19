@@ -91,7 +91,6 @@ export default Component.extend({
       set(check, 'command', null);
 
     }
-    console.log(check, 'check')
     this.sendAction('changed', check);
 
   }),

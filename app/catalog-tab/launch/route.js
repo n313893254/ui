@@ -45,7 +45,6 @@ export default Route.extend({
       if ( !results.namespace ) {
 
         let neuNSN = results.tpl.get('displayName');
-        let dupe = results.namespaces.findBy('id', neuNSN);
 
         results.namespace = clusterStore.createRecord({
           type:      'namespace',

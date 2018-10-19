@@ -15,7 +15,7 @@ import EndpointPorts from 'ui/mixins/endpoint-ports';
 import { inject as service } from '@ember/service';
 import DisplayImage from 'shared/mixins/display-image';
 import fetchYaml from 'shared/utils/fetch-yaml';
-import YAML from 'npm:yamljs';
+import jsyaml from 'npm:js-yaml';
 
 var Workload = Resource.extend(DisplayImage, StateCounts, EndpointPorts, {
   pods:         hasMany('id', 'pod', 'workloadId'),
@@ -410,7 +410,7 @@ var Workload = Resource.extend(DisplayImage, StateCounts, EndpointPorts, {
             url:    yamlLink,
             method: 'PUT'
           })
-            .catch(() => {
+            .catch((err) => {
 
               get(this, 'growl').fromError('Error updating scale', err);
 
