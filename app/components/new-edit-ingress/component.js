@@ -62,7 +62,7 @@ export default Component.extend(NewOrEdit, {
 
       setProperties(this, {
         eipIp:   annotations['kubernetes.io/elb.ip'] || null,
-        eipPort: (annotations['kubernetes.io/elb.port'] || '').slice(1, -1) || null,
+        eipPort: annotations['kubernetes.io/elb.port'] || null,
       })
 
     }
@@ -71,9 +71,9 @@ export default Component.extend(NewOrEdit, {
 
       setProperties(this, {
         targetType:     annotations['alb.ingress.kubernetes.io/target-type'] || null,
-        listenPorts:    (annotations['alb.ingress.kubernetes.io/listen-ports'] || '').slice(1, -1) || null,
-        subnets:        (annotations['alb.ingress.kubernetes.io/subnets'] || '').slice(1, -1) || null,
-        securityGroups: (annotations['alb.ingress.kubernetes.io/security-groups'] || '').slice(1, -1) || null,
+        listenPorts:    annotations['alb.ingress.kubernetes.io/listen-ports'] || null,
+        subnets:        annotations['alb.ingress.kubernetes.io/subnets'] || null,
+        securityGroups: annotations['alb.ingress.kubernetes.io/security-groups'] || null,
       })
 
     }
@@ -130,7 +130,7 @@ export default Component.extend(NewOrEdit, {
       }
       if (get(this, 'eipPort')) {
 
-        Object.assign(annotations, { 'kubernetes.io/elb.port': `"${ get(this, 'eipPort') }"`, })
+        Object.assign(annotations, { 'kubernetes.io/elb.port': `${ get(this, 'eipPort') }`, })
 
       }
 
@@ -145,17 +145,17 @@ export default Component.extend(NewOrEdit, {
       }
       if (get(this, 'listenPorts')) {
 
-        Object.assign(annotations, { 'alb.ingress.kubernetes.io/listen-ports': `'${ get(this, 'listenPorts') }'`, })
+        Object.assign(annotations, { 'alb.ingress.kubernetes.io/listen-ports': `${ get(this, 'listenPorts') }`, })
 
       }
       if (get(this, 'subnets')) {
 
-        Object.assign(annotations, { 'alb.ingress.kubernetes.io/subnets': `'${ get(this, 'subnets') }'`, })
+        Object.assign(annotations, { 'alb.ingress.kubernetes.io/subnets': `${ get(this, 'subnets') }`, })
 
       }
       if (get(this, 'securityGroups')) {
 
-        Object.assign(annotations, { 'alb.ingress.kubernetes.io/security-groups': `'${ get(this, 'securityGroups') }'`, })
+        Object.assign(annotations, { 'alb.ingress.kubernetes.io/security-groups': `${ get(this, 'securityGroups') }`, })
 
       }
 
