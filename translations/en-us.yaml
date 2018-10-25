@@ -5788,6 +5788,8 @@ nav:
     link: "Preferences"
   nodeTemplates:
     link: "Node Templates"
+  autoScalerTemplates:
+    link: "Auto Scaler Templates"
   api:
     link: "API & Keys"
   settings:
@@ -6199,3 +6201,14 @@ eventPage:
     any: Any log level
     normal: Normal
     warning: Warning
+
+autoScalerTemplatesPage:
+  header: Auto Scaler Templates
+  templateInstance:
+    label: Template Instance
+    placeholder: e.g. Your Template Instance
+  name:
+    label: Name
+    placeholder: e.g. Your Auto Scaler Template Name
+  new:
+    header: Add Auto Scaler Template

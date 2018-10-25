@@ -13,6 +13,7 @@ export default Route.extend({
     const k8sStore = this.get('k8sStore')
     const clusterStore = get(this, 'clusterStore');
     const clusterId = transition.params['authenticated.cluster'].cluster_id;
+    const globalStore = get(this, 'globalStore')
 
     return hash({
       hooks: clusterStore.findAll('nodeAutoScaler', {
@@ -22,6 +23,7 @@ export default Route.extend({
       }),
       pageScope: 'cluster',
       clusterId,
+      autoScalerTemplates: globalStore.findAll('autoScalerTemplate'),
     })
 
   },

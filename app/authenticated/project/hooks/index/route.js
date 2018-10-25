@@ -13,6 +13,7 @@ export default Route.extend({
     const store = get(this, 'store');
     const k8sStore = this.get('k8sStore')
     const projectId = transition.params['authenticated.project'].project_id;
+    const globalStore = get(this, 'globalStore')
 
     return hash({
       hooks: store.findAll('workloadAutoScaler', {
@@ -21,6 +22,7 @@ export default Route.extend({
       }),
       pageScope: 'project',
       projectId,
+      autoScalerTemplates: globalStore.findAll('autoScalerTemplate'),
     })
 
   },

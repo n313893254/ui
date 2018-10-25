@@ -13,12 +13,14 @@ export default Route.extend({
 
     const store = get(this, 'store');
     const projectId = transition.params['authenticated.project'].project_id;
+    const globalStore = get(this, 'globalStore')
 
     return hash({
       receiver:  this.createRecord('workloadAutoScaler', projectId),
       mode:      'new',
       pageScope: 'project',
       workloads:  store.findAll('workload'),
+      autoScalerTemplates: globalStore.findAll('autoScalerTemplate'),
     })
 
   },

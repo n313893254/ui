@@ -12,6 +12,7 @@ export default Route.extend({
 
     const store = get(this, 'store');
     const k8sStore = this.get('k8sStore')
+    const globalStore = get(this, 'globalStore')
 
     return hash({
       receiver: k8sStore.find('workloadAutoScaler', null, {
@@ -33,6 +34,7 @@ export default Route.extend({
       mode:      'edit',
       pageScope: 'project',
       workloads:  store.findAll('workload'),
+      autoScalerTemplates: globalStore.findAll('autoScalerTemplate'),
     })
 
   },

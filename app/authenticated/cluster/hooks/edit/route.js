@@ -12,6 +12,7 @@ export default Route.extend({
 
     const k8sStore = this.get('k8sStore')
     const clusterStore = get(this, 'clusterStore');
+    const globalStore = get(this, 'globalStore')
 
     return hash({
       receiver: clusterStore.find('nodeAutoScaler', null, {
@@ -31,6 +32,7 @@ export default Route.extend({
 
       }),
       mode: 'edit',
+      autoScalerTemplates: globalStore.findAll('autoScalerTemplate'),
     })
 
   },

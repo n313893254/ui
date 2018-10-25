@@ -12,6 +12,7 @@
   {{#if (eq kind "row")}}
     {{hook/hook-row
       model=obj
+      autoScalerTemplates=model.autoScalerTemplates
       toggle=(action "toggleExpand" obj.id)
       expanded=(array-includes expandedLogs obj.id)
       searchText=searchText

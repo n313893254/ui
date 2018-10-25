@@ -7,22 +7,27 @@ import {
 } from '@ember/object';
 import NewOrEdit from 'ui/mixins/new-or-edit';
 
+const metricsType = [{
+  label: 'CPU',
+  value: 'cpu',
+}, {
+  label: 'Memory',
+  value: 'memory',
+}]
+
 export default Component.extend(NewOrEdit, {
   scope:        service(),
   k8sStore:     service(),
   clusterStore: service(),
 
   layout,
-  metricsTypeContent: [{
-    label: 'CPU',
-    value: 'cpu',
-  }, {
-    label: 'Memory',
-    value: 'memory',
-  }, {
-    label: 'Custom',
-    value: 'custom',
-  }],
+  metricsTypeContent: computed('model.autoScalerTemplates.[]', function() {
+    const autoScalerTemplates = (get(this, 'model.autoScalerTemplates') || []).map(a => ({
+      label: a.name,
+      value: a.name,
+    }))
+    return [...metricsType, ...autoScalerTemplates]
+  }),
   advanced:        false,
 
   receiver:        alias('model.receiver'),
@@ -61,6 +66,15 @@ export default Component.extend(NewOrEdit, {
     if (mode === 'edit') {
 
       setProperties(primaryResource, {})
+
+      const metricsType = get(this, 'primaryResource.metricsType')
+      if (metricsType !== 'cpu' || metricsType !== 'memory') {
+        const autoScalerTemplates = get(this, 'model.autoScalerTemplates') || []
+        const filter = autoScalerTemplates.filter(a => a.templateInstance === metricsType)
+        if (filter[0] && filter[0].name) {
+          set(this, 'primaryResource.metricsType', filter[0].name)
+        }
+      }
 
     }
 
@@ -121,8 +135,20 @@ export default Component.extend(NewOrEdit, {
 
   },
 
+  format() {
+    const metricsType = get(this, 'primaryResource.metricsType')
+    if (metricsType !== 'cpu' || metricsType !== 'memory') {
+      const autoScalerTemplates = get(this, 'model.autoScalerTemplates') || []
+      const filter = autoScalerTemplates.filter(a => a.name === metricsType)
+      if (filter[0] && filter[0].templateInstance) {
+        set(this, 'primaryResource.metricsType', filter[0].templateInstance)
+      }
+    }
+  },
+
   doSave() {
 
+    this.format()
     const k8sStore = get(this, 'k8sStore')
     let url = ``
     const currentPageScope = get(this, 'scope.currentPageScope')
@@ -145,17 +171,20 @@ export default Component.extend(NewOrEdit, {
 
     return get(this, 'primaryResource').save({ url, })
       .then((newData) => {
-
+        this.goBack();
         return this.mergeResult(newData);
 
       })
-      .catch((err) => this.send('error', err));
+      .catch((err) => {
+        this.format()
+        this.send('error', err)}
+      );
 
   },
 
   doneSaving() {
 
-    this.goBack();
+
 
   },
 

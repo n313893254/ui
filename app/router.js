@@ -52,6 +52,7 @@ Router.map(function() {
 
     this.route('apikeys');
     this.route('node-templates');
+    this.route('auto-scaler-templates');
     this.route('prefs');
 
     // Per-Cluster

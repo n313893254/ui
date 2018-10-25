@@ -1,0 +1,27 @@
+<section class="horizontal-form container-fluid">
+    <h2>{{t 'autoScalerTemplatesPage.new.header'}}</h2>
+    <hr/>
+
+    <div class="row">
+      <div class="col span-12">
+        <label class="acc-label">{{t 'autoScalerTemplatesPage.name.label'}}{{field-required}}</label>
+        {{input value=model.name
+                placeholder=(t 'autoScalerTemplatesPage.name.placeholder')
+                type="text"
+                classNames="form-control"
+        }}
+      </div>
+      <div class="col span-12">
+        <label class="acc-label">{{t 'autoScalerTemplatesPage.templateInstance.label'}}{{field-required}}</label>
+        {{textarea-autogrow
+          value=model.templateInstance
+          classNames="form-control"
+          rows="1"
+          placeholder='autoScalerTemplatesPage.templateInstance.placeholder'
+        }}
+      </div>
+    </div>
+
+    {{top-errors errors=errors}}
+    {{save-cancel editing=editing save="save" cancel="cancel"}}
+</section>
