@@ -8,6 +8,8 @@ import {
   get, set, computed, observer, setProperties
 } from '@ember/object';
 
+const TEMPLATE_TYPE = ['Node', 'Pod']
+
 export default Component.extend(ModalBase, NewOrEdit, {
   endpointService: service('endpoint'),
   scope:           service(),
@@ -22,6 +24,9 @@ export default Component.extend(ModalBase, NewOrEdit, {
 
   originalModel:   alias('modalService.modalOpts'),
   errors:        [],
+  templateTypeContent: computed('model', function() {
+    return TEMPLATE_TYPE.map(item => ({label: item, value: item}))
+  }),
   displayEndpoint: function() {
 
     return get(this, 'endpointService.api.display.current');
@@ -94,6 +99,7 @@ export default Component.extend(ModalBase, NewOrEdit, {
     set(this, 'clone', get(this, 'originalModel').clone());
     set(this, 'model', get(this, 'originalModel').clone());
     set(this, 'justCreated', false);
+    set(this, 'model.templateType', 'Node')
 
   },
 

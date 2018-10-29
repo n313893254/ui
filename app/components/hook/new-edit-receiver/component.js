@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import layout from './template';
 import { inject as service } from '@ember/service'
-import { alias } from '@ember/object/computed';
+import { alias, reads } from '@ember/object/computed';
 import {
   set, get, computed, setProperties
 } from '@ember/object';
@@ -19,10 +19,20 @@ export default Component.extend(NewOrEdit, {
   scope:        service(),
   k8sStore:     service(),
   clusterStore: service(),
+  pageScope:    reads('scope.currentPageScope'),
 
   layout,
-  metricsTypeContent: computed('model.autoScalerTemplates.[]', function() {
-    const autoScalerTemplates = (get(this, 'model.autoScalerTemplates') || []).map(a => ({
+  metricsTypeContent: computed('model.autoScalerTemplates.[]', 'pageScope', function() {
+    const pageScope = get(this, 'pageScope')
+    const autoScalerTemplates = (get(this, 'model.autoScalerTemplates') || []).filter(f => {
+      if (pageScope === 'cluster') {
+        return f.templateType === 'Node'
+      }
+      if (pageScope === 'project') {
+        return f.templateType === 'Pod'
+      }
+      return true
+    }).map(a => ({
       label: a.name,
       value: a.name,
     }))

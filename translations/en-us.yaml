@@ -6209,6 +6209,8 @@ autoScalerTemplatesPage:
     placeholder: e.g. Your Template Instance
   name:
     label: Name
-    placeholder: e.g. Your Auto Scaler Template Name
+    placeholder: Your Auto Scaler Template Name
+  templateType:
+    label: Template Type
   new:
     header: Add Auto Scaler Template

@@ -3,7 +3,7 @@
     <hr/>
 
     <div class="row">
-      <div class="col span-12">
+      <div class="col span-6">
         <label class="acc-label">{{t 'autoScalerTemplatesPage.name.label'}}{{field-required}}</label>
         {{input value=model.name
                 placeholder=(t 'autoScalerTemplatesPage.name.placeholder')
@@ -11,6 +11,16 @@
                 classNames="form-control"
         }}
       </div>
+      <div class="col span-6">
+        <label class="acc-label">{{t 'autoScalerTemplatesPage.templateType.label'}}</label>
+        {{searchable-select
+          class="form-control"
+          content=templateTypeContent
+          value=model.templateType
+        }}
+      </div>
+    </div>
+    <div class="row">
       <div class="col span-12">
         <label class="acc-label">{{t 'autoScalerTemplatesPage.templateInstance.label'}}{{field-required}}</label>
         {{textarea-autogrow
