@@ -66,15 +66,32 @@ export default Component.extend(NewOrEdit, {
       })
 
     }
-
     if (get(this, 'isEKS') && !get(this, 'isLocal')) {
 
       setProperties(this, {
         targetType:     annotations['alb.ingress.kubernetes.io/target-type'] || null,
         listenPorts:    annotations['alb.ingress.kubernetes.io/listen-ports'] || null,
-        subnets:        annotations['alb.ingress.kubernetes.io/subnets'] || null,
-        securityGroups: annotations['alb.ingress.kubernetes.io/security-groups'] || null,
       })
+
+      let subnets = (annotations['alb.ingress.kubernetes.io/subnets'] || '').split(',')
+      let securityGroups = (annotations['alb.ingress.kubernetes.io/security-groups'] || '').split(',')
+      const eksResources = get(this, 'eksResources')
+      let mapSubnets = {}
+      let mapSecurityGroups = {};
+      (eksResources.subnets || []).map(s => {
+        const subnetId = s.split(':')[1]
+        mapSubnets[subnetId] = s
+      });
+      (eksResources.securityGroups || []).map(s => {
+        const securityGroupId = s.split(':')[1]
+        mapSecurityGroups[securityGroupId] = s
+      });
+      if (subnets) {
+        set(this, 'subnets', subnets.map(s => mapSubnets[s]))
+      }
+      if (securityGroups) {
+        set(this, 'securityGroups', securityGroups.map(s => mapSecurityGroups[s]))
+      }
 
     }
 
@@ -149,13 +166,17 @@ export default Component.extend(NewOrEdit, {
 
       }
       if (get(this, 'subnets')) {
-
-        Object.assign(annotations, { 'alb.ingress.kubernetes.io/subnets': `${ get(this, 'subnets') }`, })
+        const value = get(this, 'subnets').map(s => {
+          return s.split(':')[1]
+        })
+        Object.assign(annotations, { 'alb.ingress.kubernetes.io/subnets': `${ value }`, })
 
       }
       if (get(this, 'securityGroups')) {
-
-        Object.assign(annotations, { 'alb.ingress.kubernetes.io/security-groups': `${ get(this, 'securityGroups') }`, })
+        const value = get(this, 'securityGroups').map(s => {
+          return s.split(':')[1]
+        })
+        Object.assign(annotations, { 'alb.ingress.kubernetes.io/security-groups': `${ value }`, })
 
       }
 

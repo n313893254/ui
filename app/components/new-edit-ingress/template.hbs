@@ -66,19 +66,27 @@
   <div class="row">
     <div class="col span-11-of-23 mt-0 mb-0">
       <label class="acc-label">Subnet</label>
-      {{input type="text"
-              value=subnets
-              classNames="form-control"
-              placeholder="e.g. subnet-xxx, ..."
+      {{#power-select-multiple
+        options=eksResources.subnets
+        selected=subnets
+        placeholder="Select Subnets"
+        onchange=(action (mut subnets))
+        as |subnet|
       }}
+        {{subnet}}
+      {{/power-select-multiple}}
     </div>
     <div class="col span-11-of-23 mt-0 mb-0 offset-1-of-23">
       <label class="acc-label">Security Groups</label>
-      {{input type="text"
-              value=securityGroups
-              classNames="form-control"
-              placeholder="e.g. sg-xxx, ..."
+      {{#power-select-multiple
+        options=eksResources.securityGroups
+        selected=securityGroups
+        placeholder="Select Security Groups"
+        onchange=(action (mut securityGroups) )
+        as |securityGroup|
       }}
+        {{securityGroup}}
+      {{/power-select-multiple}}
     </div>
   </div>
 {{/if}}
