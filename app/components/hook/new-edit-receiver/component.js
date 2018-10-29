@@ -24,18 +24,12 @@ export default Component.extend(NewOrEdit, {
   layout,
   metricsTypeContent: computed('model.autoScalerTemplates.[]', 'pageScope', function() {
     const pageScope = get(this, 'pageScope')
-    const autoScalerTemplates = (get(this, 'model.autoScalerTemplates') || []).filter(f => {
-      if (pageScope === 'cluster') {
-        return f.templateType === 'Node'
-      }
-      if (pageScope === 'project') {
-        return f.templateType === 'Pod'
-      }
-      return true
-    }).map(a => ({
-      label: a.name,
-      value: a.name,
-    }))
+    const autoScalerTemplates = (get(this, 'model.autoScalerTemplates') || [])
+          .filter(f => pageScope === 'cluster' ? f.templateType === 'Node' : f.templateType === 'Pod')
+          .map(a => ({
+            label: a.name,
+            value: a.name,
+          }))
     return [...metricsType, ...autoScalerTemplates]
   }),
   advanced:        false,
