@@ -6184,6 +6184,12 @@ hooksPage:
       mCpu: mCpu
       mb: Mb
       percentage: "%"
+    duration:
+      label: Duration
+      placeholder: e.g. 5m
+    repeatInterval:
+      label: Repeat Interval
+      placeholder: e.g. 5m
 
 eventPage:
   header: Event

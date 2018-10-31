@@ -55,6 +55,22 @@
     </div>
   </div>
   <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">{{t 'hooksPage.NewOrEdit.duration.label'}}</label>
+      {{input value=primaryResource.duration
+              placeholder=(t 'hooksPage.NewOrEdit.duration.placeholder')
+              class="form-control"
+      }}
+    </div>
+    <div class="col span-6">
+      <label class="acc-label">{{t 'hooksPage.NewOrEdit.repeatInterval.label'}}</label>
+      {{input value=primaryResource.repeatInterval
+              placeholder=(t 'hooksPage.NewOrEdit.repeatInterval.placeholder')
+              class="form-control"
+      }}
+    </div>
+  </div>
+  <div class="row">
     <div class="col {{if (eq model.pageScope 'project') 'span-4' 'span-6'}}">
       <label class="acc-label">{{t 'hooksPage.NewOrEdit.metricsType.label'}}</label>
       {{searchable-select
