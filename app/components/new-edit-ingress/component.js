@@ -78,19 +78,30 @@ export default Component.extend(NewOrEdit, {
       const eksResources = get(this, 'eksResources')
       let mapSubnets = {}
       let mapSecurityGroups = {};
-      (eksResources.subnets || []).map(s => {
+
+      (eksResources.subnets || []).map((s) => {
+
         const subnetId = s.split(':')[1]
+
         mapSubnets[subnetId] = s
+
       });
-      (eksResources.securityGroups || []).map(s => {
+      (eksResources.securityGroups || []).map((s) => {
+
         const securityGroupId = s.split(':')[1]
+
         mapSecurityGroups[securityGroupId] = s
+
       });
       if (subnets) {
-        set(this, 'subnets', subnets.map(s => mapSubnets[s]))
+
+        set(this, 'subnets', subnets.map((s) => mapSubnets[s]))
+
       }
       if (securityGroups) {
-        set(this, 'securityGroups', securityGroups.map(s => mapSecurityGroups[s]))
+
+        set(this, 'securityGroups', securityGroups.map((s) => mapSecurityGroups[s]))
+
       }
 
     }
@@ -166,16 +177,24 @@ export default Component.extend(NewOrEdit, {
 
       }
       if (get(this, 'subnets')) {
-        const value = get(this, 'subnets').map(s => {
+
+        const value = get(this, 'subnets').map((s) => {
+
           return s.split(':')[1]
+
         })
+
         Object.assign(annotations, { 'alb.ingress.kubernetes.io/subnets': `${ value }`, })
 
       }
       if (get(this, 'securityGroups')) {
-        const value = get(this, 'securityGroups').map(s => {
+
+        const value = get(this, 'securityGroups').map((s) => {
+
           return s.split(':')[1]
+
         })
+
         Object.assign(annotations, { 'alb.ingress.kubernetes.io/security-groups': `${ value }`, })
 
       }

@@ -20,7 +20,7 @@ export default Route.extend({
         url:         `${ k8sStore.baseUrl }/workloadAutoScaler`,
         forceReload: true,
       }),
-      pageScope: 'project',
+      pageScope:           'project',
       projectId,
       autoScalerTemplates: globalStore.findAll('autoScalerTemplate'),
     })

@@ -22,10 +22,15 @@ export default Component.extend(ModalBase, NewOrEdit, {
   justCreated:   false,
   expire:        'never',
 
-  originalModel:   alias('modalService.modalOpts'),
-  errors:        [],
-  templateTypeContent: computed('model', function() {
-    return TEMPLATE_TYPE.map(item => ({label: item, value: item}))
+  errors:              [],
+  originalModel:       alias('modalService.modalOpts'),
+  templateTypeContent: computed('model', () => {
+
+    return TEMPLATE_TYPE.map((item) => ({
+      label: item,
+      value: item
+    }))
+
   }),
   displayEndpoint: function() {
 
@@ -68,12 +73,25 @@ export default Component.extend(ModalBase, NewOrEdit, {
 
   }),
 
+  didReceiveAttrs() {
+
+    set(this, 'clone', get(this, 'originalModel').clone());
+    set(this, 'model', get(this, 'originalModel').clone());
+    set(this, 'justCreated', false);
+    set(this, 'model.templateType', 'Node')
+
+  },
+
   willSave() {
+
     set(this, 'model.namespaceId', get(this, 'access.me.id'))
+
     return this._super(...arguments);
+
   },
 
   validate() {
+
     this._super(...arguments);
     const errors = [];
 
@@ -94,17 +112,10 @@ export default Component.extend(ModalBase, NewOrEdit, {
   },
 
 
-  didReceiveAttrs() {
-
-    set(this, 'clone', get(this, 'originalModel').clone());
-    set(this, 'model', get(this, 'originalModel').clone());
-    set(this, 'justCreated', false);
-    set(this, 'model.templateType', 'Node')
-
-  },
-
   doneSaving(neu) {
+
     this.send('cancel');
+
   },
 
 });

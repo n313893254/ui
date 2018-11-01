@@ -19,23 +19,32 @@ export default Component.extend(NewOrEdit, {
   scope:        service(),
   k8sStore:     service(),
   clusterStore: service(),
-  pageScope:    reads('scope.currentPageScope'),
-
   layout,
-  metricsTypeContent: computed('model.autoScalerTemplates.[]', 'pageScope', function() {
-    const pageScope = get(this, 'pageScope')
-    const autoScalerTemplates = (get(this, 'model.autoScalerTemplates') || [])
-          .filter(f => pageScope === 'cluster' ? f.templateType === 'Node' : f.templateType === 'Pod')
-          .map(a => ({
-            label: a.name,
-            value: a.name,
-          }))
-    return [...metricsType, ...autoScalerTemplates]
-  }),
   advanced:        false,
 
-  receiver:        alias('model.receiver'),
-  primaryResource: alias('model.receiver'),
+  doneSaving() {
+
+
+
+  },
+
+  pageScope:    reads('scope.currentPageScope'),
+
+  receiver:           alias('model.receiver'),
+  primaryResource:    alias('model.receiver'),
+  metricsTypeContent: computed('model.autoScalerTemplates.[]', 'pageScope', function() {
+
+    const pageScope = get(this, 'pageScope')
+    const autoScalerTemplates = (get(this, 'model.autoScalerTemplates') || [])
+      .filter((f) => pageScope === 'cluster' ? f.templateType === 'Node' : f.templateType === 'Pod')
+      .map((a) => ({
+        label: a.name,
+        value: a.name,
+      }))
+
+    return [...metricsType, ...autoScalerTemplates]
+
+  }),
   workloadContent: computed('model.workloads.[]', function() {
 
     const workloads = get(this, 'model.workloads').content || []
@@ -72,12 +81,18 @@ export default Component.extend(NewOrEdit, {
       setProperties(primaryResource, {})
 
       const metricsType = get(this, 'primaryResource.metricsType')
+
       if (metricsType !== 'cpu' || metricsType !== 'memory') {
+
         const autoScalerTemplates = get(this, 'model.autoScalerTemplates') || []
-        const filter = autoScalerTemplates.filter(a => a.templateInstance === metricsType)
+        const filter = autoScalerTemplates.filter((a) => a.templateInstance === metricsType)
+
         if (filter[0] && filter[0].name) {
+
           set(this, 'primaryResource.metricsType', filter[0].name)
+
         }
+
       }
 
     }
@@ -140,14 +155,22 @@ export default Component.extend(NewOrEdit, {
   },
 
   format() {
+
     const metricsType = get(this, 'primaryResource.metricsType')
+
     if (metricsType !== 'cpu' || metricsType !== 'memory') {
+
       const autoScalerTemplates = get(this, 'model.autoScalerTemplates') || []
-      const filter = autoScalerTemplates.filter(a => a.name === metricsType)
+      const filter = autoScalerTemplates.filter((a) => a.name === metricsType)
+
       if (filter[0] && filter[0].templateInstance) {
+
         set(this, 'primaryResource.metricsType', filter[0].templateInstance)
+
       }
+
     }
+
   },
 
   doSave() {
@@ -175,20 +198,19 @@ export default Component.extend(NewOrEdit, {
 
     return get(this, 'primaryResource').save({ url, })
       .then((newData) => {
+
         this.goBack();
+
         return this.mergeResult(newData);
 
       })
       .catch((err) => {
+
         this.format()
-        this.send('error', err)}
+        this.send('error', err)
+
+      }
       );
-
-  },
-
-  doneSaving() {
-
-
 
   },
 

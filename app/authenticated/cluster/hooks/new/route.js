@@ -10,10 +10,12 @@ export default Route.extend({
   scope:        service(),
 
   model() {
+
     const globalStore = get(this, 'globalStore')
+
     return hash({
-      receiver: this.createRecord('nodeAutoScaler'),
-      mode:     'new',
+      receiver:            this.createRecord('nodeAutoScaler'),
+      mode:                'new',
       autoScalerTemplates: globalStore.findAll('autoScalerTemplate'),
     })
 

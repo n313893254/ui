@@ -21,7 +21,7 @@ export default Route.extend({
         forceReload: true,
         filter:      { clusterId, }
       }),
-      pageScope: 'cluster',
+      pageScope:           'cluster',
       clusterId,
       autoScalerTemplates: globalStore.findAll('autoScalerTemplate'),
     })

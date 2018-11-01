@@ -31,7 +31,7 @@ export default Route.extend({
         return s
 
       }),
-      mode: 'edit',
+      mode:                'edit',
       autoScalerTemplates: globalStore.findAll('autoScalerTemplate'),
     })
 

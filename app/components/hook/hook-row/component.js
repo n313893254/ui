@@ -45,16 +45,26 @@ export default Component.extend({
   }),
 
   metricsType: computed('model.metricsType', function() {
+
     const metricsType = get(this, 'model.metricsType')
+
     if (metricsType !== 'cpu' || metricsType !== 'memory') {
+
       const autoScalerTemplates = get(this, 'autoScalerTemplates') || []
+
       console.log(autoScalerTemplates, 'autoScalerTemplates')
-      const filter = autoScalerTemplates.filter(a => a.templateInstance === metricsType)
+      const filter = autoScalerTemplates.filter((a) => a.templateInstance === metricsType)
+
       if (filter[0] && filter[0].name) {
+
         return filter[0].name
+
       }
+
     }
+
     return metricsType
+
   }),
 
   actions: {

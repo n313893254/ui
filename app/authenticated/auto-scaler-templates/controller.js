@@ -22,7 +22,9 @@ export default Controller.extend({
 
   actions: {
     newTemplate() {
+
       const record = this.get('globalStore').createRecord({ type: 'autoScalerTemplate', });
+
       get(this, 'modalService').toggleModal('modal-edit-auto-scaler-template', record);
 
     },

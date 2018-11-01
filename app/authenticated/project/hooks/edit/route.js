@@ -31,9 +31,9 @@ export default Route.extend({
         return s
 
       }),
-      mode:      'edit',
-      pageScope: 'project',
-      workloads:  store.findAll('workload'),
+      mode:                'edit',
+      pageScope:           'project',
+      workloads:           store.findAll('workload'),
       autoScalerTemplates: globalStore.findAll('autoScalerTemplate'),
     })
 

@@ -16,10 +16,10 @@ export default Route.extend({
     const globalStore = get(this, 'globalStore')
 
     return hash({
-      receiver:  this.createRecord('workloadAutoScaler', projectId),
-      mode:      'new',
-      pageScope: 'project',
-      workloads:  store.findAll('workload'),
+      receiver:            this.createRecord('workloadAutoScaler', projectId),
+      mode:                'new',
+      pageScope:           'project',
+      workloads:           store.findAll('workload'),
       autoScalerTemplates: globalStore.findAll('autoScalerTemplate'),
     })
 

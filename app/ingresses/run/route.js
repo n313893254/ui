@@ -5,9 +5,9 @@ import { inject as service } from '@ember/service';
 import { alias } from '@ember/object/computed';
 
 export default Route.extend({
-  scope: service(),
-  isEKS:   alias('scope.currentCluster.isEKS'),
+  scope:    service(),
   k8sStore: service(),
+  isEKS:    alias('scope.currentCluster.isEKS'),
   model(params, transition) {
 
     const store = get(this, 'store');
@@ -26,11 +26,12 @@ export default Route.extend({
     }
 
     dependencies['eksInfo'] = store.rawRequest({
-      url:    `${k8sStore.baseUrl}/project/${projectId}/ingresses/?action=eksResources`,
+      url:    `${ k8sStore.baseUrl }/project/${ projectId }/ingresses/?action=eksResources`,
       method: 'POST',
     });
 
     return hash(dependencies).then((hash) => {
+
       let ingress;
 
       if (hash.existingIngress) {
@@ -60,20 +61,28 @@ export default Route.extend({
       hash.ingress = ingress;
 
       if (hash.eksInfo) {
-        const {status, body={}} = hash.eksInfo
+
+        const { status, body = {} } = hash.eksInfo
+
         if (status === 200) {
-          const {securityGroups=[], subnets=[]} = body
+
+          const { securityGroups = [], subnets = [] } = body
           const eksResources = {
             securityGroups,
             subnets,
           }
+
           hash.eksResources = eksResources
+
         } else {
+
           hash.eksResources = {
             securityGroups: [],
-            subnets: [],
+            subnets:        [],
           }
+
         }
+
       }
 
       return hash;
