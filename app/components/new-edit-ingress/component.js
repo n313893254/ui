@@ -72,9 +72,14 @@ export default Component.extend(NewOrEdit, {
         targetType:     annotations['alb.ingress.kubernetes.io/target-type'] || null,
         listenPorts:    annotations['alb.ingress.kubernetes.io/listen-ports'] || null,
       })
-
-      let subnets = (annotations['alb.ingress.kubernetes.io/subnets'] || '').split(',')
-      let securityGroups = (annotations['alb.ingress.kubernetes.io/security-groups'] || '').split(',')
+      let subnets = []
+      let securityGroups
+      if (annotations['alb.ingress.kubernetes.io/subnets']) {
+        subnets = annotations['alb.ingress.kubernetes.io/subnets'].split(',')
+      }
+      if (annotations['alb.ingress.kubernetes.io/security-groups']) {
+        securityGroups = annotations['alb.ingress.kubernetes.io/security-groups'].split(',')
+      }
       const eksResources = get(this, 'eksResources')
       let mapSubnets = {}
       let mapSecurityGroups = {};
