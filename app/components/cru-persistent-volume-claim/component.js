@@ -83,14 +83,6 @@ export default Component.extend(ViewNewEdit, ChildHook, {
     const k8sStore = get(this, 'k8sStore')
     const { currentCluster = {} } = scope
     const { provider, huaweiCloudContainerEngineConfig = {} } = currentCluster
-    const storageClasses = get(this, 'storageClasses') || []
-    const storageClass = get(storageClasses, 'firstObject')
-
-    if (get(this, 'mode') === 'new') {
-
-      set(this, 'primaryResource.storageClassId', storageClass.id)
-
-    }
 
     if (provider === 'huaweicce' && get(this, 'mode') === 'new') {
 
@@ -146,6 +138,14 @@ export default Component.extend(ViewNewEdit, ChildHook, {
     if ( !get(this, 'storageClasses') ) {
 
       set(this, 'storageClasses', get(this, 'clusterStore').all('storageClass'));
+
+    }
+
+    const storageClasses = get(this, 'storageClasses') || []
+    const storageClass = get(storageClasses, 'firstObject') || {}
+    if (get(this, 'mode') === 'new') {
+
+      set(this, 'primaryResource.storageClassId', storageClass.id)
 
     }
 
