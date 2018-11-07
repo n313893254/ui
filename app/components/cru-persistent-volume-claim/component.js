@@ -32,6 +32,28 @@ export default Component.extend(ViewNewEdit, ChildHook, {
 
   canUseStorageClass: gt('storageClasses.length', 0),
 
+  cceType: computed('scope.currentCluster.provider', 'primaryResource.storageClassId', function() {
+    const storageClasses = get(this, 'storageClasses') || []
+    const storageClassId = get(this, 'primaryResource.storageClassId')
+    const storageClass = storageClasses.filter(s => s.id === storageClassId)[0] || {}
+    const {provisioner=''} = storageClass
+    if (provisioner.startsWith('flexvolume-huawei.com')) {
+      if (get(this, 'scope.currentCluster.provider') === 'huaweicce') {
+        return 'cceCreate'
+      } else {
+        return 'cceImport'
+      }
+    }
+    return 'none'
+  }),
+  storageType: computed('primaryResource.storageClassId', function() {
+    const storageClasses = get(this, 'storageClasses') || []
+    const storageClassId = get(this, 'primaryResource.storageClassId')
+    const storageClass = storageClasses.filter(s => s.id === storageClassId)[0] || {}
+    const {parameters={}} = storageClass
+    return parameters['kubernetes.io/storagetype']
+  }),
+
   headerToken: function() {
 
     let k = 'cruPersistentVolumeClaim.';
@@ -205,22 +227,36 @@ export default Component.extend(ViewNewEdit, ChildHook, {
 
   willSave() {
 
-    if (get(this, 'scope.currentCluster.provider') === 'huaweicce') {
+    if (get(this, 'cceType') !== 'none') {
 
-      const zone = get(this, 'scope.currentCluster.huaweiCloudContainerEngineConfig.zone')
+      let zone = get(this, 'scope.currentCluster.huaweiCloudContainerEngineConfig.zone')
       const labels = get(this, 'primaryResource.labels') || {}
       const annotations = get(this, 'primaryResource.annotations') || {}
       let _labels = labels
       let _annotations = annotations
 
-      Object.assign(_labels, {
-        'failure-domain.beta.kubernetes.io/region': zone,
-        'failure-domain.beta.kubernetes.io/zone':   get(this, 'availableZoneId'),
-      })
+      const storageClasses = get(this, 'storageClasses') || []
+      const storageClassId = get(this, 'primaryResource.storageClassId')
+      const storageClass = storageClasses.filter(s => s.id === storageClassId)[0] || {}
+      const {parameters={}} = storageClass
+      const storagetype = parameters['kubernetes.io/storagetype']
+
+      if (get(this, 'storageType') === 'BS') {
+        const zoneId = get(this, 'zoneId')
+        if (get(this, 'cceType') === 'cceImport') {
+          zone = zoneId
+        }
+        Object.assign(_labels, {
+          'failure-domain.beta.kubernetes.io/region': zone,
+          'failure-domain.beta.kubernetes.io/zone':   get(this, 'availableZoneId'),
+        })
+      }
+
       Object.assign(_annotations, {
-        'volume.beta.kubernetes.io/storage-class':       get(this, 'primaryResource.storageClassId'),
         'volume.beta.kubernetes.io/storage-provisioner': 'flexvolume-huawei.com/fuxivol',
+        'volume.beta.kubernetes.io/storage-class':       get(this, 'primaryResource.storageClassId'),
       })
+
       set(this, 'primaryResource.labels', _labels)
       set(this, 'primaryResource.annotations', _annotations)
 

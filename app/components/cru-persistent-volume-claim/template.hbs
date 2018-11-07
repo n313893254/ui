@@ -110,22 +110,30 @@
           {{input-number classNames="form-control" value=capacity}}
           <span class="input-group-addon bg-default">{{t 'cruPersistentVolumeClaim.capacity.unit'}}</span>
         </div>
-
-        <label class="acc-label mt-20">{{t 'clusterNew.huaweicce.availableZone.label'}}</label>
-        {{#if businessCustome}}
-          {{input class="form-control"
-                  placeholder=(t 'cruPersistentVolumeClaim.availableZoneId.placeholder')
-                  value=availableZoneId
-          }}
-        {{else}}
-          {{searchable-select
-            class="form-control"
-            content=availableZones
-            value=availableZoneId
-            optionValuePath="zoneName"
-            optionLabelPath="zoneName"
-            allowCustom=businessCustome
-          }}
+        {{#if (eq storageType 'BS')}}
+          {{#if (eq cceType 'cceImport')}}
+            <label class="acc-label mt-20">{{t 'clusterNew.huaweicce.zone.label'}}</label>
+            {{input class="form-control"
+                    placeholder=(t 'cruPersistentVolumeClaim.zone.placeholder')
+                    value=zoneId
+            }}
+          {{/if}}
+          <label class="acc-label mt-20">{{t 'clusterNew.huaweicce.availableZone.label'}}</label>
+          {{#if (or businessCustome (eq cceType 'cceImport'))}}
+            {{input class="form-control"
+                    placeholder="e.g. cn-north-1a"
+                    value=availableZoneId
+            }}
+          {{else}}
+            {{searchable-select
+              class="form-control"
+              content=availableZones
+              value=availableZoneId
+              optionValuePath="zoneName"
+              optionLabelPath="zoneName"
+              allowCustom=businessCustome
+            }}
+          {{/if}}
         {{/if}}
       {{else}}
         {{#if (eq provider 'huaweicce')}}
