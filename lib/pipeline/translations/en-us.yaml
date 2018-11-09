@@ -306,4 +306,4 @@ pipelineNotification:
   send: Send
   message:
     placeholder: Your Text
-  asMessage: As Message
+  asMessage: Send A Message To
