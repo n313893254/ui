@@ -64,6 +64,9 @@
   &.amazoneks { @include amazoneks; }
   &.azureaks { @include azureaks; }
   &.googlegke { @include googlegke; }
+  &.tencentccs { @include tencentccs; }
+  &.aliyunkcs { @include aliyunkcs; }
+  &.huaweicce { @include huaweicce; }
 }
 
 .api-field LABEL {

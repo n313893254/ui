@@ -61,14 +61,33 @@ export default Resource.extend(ResourceUsage, {
   provider: computed('configName', 'nodePools.@each.nodeTemplateId', function() {
     const pools = get(this, 'nodePools') || [];
     const firstTemplate = get(pools, 'firstObject.nodeTemplate');
+    let configName = get(this, 'configName');
 
-    switch ( get(this, 'configName') ) {
+    if ( get(this, 'genericEngineConfig') ) {
+      if ( get(this, 'genericEngineConfig').indexOf('emptyCluster:false') > -1 ) {
+        configName = 'tencentContainerCloudServiceConfig';
+      }
+      if ( get(this, 'genericEngineConfig').indexOf('masterSystemDiskCategory') > -1 ) {
+        configName = 'aliyunContainerServiceForKubernetesConfig';
+      }
+      if ( get(this, 'genericEngineConfig').indexOf('rootVolumeType') > -1 ) {
+        configName = 'huaweiContainerCloudEngineConfig';
+      }
+    }
+
+    switch ( configName ) {
     case 'amazonElasticContainerServiceConfig':
       return 'amazoneks';
     case 'azureKubernetesServiceConfig':
       return 'azureaks';
     case 'googleKubernetesEngineConfig':
       return 'googlegke';
+    case 'tencentContainerCloudServiceConfig':
+      return 'tencentccs';
+    case 'aliyunContainerServiceForKubernetesConfig':
+      return 'aliyunkcs';
+    case 'huaweiContainerCloudEngineConfig':
+      return 'huaweicce';
     case 'rancherKubernetesEngineConfig':
       if ( pools.length > 0 ) {
         if ( firstTemplate ) {
@@ -88,14 +107,33 @@ export default Resource.extend(ResourceUsage, {
     const intl = get(this, 'intl');
     const pools = get(this, 'nodePools');
     const firstPool = (pools || []).objectAt(0);
+    let configName = get(this, 'configName');
 
-    switch ( get(this, 'configName') ) {
+    if ( get(this, 'genericEngineConfig') ) {
+      if ( get(this, 'genericEngineConfig').indexOf('emptyCluster:false') > -1 ) {
+        configName = 'tencentContainerCloudServiceConfig';
+      }
+      if ( get(this, 'genericEngineConfig').indexOf('masterSystemDiskCategory') > -1 ) {
+        configName = 'aliyunContainerServiceForKubernetesConfig';
+      }
+      if ( get(this, 'genericEngineConfig').indexOf('rootVolumeType') > -1 ) {
+        configName = 'huaweiContainerCloudEngineConfig';
+      }
+    }
+
+    switch ( configName ) {
     case 'amazonElasticContainerServiceConfig':
       return intl.t('clusterNew.amazoneks.shortLabel');
     case 'azureKubernetesServiceConfig':
       return intl.t('clusterNew.azureaks.shortLabel');
     case 'googleKubernetesEngineConfig':
       return intl.t('clusterNew.googlegke.shortLabel');
+    case 'tencentContainerCloudServiceConfig':
+      return intl.t('clusterNew.tencentccs.shortLabel');
+    case 'aliyunContainerServiceForKubernetesConfig':
+      return intl.t('clusterNew.aliyunkcs.shortLabel');
+    case 'huaweiContainerCloudEngineConfig':
+      return intl.t('clusterNew.huaweicce.shortLabel');
     case 'rancherKubernetesEngineConfig':
       if ( !!pools ) {
         if ( firstPool ) {
