@@ -1888,14 +1888,12 @@ clusterNew:
     required: 启用时需要设置一个默认Pod安全策略
   amazoneks:
     label: AWS的基于Kubernetes的弹性容器服务
-    shortLabel: 亚马逊EKS
     ingressWarning: "注意:目前Amazon EKS不会在启动新的集群时创建传入控制器。如果需要此功能，则必须在集群创建后手动创建一个传入控制器。"
     access:
       title: 账户访问
       detail: 选择将用于启动Amazon EKS的区域和API密钥
   tencentccs:
     label: 腾讯云Kubernetes容器服务
-    shortLabel: 腾讯云CCS
     access:
       next: "下一步: 配置集群"
       loading: "从腾讯云获取VPC信息"
@@ -2161,7 +2159,6 @@ clusterNew:
       label: Pod自动横向伸缩
   aliyunkcs:
     label: 阿里云Kubernetes容器服务
-    shortLabel: 阿里云KCS
     access:
       next: "下一步: 配置集群"
       loading: "从阿里云获取可用区信息"
@@ -2312,7 +2309,7 @@ clusterNew:
       label: 集群标签
     nodeLabels:
       label: 节点标签
-    shortLabel: 华为 CCE
+    shortLabel: Huawei CCE
     clusterEipId:
       label: Cluster Eip
     externalServerEnabled:

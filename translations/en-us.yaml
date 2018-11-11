@@ -1895,7 +1895,7 @@ clusterNew:
       detail: Choose the region and API Key that will be used to launch Amazon EKS
   tencentccs:
     label: Tencent Container Service for Kubernetes
-    shortLabel: Tencent CCS
+    shortLabel: Tencent TKE
     access:
       next: "Next: Configure Cluster"
       loading: "Loading VPCs from Tencent Cloud"
@@ -2114,25 +2114,25 @@ clusterNew:
 
   aliyunkcs:
     label: Aliyun Kubernetes Container Service
-    shortLabel: Aliyun KCS
+    shortLabel: Alibaba ACK
     access:
       next: "Next: Configure Cluster"
-      loading: "Loading Zones from Aliyun"
+      loading: "Loading Zones from Alibaba ACK"
       title: Account Access
-      detail: Choose the region and API Key that will be used to launch Aliyun Kubernetes Service
+      detail: Choose the region and API Key that will be used to launch Alibaba Kubernetes Service
     cluster:
       title: Cluster Configuration
-      detail: Choose the Zone and Kubernetes version that will be used to launch Aliyun Kubernetes Service
+      detail: Choose the Zone and Kubernetes version that will be used to launch Alibaba Kubernetes Service
       next: "Next: Configure Master Nodes"
-      loading: "Loading Availability Zones from Aliyun"
+      loading: "Loading Availability Zones from Alibaba"
     master:
       title: Master Nodes
-      detail: Configure the master nodes that will be used to launch Aliyun Kubernetes Service
+      detail: Configure the master nodes that will be used to launch Alibaba Kubernetes Service
       next: "Next: Configure Worker Nodes"
-      loading: "Loading Key Pairs from Aliyun"
+      loading: "Loading Key Pairs from Alibaba"
     worker:
       title: Worker Nodes
-      detail: Configure the worker nodes that will be used to launch Aliyun Kubernetes Service
+      detail: Configure the worker nodes that will be used to launch Alibaba Kubernetes Service
     disk:
       efficiency: Ultra Disk
       ssd: SSD Disk
@@ -2225,6 +2225,7 @@ clusterNew:
       label: Horizontal Pod Autoscaling
   huaweicce:
     label: Huawei Cloud Container Engine
+    shortLabel: Huawei CCE
     access:
       title: Account Access
       detail: Choose the region and API Key that will be used to launch Huawei Cloud Container Engine.
@@ -2322,7 +2323,6 @@ clusterNew:
       label: Cluster Label
     nodeLabels:
       label: Node Label
-    shortLabel: Huawei CCE
     clusterEipId:
       label: Cluster Eip
     externalServerEnabled:

@@ -20,7 +20,7 @@
       {{#each (get providerGroups "cloudGroup") as |choice|}}
         {{#link-to (query-params provider=choice.name) class=(concat "mb-20 mt-10 col span-3 col-inline nav-box-item driver generic" choice.name)}}
           <div class="machine-driver {{choice.name}}"></div>
-          <p>{{driver-name choice.name}}</p>
+          <p>{{cluster-driver-name choice.name}}</p>
           {{#if choice.genericIcon}}
             <p class="text-link text-bold">{{driver-name choice.name}}</p>
           {{/if}}
