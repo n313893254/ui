@@ -117,6 +117,7 @@ generic:
   value: 值
   version: 版本
   yes: "是"
+  isRequired: 必须填写
 
 realmNames:
   all: 全部
@@ -2192,11 +2193,11 @@ clusterNew:
       placeholder: 例如：120
     masterNum:
       label: Master节点数量
-      help: 将要创建的阿里云Kubernetes服务中所含有的Master节点数量 
+      help: 将要创建的阿里云Kubernetes服务中所含有的Master节点数量
     numOfNodes:
       label: Worker节点数量
       placeholder: 例如：3
-      help: 将要创建的阿里云Kubernetes服务中所含有的Worker节点数量 
+      help: 将要创建的阿里云Kubernetes服务中所含有的Worker节点数量
     keyPair:
       label: 登录密钥对
       required: 请选择登录密钥对
@@ -2223,6 +2224,9 @@ clusterNew:
     access:
       title: 账户访问
       detail: 配置用于与CCE通讯的凭据
+    name:
+      label: 集群名称
+      required: 集群名称必须填写
     accessKey:
       label: 访问密钥ID
       placeholder: CCE访问密钥ID
@@ -2235,6 +2239,7 @@ clusterNew:
       label: 项目ID
       placeholder: CCE项目ID
       help: 获取项目ID参考<a href="https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606344.html" target="_blank">这里</a>.
+      required: 项目ID必须填写
     zone:
       label: 区域
       helpText: 获取区域参考<a href="https://developer.huaweicloud.com/endpoint" target="_blank">这里</a>.
@@ -2255,8 +2260,10 @@ clusterNew:
       label: 虚拟私有云
     subnetId:
       label: 所在子网
+      none: 无可用子网
     highwaySubnet:
       label: 高速网卡
+      none: 无可用高速网卡
     nodeOption:
       title: 节点选项
       detail: 为节点自定义选项
@@ -2284,6 +2291,7 @@ clusterNew:
       placeholder: e.g. 172.16.0.0/16
     containerNetworkMode:
       label: 网络模型
+      none: 无配置
     rootVolumeType:
       label: 系统盘类型
     rootVolumeSize:
@@ -2307,6 +2315,7 @@ clusterNew:
       label: Eip Type
     clusterLabels:
       label: 集群标签
+      none: 无标签
     nodeLabels:
       label: 节点标签
     shortLabel: Huawei CCE
@@ -2337,6 +2346,8 @@ clusterNew:
       placeholder: 请输入密码
     userName:
       label: 用户名
+    eipShareType:
+      label: 共享Eip类型
   rke:
     etcd:
       heartbeat:

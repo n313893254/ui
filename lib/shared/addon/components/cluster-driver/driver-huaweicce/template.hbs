@@ -211,7 +211,7 @@
             {{#if config.containerNetworkCidr}}
               {{config.containerNetworkCidr}}
             {{else}}
-              No config
+              {{t 'clusterNew.huaweicce.containerNetworkCidr.none'}}
             {{/if}}
           </div>
         {{else}}
@@ -255,7 +255,7 @@
               value=config.subnetId
             }}
           {{else}}
-            <div style="margin-top: 10px;">No subnet in this VPC</div>
+            <div style="margin-top: 10px;">{{t 'clusterNew.huaweicce.subnetId.none'}}</div>
           {{/if}}
         {{/if}}
       </div>
@@ -275,7 +275,7 @@
               }}
             {{/if}}
           {{else}}
-            <div style="margin-top: 10px;">No Highway Subnet can be use</div>
+            <div style="margin-top: 10px;">{{t 'clusterNew.huaweicce.highwaySubnet.none'}}</div>
           {{/if}}
         </div>
       {{/if}}
@@ -331,7 +331,7 @@
                                  initialLabels=config.labels
             }}
           {{else}}
-            <div>No Labels</div>
+            <div>{{t 'clusterNew.huaweicce.clusterLabels.none'}}</div>
           {{/if}}
         {{else}}
           {{huawei-user-labels setLabels=(action 'setLabels')}}
@@ -564,7 +564,7 @@
                 content=eipTypeContent
               }}
               <label class="acc-label">
-                EIP Share Type
+                {{t 'clusterNew.huaweicce.eipShareType.label'}}
               </label>
               {{new-select
                 classNames="form-control"

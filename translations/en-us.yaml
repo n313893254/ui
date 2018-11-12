@@ -117,6 +117,7 @@ generic:
   value: Value
   version: Version
   yes: "Yes"
+  isRequired: is required
 
 realmNames:
   all: All
@@ -2148,7 +2149,7 @@ clusterNew:
       placeholder: e.g. 120
     masterNum:
       label: Master Nodes Count
-      help: The count of master nodes will be launched in this Kubernetes cluster  
+      help: The count of master nodes will be launched in this Kubernetes cluster
     numOfNodes:
       label: Worker Nodes Count
       placeholder: e.g. 3
@@ -2226,6 +2227,9 @@ clusterNew:
   huaweicce:
     label: Huawei Cloud Container Engine
     shortLabel: Huawei CCE
+    name:
+      label: Cluster Name
+      required: Cluster name is required.
     access:
       title: Account Access
       detail: Choose the region and API Key that will be used to launch Huawei Cloud Container Engine.
@@ -2241,6 +2245,7 @@ clusterNew:
       label: Project Id
       placeholder: Your CCE project id
       help: You can find instructions on how to obtain Project Id <a href="https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606344.html" target="_blank">here</a>.
+      required: Project Id is required.
     zone:
       label: Region
       helpText: You can find instructions on how to obtain Region <a href="https://developer.huaweicloud.com/endpoint" target="_blank">here</a>.
@@ -2255,22 +2260,19 @@ clusterNew:
       detail: Customize the cluster that will be used to launch Huawei Cloud Container Engine.
     clusterType:
       label: Cluster Type
-      placeholder: poi
     clusterFlavor:
       label: Cluster Flavor
-      placeholder: poi
     masterVersion:
       label: Master Version
-      placeholder: poi
     vpcId:
       label: VPC Name
-      placeholder: poi
     subnetId:
       label: Subnet Name
-      placeholder: poi
+      none: No subnet in this VPC
     highwaySubnet:
       label: Highway Subnet
       placeholder: Highway Subnet
+      none: No Highway Subnet can be used
     nodeOption:
       title: Nodes
       detail: Customize the nodes that will be used to launch Huawei Cloud Container Engine.
@@ -2298,6 +2300,7 @@ clusterNew:
       placeholder: e.g. 172.16.0.0/16
     containerNetworkMode:
       label: Container Network Mode
+      none: No config
     rootVolumeType:
       label: Root Volume Type
     rootVolumeSize:
@@ -2321,6 +2324,7 @@ clusterNew:
       label: Eip Type
     clusterLabels:
       label: Cluster Label
+      none: No label
     nodeLabels:
       label: Node Label
     clusterEipId:
@@ -2354,6 +2358,8 @@ clusterNew:
       label: Authentiaction Mode
       rbac: RBAC
       authenticating_proxy: Authenticating Proxy
+    eipShareType:
+      label: EIP Share Type
   rke:
     etcd:
       heartbeat:
