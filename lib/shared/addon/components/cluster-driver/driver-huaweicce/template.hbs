@@ -326,8 +326,8 @@
               </label>
             </div>
             <div class="radio">
-              <label class={{unless config.eipIdContent.length 'text-muted'}}>
-                {{radio-button selection=config.externalServerEnabled value=true disabled=(not config.eipIdContent.length)}}
+              <label class={{unless (gt eipIdContent.length 0) 'text-muted'}}>
+                {{radio-button selection=config.externalServerEnabled value=true disabled=(not (gt eipIdContent.length 0))}}
                 {{t 'generic.enabled'}}
                 {{#unless (gt config.eipIdContent.length 0)}}
                   &mdash; {{t 'clusterNew.huaweicce.eipIds.none'}}

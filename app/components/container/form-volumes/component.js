@@ -380,7 +380,10 @@ export default Component.extend({
         set(options, 'containerName', get(lc, 'name'));
         set(options, 'namespace', get(workload, 'namespace.id'));
         set(options, 'workloadName', get(workload, 'name'));
-        options['kubernetes.io/namespace'] = get(workload, 'namespace.id')
+        const gitVersion = get(this, 'cluster.version.gitVersion') || ''
+        if (gitVersion.includes('CCE')) {
+          options['kubernetes.io/namespace'] = get(workload, 'namespace.id')
+        }
 
       });
 
