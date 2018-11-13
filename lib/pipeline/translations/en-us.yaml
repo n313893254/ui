@@ -303,6 +303,9 @@ pipelineNotification:
       label: Changed
     failed:
       label: Failed
+    required: Condition is required
+  recipients:
+    required: Recipient is required
   send: Send
   message:
     placeholder: Your Text
