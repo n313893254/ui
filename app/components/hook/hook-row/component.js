@@ -52,7 +52,6 @@ export default Component.extend({
 
       const autoScalerTemplates = get(this, 'autoScalerTemplates') || []
 
-      console.log(autoScalerTemplates, 'autoScalerTemplates')
       const filter = autoScalerTemplates.filter((a) => a.templateInstance === metricsType)
 
       if (filter[0] && filter[0].name) {

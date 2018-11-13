@@ -74,11 +74,16 @@ export default Component.extend(NewOrEdit, {
       })
       let subnets = []
       let securityGroups
+
       if (annotations['alb.ingress.kubernetes.io/subnets']) {
+
         subnets = annotations['alb.ingress.kubernetes.io/subnets'].split(',')
+
       }
       if (annotations['alb.ingress.kubernetes.io/security-groups']) {
+
         securityGroups = annotations['alb.ingress.kubernetes.io/security-groups'].split(',')
+
       }
       const eksResources = get(this, 'eksResources')
       let mapSubnets = {}

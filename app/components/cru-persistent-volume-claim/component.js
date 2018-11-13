@@ -33,25 +33,38 @@ export default Component.extend(ViewNewEdit, ChildHook, {
   canUseStorageClass: gt('storageClasses.length', 0),
 
   cceType: computed('scope.currentCluster.provider', 'primaryResource.storageClassId', function() {
+
     const storageClasses = get(this, 'storageClasses') || []
     const storageClassId = get(this, 'primaryResource.storageClassId')
-    const storageClass = storageClasses.filter(s => s.id === storageClassId)[0] || {}
-    const {provisioner=''} = storageClass
+    const storageClass = storageClasses.filter((s) => s.id === storageClassId)[0] || {}
+    const { provisioner = '' } = storageClass
+
     if (provisioner.startsWith('flexvolume-huawei.com')) {
+
       if (get(this, 'scope.currentCluster.provider') === 'huaweicce') {
+
         return 'cceCreate'
+
       } else {
+
         return 'cceImport'
+
       }
+
     }
+
     return 'none'
+
   }),
   storageType: computed('primaryResource.storageClassId', function() {
+
     const storageClasses = get(this, 'storageClasses') || []
     const storageClassId = get(this, 'primaryResource.storageClassId')
-    const storageClass = storageClasses.filter(s => s.id === storageClassId)[0] || {}
-    const {parameters={}} = storageClass
+    const storageClass = storageClasses.filter((s) => s.id === storageClassId)[0] || {}
+    const { parameters = {} } = storageClass
+
     return parameters['kubernetes.io/storagetype']
+
   }),
 
   headerToken: function() {
@@ -165,6 +178,7 @@ export default Component.extend(ViewNewEdit, ChildHook, {
 
     const storageClasses = get(this, 'storageClasses') || []
     const storageClass = get(storageClasses, 'firstObject') || {}
+
     if (get(this, 'mode') === 'new') {
 
       set(this, 'primaryResource.storageClassId', storageClass.id)
@@ -235,21 +249,20 @@ export default Component.extend(ViewNewEdit, ChildHook, {
       let _labels = labels
       let _annotations = annotations
 
-      const storageClasses = get(this, 'storageClasses') || []
-      const storageClassId = get(this, 'primaryResource.storageClassId')
-      const storageClass = storageClasses.filter(s => s.id === storageClassId)[0] || {}
-      const {parameters={}} = storageClass
-      const storagetype = parameters['kubernetes.io/storagetype']
-
       if (get(this, 'storageType') === 'BS') {
+
         const zoneId = get(this, 'zoneId')
+
         if (get(this, 'cceType') === 'cceImport') {
+
           zone = zoneId
+
         }
         Object.assign(_labels, {
           'failure-domain.beta.kubernetes.io/region': zone,
           'failure-domain.beta.kubernetes.io/zone':   get(this, 'availableZoneId'),
         })
+
       }
 
       Object.assign(_annotations, {

@@ -19,8 +19,15 @@ export default Resource.extend(ResourceUsage, {
   roleTemplateBindings:        alias('clusterRoleTemplateBindings'),
   isGKE:                       equal('driver', 'googleKubernetesEngine'),
   isCCE:                       equal('driver', 'huaweiCloudContainerEngine'),
-  isEKS:                       equal('driver', 'imported'),
   isLocal:                     equal('id', 'local'),
+
+  isEKS: computed(function() {
+
+    const gitVersion = get(this, 'version.gitVersion') || ''
+
+    return gitVersion.includes('eks') ? true : false
+
+  }),
 
   configName: computed(function() {
 

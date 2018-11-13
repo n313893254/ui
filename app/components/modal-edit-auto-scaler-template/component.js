@@ -5,7 +5,7 @@ import NewOrEdit from 'shared/mixins/new-or-edit';
 import ModalBase from 'shared/mixins/modal-base';
 import layout from './template';
 import {
-  get, set, computed, observer, setProperties
+  get, set, computed
 } from '@ember/object';
 
 const TEMPLATE_TYPE = ['Node', 'Pod']
@@ -112,7 +112,7 @@ export default Component.extend(ModalBase, NewOrEdit, {
   },
 
 
-  doneSaving(neu) {
+  doneSaving() {
 
     this.send('cancel');
 
