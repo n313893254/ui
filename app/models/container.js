@@ -39,6 +39,14 @@ var Container = Resource.extend(DisplayImage, {
     return choices;
   }),
 
+  restarts: computed('pod.status.containerStatuses.@each.restartCount', function() {
+    const state = (get(this, 'pod.status.containerStatuses') || []).findBy('name', get(this, 'name'));
+
+    if ( state ) {
+      return get(state, 'restartCount');
+    }
+  }),
+
   validateQuota() {
     const projectLimit =  get(this, 'scope.currentProject.resourceQuota.limit');
 

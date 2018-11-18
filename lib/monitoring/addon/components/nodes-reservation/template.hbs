@@ -1,0 +1,60 @@
+<div class="mt-30">
+  <div class="row">
+    <div class="col span-6 text-left pl-20 pr-20">
+      <div class="row">
+        <div class="col span-6">
+          <h2>{{t 'clusterDashboard.cpu'}}</h2>
+        </div>
+        <div class="col span-6">
+          <h2 class="pull-right text-muted">{{cpuReservation.percent}}%</h2>
+        </div>
+      </div>
+      
+      <div>
+        {{progress-bar value=cpuReservation.percent color="primary"}}
+      </div>
+      <div class="text-muted mt-10">
+        {{cpuReservation.subtitle}}
+      </div>
+    </div>
+
+    <div class="col span-6 text-left pl-20 pr-20">
+      <div class="row">
+        <div class="col span-6">
+          <h2>{{t 'clusterDashboard.memory'}}</h2>
+        </div>
+        <div class="col span-6">
+          <h2 class="pull-right text-muted">{{memoryReservation.percent}}%</h2>
+        </div>
+      </div>
+      
+      <div>
+        {{progress-bar value=memoryReservation.percent color="primary"}}
+      </div>
+      <div class="text-muted mt-10">
+        {{memoryReservation.subtitle}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col span-6 text-left pl-20 pr-20">
+      <div class="row">
+        <div class="col span-6">
+          <h2>{{t 'clusterDashboard.pods'}}</h2>
+        </div>
+        <div class="col span-6">
+          <h2 class="pull-right text-muted">{{podUsage.value}}</h2>
+        </div>
+      </div>
+      
+      <div>
+        {{progress-bar value=podUsage.percent color="primary"}}
+      </div>
+      <div class="text-muted mt-10">
+        {{podUsage.subtitle}}
+      </div>
+    </div>
+  </div>
+
+</div>

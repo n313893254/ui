@@ -13,6 +13,7 @@
     "ember-cli-htmlbars": "*",
     "ember-cli-pagination": "*",
     "ember-math-helpers": "*",
+    "ember-flatpickr": "*",
     "ember-truth-helpers": "*",
     "ember-wormhole": "*",
     "file-saver": "*",

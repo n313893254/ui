@@ -1,0 +1,59 @@
+generic:
+  cpu: CPU
+  memory: Memory
+  hours: Hours
+  noData: No Data
+
+clusterDashboard:
+  title: Dashboard
+  sections:
+    cluster: Cluster
+    etcd: Etcd
+    k8s: Kubernetes Components
+  cpu: CPU Reservation
+  memory: Memory Reservation
+  pods: Pods Utilization
+  more: More
+  subtitle:
+    reserved: "{used} of {total} Reserved"
+    used: "{used} of {total} Used"
+  enalbeMonitoring: Enable Monitoring to see live metrics
+  monitoringNotReady: Monitoring API is not ready
+  node: Nodes
+  etcd: Etcd
+  scheduler: Scheduler
+  controllerManager: Controller Manager
+  alert:
+    node: "Alert: Node {node} is not active."
+    component: "Alert: Component {component} is unhealthy."
+    
+monitoringPage:
+  toUpdate: Monitoring is enabled. Click the Save button below to update the <code>Prometheus</code> configuration.
+  prometheus: Monitoring is not enabled yet, click the Save button below to enable it.
+  config:
+    types:
+      none: None
+      prometheus: Prometheus
+    header: Prometheus Configuration
+    retention: 
+      label: Data Retention
+    storageClass:
+      label: Storage Class
+    nodeexporter:
+      label: Node Exporter Host Port
+  cluster:
+    title: Cluster Monitoring
+    info: 'We will use Prometheus to collect metrics from Nodes, Kubernetes components and Pods in this cluster.'
+    disabled: Monitoring is disabled in the current cluster.
+    toDisable: Monitoring is enabled. Click the Save button below will disable monitoring in current cluster.
+    ready: Monitoring is ready. System monitoring tool has been deployed to 
+    notReady: Monitoring API is not ready. You can find system monitoring tool in 
+    justDeployed: Deploying system monitoring tool to
+  project:
+    title: Project Monitoring
+    info: 'We will use Prometheus to collect customized metrics from workloads in this project.'
+    disabled: Monitoring is disabled in the current project.
+    toDisable: Monitoring is enabled. Click the Save button below will disable monitoring in current project.
+    ready: Monitoring is ready.
+    notReady: Monitoring API is not ready.
+    justDeployed: Deploying project monitoring tool to this project.

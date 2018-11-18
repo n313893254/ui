@@ -1,0 +1,26 @@
+{{#each graphs as |item|}}
+  <div class="row">
+    <div class="col span-12">
+      <h2 class="text-left">{{item.graph.title}}</h2>
+      {{graph-area
+        series=item.series
+        loading=loading
+        formatter=item.graph.yAxis.unit
+      }}
+    </div>
+  </div>
+{{else}}
+  {{#if noGraphs}}
+    <div class="row mt-20">
+      <div class="text-center text-muted">
+        {{t 'generic.noData'}}
+      </div>
+    </div>
+  {{else}}
+    <div class="row mt-20">
+      <div class="text-center">
+        <i class="icon icon-spinner icon-spin" style="font-size:36px;"></i>
+      </div>
+    </div>
+  {{/if}}
+{{/each}}

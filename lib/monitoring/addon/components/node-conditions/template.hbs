@@ -1,0 +1,3 @@
+{{#each conditions as |c|}}
+  {{banner-message color=(if c.healthy 'bg-success' 'bg-error') icon='icon-check' message=c.name}}
+{{/each}}

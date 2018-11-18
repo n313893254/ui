@@ -107,6 +107,8 @@ module.exports = function(defaults) {
   app.import('vendor/aws-sdk-eks-ec2-iam-2.348.0.min.js');
   app.import('vendor/ember-shortcuts.js');
   app.import('vendor/aliyun-sdk.js');
+  app.import('vendor/echarts/echarts.min.js');
+  app.import('vendor/echarts/theme.js');
 
   app.import('vendor/icons/fonts/rancher-icons.svg',   { destDir: 'assets/fonts/' });
   app.import('vendor/icons/fonts/rancher-icons.ttf',   { destDir: 'assets/fonts/' });

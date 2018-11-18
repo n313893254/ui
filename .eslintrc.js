@@ -44,6 +44,7 @@ module.exports = {
     "Stripe": true,
     "Ui": true,
     "WebSocket": true,
+    "echarts": true,
     "document": true,
     "jQuery": true,
     "navigator": true,

@@ -1,0 +1,91 @@
+{{#if enabled}}
+  <div class="banner {{if (or isReady justDeployed) 'bg-success' 'bg-error'}}">
+    <div class="banner-icon"><i class="icon icon-2x {{if (or isReady justDeployed) 'icon-check' 'icon-alert'}}" /></div>
+    <div class="banner-message text-left">
+      {{#if (eq level 'cluster')}}
+        <p>
+          {{t (concat 'monitoringPage.cluster.' status) htmlSafe=true}} <a href="{{href-to 'apps-tab' cluster.systemProject.id}}">{{cluster.systemProject.displayName}}</a> {{t 'generic.project'}}.
+        </p>
+      {{else}}
+        <p>
+          {{t (concat 'monitoringPage.project.' status) htmlSafe=true}}
+        </p>
+      {{/if}}
+    </div>
+  </div>
+{{else}}
+  <div class="banner bg-info">
+    <div class="banner-icon p-20"><i class="icon icon-info"></i></div>
+    <div class="banner-message p-20">
+      {{t (concat 'monitoringPage.' level '.info') htmlSafe=true}}
+    </div>
+  </div>
+{{/if}}
+
+<div class="row nav nav-boxes checked-current mv-30 logging-targets">
+  <a href="#" alt='none' class='col span-2 nav-box-item driver {{if (eq selected 'none') 'active' ''}}' {{action "changeSelected" "none"}}>
+    <div class="none"></div>
+    <p>{{t 'monitoringPage.config.types.none'}}</p>
+  </a>
+  <a href="#" alt='prometheus' class='col span-2 nav-box-item driver {{if enabled 'current' ''}} {{if (eq selected 'prometheus') 'active' ''}}' {{action "changeSelected" "prometheus"}}>
+    <div class="prometheus"></div>
+    <p>{{t 'monitoringPage.config.types.prometheus'}}</p>
+  </a>
+</div>
+
+<section>
+  <div class="text-center text-muted">
+    {{#if (eq selected 'none')}}
+      {{#if enabled}}
+        {{t (concat 'monitoringPage.' level '.toDisable')}}
+      {{else}}
+        {{t (concat 'monitoringPage.' level '.disabled')}}
+      {{/if}}
+    {{else if (eq selected 'prometheus')}}
+      {{#if enabled}}
+        {{t 'monitoringPage.toUpdate' htmlSafe=true}}
+      {{else}}
+        {{t 'monitoringPage.prometheus'}}
+      {{/if}}
+    {{/if}}
+  </div>
+  <hr/>
+</section>
+
+{{#if (eq selected 'prometheus')}}
+  <h2 class="mt-30"> {{t 'monitoringPage.config.header'}} </h2>
+  <hr/>
+
+  <div class="box mb-10">
+    <div class="row">
+      <div class="col span-6">
+        <label class="acc-label">{{t 'monitoringPage.config.retention.label'}}</label>
+        <div class="input-group">
+          {{input-integer min=0 value='360'}}
+          <span class="input-group-addon bg-default">{{t 'generic.hours'}}</span>
+        </div>
+      </div>
+      <div class="col span-6">
+        <label class="acc-label">{{t 'monitoringPage.config.storageClass.label'}}</label>
+        {{schema/input-storageclass}}
+      </div>
+    </div>
+    {{#if (eq level 'cluster')}}
+      <div class="row">
+        <div class="col span-6">
+          <label class="acc-label">{{t 'monitoringPage.config.nodeexporter.label'}}</label>
+          {{input-integer min=1 min=65535 value='9100'}}
+        </div>
+      </div>
+    {{/if}}
+  </div>
+{{/if}}
+
+<div class="text-center">
+  {{save-cancel
+      saveDisabled=saveDisabled
+      cancelDisabled=true
+      editing=true
+      save="save"
+  }}
+</div>

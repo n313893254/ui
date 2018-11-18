@@ -45,6 +45,7 @@ module.exports = {
     "AWS": true,
     "Stripe": true,
     "Ui": true,
+    "echarts": true,
     "WebSocket": true,
     "document": true,
     "jQuery": true,

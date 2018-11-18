@@ -1,0 +1,11 @@
+<section>
+  {{metrics-action
+    dashboards=dashboards
+    resourceType="node"
+    id=node.ipAddress
+    dashboardName="Nodes"
+    queryAction="query"
+    state=state
+  }}
+  {{metrics-graph graphs=graphs loading=state.loading noGraphs=state.noGraphs}}
+</section>

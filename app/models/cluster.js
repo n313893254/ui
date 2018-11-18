@@ -8,10 +8,10 @@ import { resolve } from 'rsvp';
 import C from 'ui/utils/constants';
 
 export default Resource.extend(ResourceUsage, {
-  globalStore:                 service(),
-  growl:                       service(),
-  scope:                       service(),
-  router:       service(),
+  globalStore: service(),
+  growl:       service(),
+  scope:       service(),
+  router:      service(),
 
   namespaces:                  hasMany('id', 'namespace', 'clusterId'),
   projects:                    hasMany('id', 'project', 'clusterId'),
@@ -54,6 +54,21 @@ export default Resource.extend(ResourceUsage, {
     }
 
     return null;
+  }),
+
+  isMonitoringReady: computed('monitoringStatus.@each.conditions', function() {
+    if ( !get(this, 'enableClusterMonitoring') ) {
+      return false;
+    }
+    const conditions = get(this, 'monitoringStatus.conditions') || [];
+
+    if ( get(conditions, 'length') > 0 ) {
+      const ready = conditions.filterBy('status', 'True') || [] ;
+
+      return get(ready, 'length') === get(conditions, 'length');
+    }
+
+    return false;
   }),
 
   isReady: computed('conditions.@each.status', function() {
@@ -117,8 +132,14 @@ export default Resource.extend(ResourceUsage, {
     }
   }),
 
+  systemProject: computed('projects.@each.isSystemProject', function() {
+    let projects = (get(this, 'projects') || []).filterBy('isSystemProject', true);
+
+    return get(projects, 'firstObject');
+  }),
+
   defaultProject: computed('projects.@each.{name,clusterOwner}', function() {
-    let projects = this.get('projects');
+    let projects = get(this, 'projects');
 
     let out = projects.findBy('isDefault');
 
@@ -152,7 +173,7 @@ export default Resource.extend(ResourceUsage, {
     },
 
     edit() {
-      this.get('router').transitionTo('authenticated.cluster.edit', this.get('id'));
+      get(this, 'router').transitionTo('authenticated.cluster.edit', get(this, 'id'));
     },
 
     scaleDownPool(id) {
@@ -187,8 +208,8 @@ export default Resource.extend(ResourceUsage, {
     const promise = this._super.apply(this, arguments);
 
     return promise.then((/* resp */) => {
-      if (this.get('scope.currentCluster.id') === this.get('id')) {
-        this.get('router').transitionTo('global-admin.clusters');
+      if (get(this, 'scope.currentCluster.id') === get(this, 'id')) {
+        get(this, 'router').transitionTo('global-admin.clusters');
       }
     });
   },

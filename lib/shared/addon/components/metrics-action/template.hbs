@@ -1,0 +1,89 @@
+{{#if (and allowHide state.hide)}}
+  <div class="checkbox pt-5 text-small" style="position: absolute">
+    <label>
+      {{input type="checkbox" checked=state.hide}}
+      {{t 'metricsAction.hideGraph.label'}}
+    </label>
+  </div>
+{{else}}
+  <div class="row text-left">
+    <div class="pull-right pl-20 pt-0 mr-10">
+      <div class="text-left inline-block" style="width: 120px;">
+        {{searchable-select
+          content=periods
+          value=selected
+          localizedLabel=true
+          readOnly=state.loading
+        }}
+      </div>
+      {{#if (eq selected 'custom')}}
+        <div class="text-left inline-block" style="width: 160px;"> 
+          {{ember-flatpickr 
+            disabled=state.loading 
+            enableSeconds=true 
+            time_24hr=true 
+            enableTime=true 
+            date=from 
+            maxDate=to 
+            onChange=(action "fromDidChange") 
+            onClose=(action "onTimePickerClose") 
+            placeholder=(t 'metricsAction.from.label')
+          }}
+        </div>
+        <div class="text-left inline-block" style="width: 160px;">
+          {{ember-flatpickr
+            disabled=state.loading
+            enableSeconds=true
+            time_24hr=true
+            enableTime=true
+            minDate=from
+            maxDate=now
+            date=to
+            onChange=(action "toDidChange")
+            onClose=(action "onTimePickerClose") 
+            placeholder=(t 'metricsAction.to.label')
+          }}
+        </div>
+      {{/if}}
+      <button type="button" style="height: 37px;margin-top: -4px;" class="btn bg-primary" disabled={{state.loading}} {{action "refresh"}}>
+        <span><i class="icon icon-refresh"></i></span>
+      </button>
+    </div>
+    <div class="pull-left pl-20 pt-0 mr-10">
+      {{#if state.detail}}
+        <div>
+          <div class="btn-group no-inline-space">
+            <button class="btn btn-link btn-sm bg-default" {{action "toggle" false}}>{{t 'metricsAction.summary.label'}}</button>
+            <button class="btn btn-link btn-sm bg-primary" {{action "toggle" true}}>{{t 'metricsAction.detail.label'}}</button>
+          </div>
+        </div>
+      {{else}}
+        <div>
+          <div class="btn-group no-inline-space">
+            <button class="btn btn-link btn-sm bg-primary" {{action "toggle" false}}>{{t 'metricsAction.summary.label'}}</button>
+            <button class="btn btn-link btn-sm bg-default" {{action "toggle" true}}>{{t 'metricsAction.detail.label'}}</button>
+          </div>
+        </div>
+      {{/if}}
+      {{#if allowHide}}
+        <div class="checkbox pt-10 text-small" style="position: absolute;padding-left: 2px;">
+          <label>
+            {{input type="checkbox" checked=state.hide}}
+            {{t 'metricsAction.hideGraph.label'}}
+          </label>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+
+  <div class="row" style="height: 26px;">
+    {{#if grafanaUrl}}
+      <div class="pull-right">
+        <div class="text-small pr-10 pt-5">
+          <a href={{grafanaUrl}} target="_blank" rel="nofollow noopener noreferrer">{{t 'metricsAction.grafana.label'}}</a>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+{{/if}}
+

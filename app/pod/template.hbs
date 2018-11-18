@@ -1,0 +1,155 @@
+<section class="header clearfix">
+  <div class="pull-left">
+    <h1 class="vertical-middle">
+      {{t 'podPage.header' name=model.displayName}}
+    </h1>
+  </div>
+  <div class="right-buttons">
+    {{badge-state model=model}}
+    {{action-menu model=model showPrimary=false classNames="ml-10 inline-block" size="sm"}}
+  </div>
+</section>
+{{#if model.description}}
+  {{banner-message color='bg-secondary mb-0 mt-10' message=(linkify model.description)}}
+{{/if}}
+
+{{#if model.showTransitioningMessage}}
+  <div class="{{model.stateColor}}"><p>{{uc-first model.transitioningMessage}}</p></div>
+{{/if}}
+
+<div class="row">
+  <div class="col span-3 sticky">
+    <div class="row-same-height row-full-height">
+      <div class="span-height span-full-height col-top" style="margin-bottom: 20px;">
+        <div class="no-padding-margin" style="height: 100%;">
+          <div class="text-left">
+            <label class="text-muted">{{t 'servicePage.multistat.namespace'}}:</label>
+            {{#if model.namespaceId}}
+              {{#copy-inline clipboardText=model.namespaceId}}
+                {{model.namespaceId}}
+              {{/copy-inline}}
+            {{else}}
+              {{t 'generic.none'}}
+            {{/if}}
+          </div>
+          <hr class="mt-15 mb-15"/>
+
+          {{#if (eq model.containers.length 1)}}
+            <div class="text-left">
+              <label class="text-muted">{{t 'podPage.image'}}:</label>
+              {{model.containers.firstObject.image}} {{copy-to-clipboard clipboardText=model.containers.firstObject.image size="small"}}
+            </div>
+            <hr class="mt-15 mb-15"/>
+          {{/if}}
+
+          <div class="text-left">
+            <label class="text-muted">{{t 'dnsPage.type.workload'}}:</label>
+            {{#if model.workload}}
+              {{#link-to "workload" model.workloadId}}{{model.workloadId}}{{/link-to}}
+            {{else if model.workloadId}}
+              {{model.workloadId}}
+            {{else}}
+              {{t 'generic.none'}}
+            {{/if}}
+          </div>
+          <hr class="mt-15 mb-15"/>
+
+          <div class="text-left">
+            <label class="text-muted">{{t 'podPage.podIp'}}:</label>
+            {{#if model.displayIp}}
+              {{#copy-inline clipboardText=model.displayIp}}
+                {{model.displayIp}}
+              {{/copy-inline}}
+            {{else}}
+              {{t 'generic.none'}}
+            {{/if}}
+          </div>
+          <hr class="mt-15 mb-15"/>
+
+          <div class="text-left">
+            <label class="text-muted">{{t 'podPage.nodeIp'}}:</label>
+            {{#if (and model.node.id model.node.clusterId)}}
+              <div class="inline">
+                <a href="{{href-to 'authenticated.cluster.monitoring.node-detail' model.node.clusterId model.node.id}}">{{model.node.displayName}}</a>
+                {{#if (or model.node.externalIpAddress model.node.ipAddress)}}
+                  {{node-ip model=model.node}}
+                {{/if}}
+              </div>
+            {{else}}
+              {{t 'generic.unknown'}}
+            {{/if}}
+          </div>
+          <hr class="mt-15 mb-15"/>
+
+          <div class="text-left">
+            <label class="text-muted">{{t 'generic.restarts'}}:</label>
+            {{model.restarts}}
+          </div>
+          <hr class="mt-15 mb-15"/>
+
+          <div class="text-left">
+            <label class="text-muted">{{t 'generic.created'}}:</label>
+            {{date-calendar model.created}}
+          </div>
+          <hr class="mt-15 mb-15"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col span-9">
+    {{#if scope.currentCluster.isMonitoringReady}}
+      {{pod-metrics id=model.id}}
+    {{/if}}
+    {{#accordion-list as |al expandFn|}}
+      {{accordion-container
+        containers=model.containers
+        expandAll=al.expandAll
+        expandFn=expandFn
+      }}
+
+      {{#if model.workload}}
+        {{container/form-scheduling
+          initialHostId=model.workload.nodeId
+          scheduling=model.workload.scheduling
+          editing=false
+          expandAll=al.expandAll
+          expandFn=expandFn
+          classNames="accordion"
+        }}
+      {{/if}}
+
+      {{container/form-networking
+        classNames="accordion-wrapper"
+        service=model
+        editing=false
+        expandAll=al.expandAll
+        expandFn=expandFn
+      }}
+
+      {{form-labels-annotations
+        classNames="accordion-wrapper"
+        model=model
+        editing=false
+        expandAll=al.expandAll
+        expandFn=expandFn
+      }}
+
+      {{resource-condition-list
+        resourceType=(t 'generic.pod')
+        conditions=model.status.conditions
+        expandAll=al.expandAll
+        expandFn=expandFn
+      }}
+
+      {{resource-event-list
+        resourceType=(t 'generic.pod')
+        expandAll=al.expandAll
+        expandFn=expandFn
+        namespaceId=model.namespaceId
+        name=model.name
+        kind="Pod"
+      }}
+    {{/accordion-list}}
+  </div>  
+</div>
