@@ -56,7 +56,7 @@
           {{searchable-select
               content=resourceKinds
               class="form-control"
-              value=model.targetEvent.resourceKind
+              value=model.eventRule.resourceKind
               placeholder=(t 'alertPage.newOrEdit.resourcePlaceholder')
               readOnly=(not-eq isEventTarget true)
           }}
@@ -74,7 +74,7 @@
           {{searchable-select
               content=nodes
               class="form-control"
-              value=model.targetNode.nodeId
+              value=model.nodeRule.nodeId
               optionValuePath="id"
               optionLabelPath="displayName"
               placeholder=(t 'alertPage.newOrEdit.nodePlaceholder')
@@ -92,8 +92,8 @@
           {{#if (eq model._targetType 'nodeSelector')}}
             {{form-key-value
                 addActionLabel="alertPage.addSelectorLabel"
-                initialMap=model.targetNode.selector
-                changed=(action (mut model.targetNode.selector))
+                initialMap=model.nodeRule.selector
+                changed=(action (mut model.nodeRule.selector))
             }}
           {{else}}
             <button {{action "noop"}} style="cursor:not-allowed;" class="btn bg-disabled icon-btn">
@@ -200,30 +200,30 @@
         </label>
       {{else if (or (eq model._targetType 'node') (eq model._targetType 'nodeSelector'))}}
         <label class="acc-label pr-20">
-          {{radio-button selection=model.targetNode.condition value="notready"}} {{t 'alertPage.newOrEdit.notReady'}}
+          {{radio-button selection=model.nodeRule.condition value="notready"}} {{t 'alertPage.newOrEdit.notReady'}}
         </label>
         <label class="acc-label pr-10">
-          {{radio-button selection=model.targetNode.condition value="cpu"}} {{t 'alertPage.newOrEdit.cpuUsage'}}
+          {{radio-button selection=model.nodeRule.condition value="cpu"}} {{t 'alertPage.newOrEdit.cpuUsage'}}
         </label>
         <div style="display:inline-block;width:60px;">
           {{input-integer
               classNames="form-contorl input-sm"
-              disabled=(not-eq model.targetNode.condition 'cpu')
+              disabled=(not-eq model.nodeRule.condition 'cpu')
               min=1
-              value=model.targetNode.cpuThreshold
+              value=model.nodeRule.cpuThreshold
           }}
         </div>%
 
         <label class="ml-20 acc-label pr-20">
-          {{radio-button selection=model.targetNode.condition value="mem"}} {{t 'alertPage.newOrEdit.memUsage'}}
+          {{radio-button selection=model.nodeRule.condition value="mem"}} {{t 'alertPage.newOrEdit.memUsage'}}
         </label>
         <div style="display:inline-block;width:60px;">
           {{input-integer
               classNames="form-contorl input-sm"
-              disabled=(not-eq model.targetNode.condition 'mem')
+              disabled=(not-eq model.nodeRule.condition 'mem')
               min=1
               max=100
-              value=model.targetNode.memThreshold
+              value=model.nodeRule.memThreshold
           }}
         </div>%
       {{else}}
