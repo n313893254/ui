@@ -1,60 +1,33 @@
 generic:
   cpu: CPU
   memory: Memory
-<<<<<<< HEAD
   hours: Hours
   noData: No Data
-=======
->>>>>>> alerting
 
 clusterDashboard:
   title: Dashboard
   sections:
-<<<<<<< HEAD
     cluster: Cluster
     etcd: Etcd
     k8s: Kubernetes Components
-=======
-    cluster: Cluster Metrics
-    nodes: Nodes Metrics
-    k8s: Kubernetes Components Metrics
-    reservation: Cluster Reservation
-    node: Node Metrics
-    nodeReservation: Node Reservation
->>>>>>> alerting
   cpu: CPU Reservation
   memory: Memory Reservation
   pods: Pods Utilization
   more: More
-<<<<<<< HEAD
-=======
-  grafana: 
-    label: See Grafana Dashboard
-    helpText: Go to Grafana UI to see more metrics
->>>>>>> alerting
   subtitle:
     reserved: "{used} of {total} Reserved"
     used: "{used} of {total} Used"
   enalbeMonitoring: Enable Monitoring to see live metrics
   monitoringNotReady: Monitoring API is not ready
   node: Nodes
-<<<<<<< HEAD
   etcd: Etcd
   scheduler: Scheduler
   controllerManager: Controller Manager
-=======
-  etcd: etcd
-  scheduler: Scheduler
-  controllerManager: Controller Manager
-  value: Value
-  noNodes: There are no nodes.
->>>>>>> alerting
   alert:
     node: "Alert: Node {node} is not active."
     component: "Alert: Component {component} is unhealthy."
-    
+
 monitoringPage:
-<<<<<<< HEAD
   toUpdate: Monitoring is enabled. Click the Save button below to update the <code>Prometheus</code> configuration.
   prometheus: Monitoring is not enabled yet, click the Save button below to enable it.
   config:
@@ -62,7 +35,7 @@ monitoringPage:
       none: None
       prometheus: Prometheus
     header: Prometheus Configuration
-    retention: 
+    retention:
       label: Data Retention
     storageClass:
       label: Storage Class
@@ -73,8 +46,8 @@ monitoringPage:
     info: 'We will use Prometheus to collect metrics from Nodes, Kubernetes components and Pods in this cluster.'
     disabled: Monitoring is disabled in the current cluster.
     toDisable: Monitoring is enabled. Click the Save button below will disable monitoring in current cluster.
-    ready: Monitoring is ready. System monitoring tool has been deployed to 
-    notReady: Monitoring API is not ready. You can find system monitoring tool in 
+    ready: Monitoring is ready. System monitoring tool has been deployed to
+    notReady: Monitoring API is not ready. You can find system monitoring tool in
     justDeployed: Deploying system monitoring tool to
   project:
     title: Project Monitoring
@@ -84,20 +57,3 @@ monitoringPage:
     ready: Monitoring is ready.
     notReady: Monitoring API is not ready.
     justDeployed: Deploying project monitoring tool to this project.
-=======
-  title: Cluster Monitoring
-  disabled: Monitoring is disabled in the current cluster.
-  ready: Monitoring is ready. System monitoring tool has been deployed to 
-  notReady: Monitoring API is not ready. You can find system monitoring tool in
-  justDeployed: Deploying system monitoring tool to
-  actions:
-    enable: Enable Monitoring
-    confirm: 'Are you sure?  Click again to really disable monitoring'
-    disable: Disable Monitoring
-  helpText:
-    disabled: 'We will use Prometheus to collect metrics from Nodes, Kubernetes components and Pods in this cluster.'
-
-formMonitoring:
-  title: Monitoring
-  detail: Live metrics for the current {type}
->>>>>>> alerting
