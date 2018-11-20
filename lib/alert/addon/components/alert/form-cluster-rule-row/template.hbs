@@ -110,50 +110,17 @@
           </label>
         </div>
         <div class="col span-9 mt-0">
-          {{!-- {{textarea-autogrow
-            value=model.expression
-            classNames="form-control"
-            rows="1"
-            disabled=(not-eq model._targetType 'expression')
-            placeholder="alertPage.newOrEdit.expression.placeholder"
-          }} --}}
           {{searchable-select
               content=metricsContent
               class="form-control"
               value=condition.expression
-              readOnly=(not-eq model._targetType 'expression')
+              readOnly=(or (not-eq model._targetType 'expression') graphLoading)
               placeholder="Select a metric"
           }}
         </div>
       </div>
     </div>
   </section>
-  {{!-- <div class="row">
-    <div class="col span-1 text-right">
-      <div class="pt-10">
-        <label style={{unless monitoringEnabled 'color: #bfbfbf;'}}>Or</label>
-      </div>
-    </div>
-
-    <div class="col span-10">
-      <div class="row">
-        <div class="col span-2">
-          <label class="acc-label" style={{unless monitoringEnabled 'color: #bfbfbf;'}}>
-            {{radio-button selection=model._targetType value="expression" disabled=(not monitoringEnabled)}} Expression
-          </label>
-        </div>
-        <div class="col span-9 mt-0">
-          {{textarea-autogrow
-            value=model.expression
-            classNames="form-control"
-            rows="1"
-            disabled=(not-eq model._targetType 'expression')
-            placeholder="alertPage.newOrEdit.expression.placeholder"
-          }}
-        </div>
-      </div>
-    </div>
-  </div> --}}
   <hr/>
   <section class="row">
     <div class="col span-1 text-right">
@@ -190,7 +157,13 @@
       </div>
       <hr/>
       <div class="row">
-        {{echart-chart option=condition.chartOption}}
+        {{!-- {{echart-chart option=condition.chartOption}} --}}
+        <h2 class="text-left">{{condition.expression}}</h2>
+        {{echart-chart
+          series=condition.chartOption.series
+          loading=graphLoading
+          threshold=condition.threshold
+        }}
       </div>
     {{else}}
       <div class="col span-10">
