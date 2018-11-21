@@ -43,8 +43,8 @@ export default Mixin.create({
     return intl.t(`alertPage.targetTypes.${ t }`);
   }),
 
-  resourceKind: computed('targetEvent.resourceKind', function() {
-    const rk = get(this, 'targetEvent.resourceKind');
+  resourceKind: computed('eventRule.resourceKind', function() {
+    const rk = get(this, 'eventRule.resourceKind');
 
     return get(this, 'intl').t(`alertPage.resourceKinds.${ rk }`);
   }),

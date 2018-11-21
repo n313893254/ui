@@ -15,6 +15,12 @@ const clusterAlertRule = Resource.extend(alertMixin, {
     this._super(...args);
   },
 
+  validationErrors() {
+    let errors = [];
+
+    return errors;
+  },
+
   targetType: function() {
     const targetSystemService = get(this, 'systemServiceRule');
     const targetNode = get(this, 'nodeRule');
