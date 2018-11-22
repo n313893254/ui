@@ -46,7 +46,6 @@ const clusterAlertRule = Resource.extend(alertMixin, {
 
   displayTargetType: function() {
     const t = get(this, 'targetType');
-    console.log(t, 't')
     const intl = get(this, 'intl');
 
     return intl.t(`alertPage.targetTypes.${ t }`);
