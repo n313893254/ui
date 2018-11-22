@@ -16,16 +16,16 @@
 {{/unless}}
 
 <div class="mb-10 pt-5">
-  {{#each alertRules as |condition|}}
+  {{#each alertRules as |alertRule|}}
     {{alert/form-cluster-rule-row
         removeRule=(action 'removeRule')
         condictions=condictions
-        condition=condition
+        condition=alertRule
         ingress=ingress
         editing=editing
         pageScope=pageScope
         isCreate=isCreate
-        model=model
+        model=alertRule
         monitoringEnabled=monitoringEnabled
         metrics=metrics
     }}

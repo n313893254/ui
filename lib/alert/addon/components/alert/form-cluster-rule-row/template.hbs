@@ -36,7 +36,7 @@
           {{searchable-select
               content=systemServices
               class="form-control"
-              value=model.targetSystemService.condition
+              value=model.systemServiceRule.condition
               placeholder=(t 'alertPage.newOrEdit.systemServicePlaceholder')
               readOnly=(not-eq model._targetType 'systemService')
           }}
