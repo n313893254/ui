@@ -7,8 +7,6 @@ import alertMixin from 'ui/mixins/model-alert';
 
 export default Resource.extend(alertMixin, {
   type: 'clusteralertgroup',
-  canEdit: false,
-  canRemove: false,
 
   init(...args) {
     this._super(...args);

@@ -16,7 +16,7 @@
 {{/unless}}
 
 <div class="mb-10 pt-5">
-  {{#each condictions as |condition|}}
+  {{#each alertRules as |condition|}}
     {{alert/form-cluster-rule-row
         removeRule=(action 'removeRule')
         condictions=condictions
@@ -40,14 +40,3 @@
     <span>Add Condiction</span>
   </button>
 </div>
-
-<section class="row">
-  <div class="col span-1">
-    {{t 'alertPage.newOrEdit.sendA'}}
-  </div>
-  <div class="col span-10">
-    <label class="acc-label mr-10">{{radio-button selection=model.severity value="critical"}} {{t 'alertPage.newOrEdit.critical'}}</label>
-    <label class="acc-label mr-10">{{radio-button selection=model.severity value="warning"}} {{t 'alertPage.newOrEdit.warning'}}</label>
-    <label class="acc-label mr-10">{{radio-button selection=model.severity value="info"}} {{t 'alertPage.newOrEdit.info'}}</label>
-  </div>
-</section>

@@ -1,11 +1,11 @@
 import Resource from 'ember-api-store/models/resource';
-import { get } from '@ember/object';
+import { get, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import alertMixin from 'ui/mixins/model-alert';
 
 const clusterAlertRule = Resource.extend(alertMixin, {
   intl:       service(),
-  type: 'clusteralert',
+  type: 'clusterAlertRule',
 
   _targetType: 'systemService',
 
@@ -21,24 +21,28 @@ const clusterAlertRule = Resource.extend(alertMixin, {
     return errors;
   },
 
-  targetType: function() {
-    const targetSystemService = get(this, 'systemServiceRule');
-    const targetNode = get(this, 'nodeRule');
-    const targetEvent = get(this, 'eventRule');
+  targetType: computed('systemServiceRule.{condition}', 'nodeRule.{nodeId,selector}', 'eventRule.{resourceKind}', 'metricRule.{expression}', function() {
+    const systemServiceRule = get(this, 'systemServiceRule');
+    const nodeRule = get(this, 'nodeRule');
+    const eventRule = get(this, 'eventRule');
+    const metricRule = get(this, 'metricRule');
 
-    if (targetSystemService && targetSystemService.condition) {
+    if (systemServiceRule && systemServiceRule.condition) {
       return 'systemService';
     }
-    if (targetNode && targetNode.nodeId) {
+    if (nodeRule && nodeRule.nodeId) {
       return 'node'
     }
-    if (targetNode && targetNode.selector) {
+    if (nodeRule && nodeRule.selector) {
       return 'nodeSelector';
     }
-    if (targetEvent && targetEvent.resourceKind) {
+    if (eventRule && eventRule.resourceKind) {
       return 'event';
     }
-  }.property('systemServiceRule.{condition}', 'nodeRule.{nodeId,selector}', 'eventRule.{resourceKind}'),
+    if (metricRule && metricRule.expression) {
+      return 'metric'
+    }
+  }),
 
   displayTargetType: function() {
     const t = get(this, 'targetType');
