@@ -19,9 +19,7 @@
   {{#each alertRules as |alertRule|}}
     {{alert/form-cluster-rule-row
         removeRule=(action 'removeRule')
-        condictions=condictions
         condition=alertRule
-        ingress=ingress
         editing=editing
         pageScope=pageScope
         isCreate=isCreate
