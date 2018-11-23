@@ -1,5 +1,8 @@
 <div class="box mb-10">
   <div class="row">
+
+  </div>
+  <div class="row">
     {{#if (and editing (gt condictions.length 1))}}
       <div class="pull-right">
         {{#if (lte condictions.length 1 )}}
@@ -106,16 +109,17 @@
       <div class="row">
         <div class="col span-2">
           <label class="acc-label" style={{unless monitoringEnabled 'color: #bfbfbf;'}}>
-            {{radio-button selection=model._targetType value="expression" disabled=(not monitoringEnabled)}} Expression
+            {{radio-button selection=model._targetType value="metric" disabled=(not monitoringEnabled)}} Expression
           </label>
         </div>
         <div class="col span-9 mt-0">
           {{searchable-select
               content=metricsContent
               class="form-control"
-              value=condition.expression
-              readOnly=(or (not-eq model._targetType 'expression') graphLoading)
+              value=model.metricRule.expression
+              readOnly=(or (not-eq model._targetType 'metric') graphLoading)
               placeholder="Select a metric"
+              allowCustom=true
           }}
         </div>
       </div>
@@ -126,20 +130,20 @@
     <div class="col span-1 text-right">
       <div style={{verbStyles}}>{{if isEventTarget (t 'alertPage.newOrEdit.happens') (t 'alertPage.newOrEdit.is')}}</div>
     </div>
-    {{#if (eq model._targetType 'expression')}}
+    {{#if (eq model._targetType 'metric')}}
       <div class="row">
         <div class="col span-2 mt-0">
           {{searchable-select
               content=operatorContent
               class="form-control"
-              value=condition.operator
-              readOnly=(not-eq model._targetType 'expression')
+              value=model.metricRule.comparison
+              readOnly=(not-eq model._targetType 'metric')
           }}
         </div>
         <div class="col span-2 mt-0">
           {{input-integer class="form-control"
-                          value=condition.threshold
-                          readOnly=(not-eq model._targetType 'expression')
+                          value=model.metricRule.thresholdValue
+                          readOnly=(not-eq model._targetType 'metric')
                           placeholder="e.g. 10"
                           min=0
           }}
@@ -151,8 +155,8 @@
           {{searchable-select
               content=durationContent
               class="form-control"
-              value=condition.duration
-              readOnly=(not-eq model._targetType 'expression')
+              value=model.metricRule.duration
+              readOnly=(not-eq model._targetType 'metric')
           }}
         </div>
       </div>
@@ -163,7 +167,7 @@
         {{echart-chart
           series=condition.chartOption.series
           loading=graphLoading
-          threshold=condition.threshold
+          threshold=model.metricRule.thresholdValue
         }}
       </div>
     {{else}}
