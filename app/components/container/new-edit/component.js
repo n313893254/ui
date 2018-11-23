@@ -1,5 +1,7 @@
 import Errors from 'ui/utils/errors';
-import { get, set, computed } from '@ember/object';
+import {
+  get, set, computed
+} from '@ember/object';
 import { equal } from '@ember/object/computed';
 import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
@@ -115,6 +117,29 @@ export default Component.extend(NewOrEdit, ChildHook, {
 
   }.observes('isUpgrade', 'isSidekick', 'isGlobal', 'service.displayName', 'intl.locale').on('init'),
 
+  imageContent: computed('images.[]', function() {
+
+    const images = get(this, 'images')
+    let arr = []
+
+    images.filter((i) => (i.tags || []).length > 0).map((image) => {
+
+      image.tags.map((tag) => {
+
+        arr = [...arr, {
+          label: `${ image.name }:${ tag }`,
+          value: `${ image.path }:${ tag }`,
+          group: `${ image.name }`,
+        }]
+
+      })
+
+    })
+
+    return arr
+
+  }),
+
   init() {
 
     window.nec = this;
@@ -200,22 +225,6 @@ export default Component.extend(NewOrEdit, ChildHook, {
     }
 
   },
-
-  imageContent: computed('images.[]', function() {
-    const images = get(this, 'images')
-    let arr = []
-    images.filter(i => (i.tags || []).length > 0).map(image => {
-      image.tags.map(tag => {
-        arr = [...arr, {
-          label: `${image.name}:${tag}`,
-          value: `${image.path}:${tag}`,
-          group: `${image.name}`,
-        }]
-      })
-    })
-    console.log(arr, 'arr')
-    return arr
-  }),
 
   actions: {
     setImage(uuid) {
