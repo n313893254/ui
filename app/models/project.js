@@ -31,6 +31,22 @@ export default Resource.extend({
 
   }),
 
+  isEKS: computed(function() {
+
+    const gitVersion = get(this, 'cluster.version.gitVersion') || ''
+
+    return gitVersion.includes('eks') ? true : false
+
+  }),
+
+  isCCE: computed(function() {
+
+    const gitVersion = get(this, 'cluster.version.gitVersion') || ''
+
+    return gitVersion.includes('CCE') ? true : false
+
+  }),
+
   isDefault: computed(`prefs.${ C.PREFS.PROJECT_DEFAULT }`, 'id', function() {
 
     return get(this, `prefs.${ C.PREFS.PROJECT_DEFAULT }`) === get(this, 'id');

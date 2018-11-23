@@ -43,11 +43,28 @@
 
 <div class="row">
   <div class="col span-11-of-23 mt-0 mb-0">
-    {{container/form-image
-      initialValue=launchConfig.image
-      errors=imageErrors
-      changed=(action 'setImage')
-    }}
+    {{#if images}}
+      <div>
+        <label class="acc-label">
+          {{t 'formImage.label'}}{{field-required}}
+        </label>
+      </div>
+      <div class="">
+        {{searchable-select
+            content=imageContent
+            class="form-control"
+            value=launchConfig.image
+            placeholder=(t 'formImage.container.placeholder')
+            localizedLabel=false
+        }}
+      </div>
+    {{else}}
+      {{container/form-image
+        initialValue=launchConfig.image
+        errors=imageErrors
+        changed=(action 'setImage')
+      }}
+    {{/if}}
   </div>
 
   {{#unless isSidekick}}

@@ -1,6 +1,7 @@
 import EmberObject from '@ember/object';
 import { inject as service } from '@ember/service';
 import { get, set } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import { hash, resolve } from 'rsvp';
 import Route from '@ember/routing/route';
 import Ember from 'ember';
@@ -54,6 +55,37 @@ export default Route.extend({
       promise = resolve(this.modelForNew(params));
 
     }
+
+    const isCCE = project.isCCE
+    const isEKS = project.isEKS
+
+    if (isCCE || isEKS) {
+      const images = gs.rawRequest({
+        url: `/v3/project/${projectId}/workloads/?action=imageList`,
+        method: 'POST',
+        data: {
+          providerType: isCCE ? 'cce' : 'eks',
+        }
+      })
+
+      return hash({
+        dataMap:  promise,
+        clusterLogging,
+        projectLogging,
+        business:          clusterStore.findAll('business', {
+          url:         `${ k8sStore.baseUrl }/business`,
+          forceReload: true
+        }).catch(),
+        images,
+      }).then((hash) => ({
+        loggingEnabled: hash.clusterLogging || hash.projectLogging,
+        dataMap:        hash.dataMap,
+        business:       hash.business,
+        images:         hash.images && hash.images.body && hash.images.body.images,
+      }))
+    }
+
+
 
     return hash({
       dataMap:  promise,
