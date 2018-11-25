@@ -16,7 +16,7 @@
 {{/unless}}
 
 <div class="mb-10 pt-5">
-  {{#each alertRules as |alertRule|}}
+  {{#each alertRules key="id" as |alertRule|}}
     {{alert/form-cluster-rule-row
         removeRule=(action 'removeRule')
         condition=alertRule

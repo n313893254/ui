@@ -164,11 +164,15 @@
       <div class="row">
         {{!-- {{echart-chart option=condition.chartOption}} --}}
         {{!-- <h2 class="text-left">{{condition.expression}}</h2> --}}
-        {{echart-chart
-          series=condition.chartOption.series
-          loading=graphLoading
-          threshold=model.metricRule.thresholdValue
-        }}
+        {{#each models as |chart|}}
+          {{echart-chart
+            key=chart.id
+            series=chartOption.series
+            loading=graphLoading
+            threshold=chart.metricRule.thresholdValue
+            tag=chart.tag
+          }}
+        {{/each}}
       </div>
     {{else}}
       <div class="col span-10">
