@@ -1,5 +1,5 @@
 {{#outside-click onOutsideClick=(action 'hide')}}
-  {{input disabled=readOnly class=(concat 'form-control input-search search ' class) placeholder=placeholder type="text" autocomplete="off" value=filter key-up="search"}}
+  {{input disabled=readOnly class=(concat 'form-control input-search search ' class) placeholder=placeholder type="text" autocomplete="off" value=filter key-up="search" focusOut=(action 'blurred' filter)}}
 
   {{#if showOptions}}
     <section class="searchable-options" style={{optionsMaxHeightCss}}>
