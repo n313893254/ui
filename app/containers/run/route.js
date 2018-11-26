@@ -64,7 +64,7 @@ export default Route.extend({
         url:    `/v3/project/${ projectId }/workloads/?action=imageList`,
         method: 'POST',
         data:   { providerType: isCCE ? 'cce' : 'eks', }
-      })
+      }).catch(() => 'catch')
 
       return hash({
         dataMap:  promise,
@@ -73,7 +73,7 @@ export default Route.extend({
         business:          clusterStore.findAll('business', {
           url:         `${ k8sStore.baseUrl }/business`,
           forceReload: true
-        }).catch(),
+        }).catch(() => 'catch'),
         images,
       }).then((hash) => ({
         loggingEnabled: hash.clusterLogging || hash.projectLogging,

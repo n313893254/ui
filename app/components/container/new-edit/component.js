@@ -18,6 +18,7 @@ export default Component.extend(NewOrEdit, ChildHook, {
   intl:         service(),
   prefs:        service(),
   settings:     service(),
+  scope:        service(),
 
   layout,
   tagName: 'form',
@@ -128,7 +129,7 @@ export default Component.extend(NewOrEdit, ChildHook, {
 
         arr = [...arr, {
           label: `${ image.name }:${ tag }`,
-          value: `${ image.path }:${ tag }`,
+          value: get(this, 'scope.currentCluster.isCCE') ? `${ image.internal_path }:${ tag }` : `${ image.path }:${ tag }`,
           group: `${ image.name }`,
         }]
 
