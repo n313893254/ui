@@ -15,12 +15,6 @@ const clusterAlertRule = Resource.extend(alertMixin, {
     this._super(...args);
   },
 
-  validationErrors() {
-    let errors = [];
-
-    return errors;
-  },
-
   targetType: computed('systemServiceRule.{condition}', 'nodeRule.{nodeId,selector}', 'eventRule.{resourceKind}', 'metricRule.{expression}', function() {
     const systemServiceRule = get(this, 'systemServiceRule');
     const nodeRule = get(this, 'nodeRule');
@@ -97,6 +91,12 @@ const clusterAlertRule = Resource.extend(alertMixin, {
 
     return null;
   }.property('targetType', 'targetNode.{memThreshold,cpuThreshold,condition}'),
+
+  validationErrors() {
+    let errors = [];
+
+    return errors;
+  },
 
   actions: {
     clone() {
