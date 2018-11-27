@@ -3,9 +3,9 @@
 
   </div>
   <div class="row">
-    {{#if (and editing (gt condictions.length 1))}}
+    {{#if (and editing (gt alertRules.length 1))}}
       <div class="pull-right">
-        {{#if (lte condictions.length 1 )}}
+        {{#if (lte alertRules.length 1 )}}
           <button class="btn btn-disabled-transparent text-small vertical-middle" disabled="true">
             {{t 'formIngress.removeRuleLabel'}}
           </button>

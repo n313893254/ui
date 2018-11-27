@@ -1,5 +1,5 @@
 <div class="row">
-  <label>Condition</label>
+  <label>Alert</label>
   {{!-- <div class="col-inline checkbox pull-right text-small">
     <label>{{input type="checkbox" checked=advancedMode}} Advanced Mode</label>
   </div> --}}
@@ -20,6 +20,7 @@
     {{alert/form-cluster-rule-row
         removeRule=(action 'removeRule')
         condition=alertRule
+        alertRules=alertRules
         editing=editing
         pageScope=pageScope
         isCreate=isCreate

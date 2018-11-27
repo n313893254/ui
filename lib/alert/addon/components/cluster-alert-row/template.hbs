@@ -58,7 +58,7 @@
     {{model.displayCondition}}
   </td>
 
-  <td data-title="{{dt.recipients}}" class="clip">
+  {{!-- <td data-title="{{dt.recipients}}" class="clip">
     {{#if model.recipients.length}}
       {{#if (eq model.recipients.length 1)}}
         <div class="clip">
@@ -78,7 +78,7 @@
     {{else}}
       {{t 'alertPage.na'}}
     {{/if}}
-  </td>
+  </td> --}}
 
   <td data-title="{{t 'generic.actions'}}" class="actions">
     {{action-menu model=model}}

@@ -20,7 +20,7 @@ const ProjectAlert = Resource.extend(alertMixin, {
   }.property('targetType'),
 
   podName: function() {
-    const id = get(this, 'targetPod.podId');
+    const id = get(this, 'podRule.podId');
     const pod = get(this, 'projectStore').all('pod').filterBy('id', id).get('firstObject');
 
     if (!pod) {
@@ -28,7 +28,7 @@ const ProjectAlert = Resource.extend(alertMixin, {
     }
 
     return pod.get('displayName');
-  }.property('targetPod.podId'),
+  }.property('podRule.podId'),
 
   workloadName: function() {
     const id = get(this, 'targetWorkload.workloadId');
@@ -46,11 +46,11 @@ const ProjectAlert = Resource.extend(alertMixin, {
     const intl = get(this, 'intl');
 
     if (t === 'pod') {
-      const c = get(this, 'targetPod.condition');
+      const c = get(this, 'podRule.condition');
 
       if (c === 'restarts') {
-        const times = get(this, 'targetPod.restartTimes');
-        const interval = get(this, 'targetPod.restartIntervalSeconds');
+        const times = get(this, 'podRule.restartTimes');
+        const interval = get(this, 'podRule.restartIntervalSeconds');
 
         return intl.t('alertPage.index.table.displayCondition.restarted', {
           times,
@@ -71,10 +71,10 @@ const ProjectAlert = Resource.extend(alertMixin, {
 
       return intl.t('alertPage.index.table.displayCondition.available', { percent });
     }
-  }.property('targetType', 'targetPod.{condition,restartTimes,restartIntervalSeconds}', 'targetWorkload.{availablePercentage}'),
+  }.property('targetType', 'podRule.{condition,restartTimes,restartIntervalSeconds}', 'targetWorkload.{availablePercentage}'),
 
   targetType: function() {
-    const tp = get(this, 'targetPod');
+    const tp = get(this, 'podRule');
     const tw = get(this, 'targetWorkload');
 
     if (tp && tp.podId) {
@@ -86,7 +86,7 @@ const ProjectAlert = Resource.extend(alertMixin, {
     if (tw && tw.selector) {
       return 'workloadSelector';
     }
-  }.property('targetPod.{podId}', 'targetWorkload.{workloadId,selector}'),
+  }.property('podRule.{podId}', 'targetWorkload.{workloadId,selector}'),
 
   actions: {
     clone() {

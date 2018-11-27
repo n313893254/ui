@@ -90,5 +90,5 @@ alertPage:
         memUsage: 'MEM usage over {percent}%'
 
   new:
-    addHeader: Add Alert
-    editHeader: Edit Alert
+    addHeader: Add Alert Group
+    editHeader: Edit Alert Group
