@@ -1,5 +1,5 @@
 import Resource from 'ember-api-store/models/resource';
-import { get } from '@ember/object';
+import { get, computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import alertMixin from 'ui/mixins/model-alert';
 

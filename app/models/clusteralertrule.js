@@ -9,7 +9,8 @@ const clusterAlertRule = Resource.extend(alertMixin, {
 
   _targetType: 'systemService',
 
-  canClone: true,
+  canClone: false,
+  canEdit: false,
 
   init(...args) {
     this._super(...args);
@@ -45,7 +46,7 @@ const clusterAlertRule = Resource.extend(alertMixin, {
     return intl.t(`alertPage.targetTypes.${ t }`);
   }.property('targetType'),
 
-  displayCondition: function() {
+  displayCondition: computed('targetType', 'nodeRule.{condition,cpuThreshold,memThreshold}', function() {
     const t = get(this, 'targetType');
     const intl = get(this, 'intl');
 
@@ -73,8 +74,13 @@ const clusterAlertRule = Resource.extend(alertMixin, {
       }
     }
 
+    if (t === 'metric') {
+      const metricRule = get(this, 'metricRule')
+      return `${metricRule.comparison} ${metricRule.thresholdValue}`
+    }
+
     return intl.t('alertPage.na');
-  }.property('targetType', 'targetNode.{condition,cpuThreshold,memThreshold}'),
+  }),
 
   threshold: function() {
     const t = get(this, 'targetType');
