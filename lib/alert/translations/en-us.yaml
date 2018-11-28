@@ -50,6 +50,7 @@ alertPage:
       helpText: The value set in the Notifier is used by default. You can override this with another value.
     expression:
       placeholder: Input Expression
+    removeAlert: Remove this Alert
   resourceKinds:
     # backend use capitalized name
     Pod: Pod
@@ -74,6 +75,7 @@ alertPage:
     table:
       noMatch: No alerts match the current search.
       noData: There are no alerts defined
+      noGroup: No alert group
       condition: Condition
       target: Target
       recipients: Notifiers

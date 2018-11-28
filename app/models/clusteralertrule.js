@@ -57,18 +57,18 @@ const clusterAlertRule = Resource.extend(alertMixin, {
       return intl.t('alertPage.index.table.displayCondition.happens');
     }
     if (t === 'node' || t === 'nodeSelector') {
-      const c = get(this, 'targetNode.condition');
+      const c = get(this, 'nodeRule.condition');
 
       if (c === 'notready') {
         return intl.t('alertPage.index.table.displayCondition.notReady');
       }
       if (c === 'cpu') {
-        const n = get(this, 'targetNode.cpuThreshold');
+        const n = get(this, 'nodeRule.cpuThreshold');
 
         return intl.t('alertPage.index.table.displayCondition.cpuUsage', { percent: n });
       }
       if (c === 'mem') {
-        const n = get(this, 'targetNode.memThreshold');
+        const n = get(this, 'nodeRule.memThreshold');
 
         return intl.t('alertPage.index.table.displayCondition.memUsage', { percent: n });
       }
@@ -82,21 +82,21 @@ const clusterAlertRule = Resource.extend(alertMixin, {
     return intl.t('alertPage.na');
   }),
 
-  threshold: function() {
+  threshold: computed('targetType', 'nodeRule.{memThreshold,cpuThreshold,condition}', function() {
     const t = get(this, 'targetType');
-    const c = get(this, 'targetNode.condition');
+    const c = get(this, 'nodeRule.condition');
 
     if (t === 'node' || t === 'nodeSelector') {
       if (c === 'cpu') {
-        return get(this, 'targetNode.cpuThreshold');
+        return get(this, 'nodeRule.cpuThreshold');
       }
       if (c === 'mem') {
-        return get(this, 'targetNode.memThreshold');
+        return get(this, 'nodeRule.memThreshold');
       }
     }
 
     return null;
-  }.property('targetType', 'targetNode.{memThreshold,cpuThreshold,condition}'),
+  }),
 
   validationErrors() {
     let errors = [];

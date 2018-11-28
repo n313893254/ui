@@ -2,13 +2,9 @@
   <div class="row">
     {{#if (and editing (gt alertRules.length 1))}}
       <div class="pull-right">
-        {{#if (lte alertRules.length 1 )}}
-          <button class="btn btn-disabled-transparent text-small vertical-middle" disabled="true">
-            {{t 'formIngress.removeRuleLabel'}}
-          </button>
-        {{else}}
+        {{#if (and (gt alertRules.length 1 ) isCreate)}}
           <button class="btn bg-transparent text-small vertical-middle" {{action "removeRule" condition}}>
-            Remove this Alert
+            {{t 'alertPage.newOrEdit.removeAlert'}}
           </button>
         {{/if}}
       </div>

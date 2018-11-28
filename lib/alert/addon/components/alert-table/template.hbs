@@ -40,6 +40,6 @@
       <td colspan="{{sortable.fullColspan}}" class="text-center text-muted pt-20 pb-20">{{t 'alertPage.index.table.noData'}}</td>
     </tr>
   {{else if (eq kind "group")}}
-    {{alert-group model=row fullColspan=sortable.fullColspan groups=groups}}
+    {{alert-group model=row fullColspan=sortable.fullColspan groups=groups noGroup="alertPage.index.table.noGroup"}}
   {{/if}}
 {{/sortable-table}}

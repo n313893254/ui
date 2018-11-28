@@ -1,6 +1,10 @@
 <tr class="group-row">
   <td colspan={{sub fullColspan 1}} class="pl-10">
-    {{group.name}}
+    {{#if (and group group.id)}}
+      {{group.name}}
+    {{else}}
+      {{t noGroup}}
+    {{/if}}
     <p class="text-small text-muted m-0">{{linkify group.description}}</p>
   </td>
   <td data-title="{{dt.actions}}" class="actions">
