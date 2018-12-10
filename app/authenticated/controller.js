@@ -1,5 +1,5 @@
 import { schedule } from '@ember/runloop';
-import { alias } from '@ember/object/computed';
+import { alias, equal } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Controller, { inject as controller } from '@ember/controller';
 import C from 'ui/utils/constants';
@@ -15,6 +15,8 @@ export default Controller.extend({
 
   isPopup:     alias('application.isPopup'),
   pageScope:   alias('scope.currentPageScope'),
+  sidebar:     equal(`prefs.${C.PREFS.MENU}`, 'left'),
+  hideMenu:    equal(`session.${C.SESSION.HIDE_MENU}`, true),
 
   bootstrap: on('init', function() {
     schedule('afterRender', this, () => {

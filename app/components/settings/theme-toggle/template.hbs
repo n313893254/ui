@@ -20,5 +20,13 @@
       </p>
     </div>
   </div>
+  <div class="container-theme-toggle row">
+    <div class="col span-4 bg-default {{if (eq theme 'ui-zoomlion') 'active' ''}}" {{action 'changeTheme' 'ui-zoomlion'}} >
+      <i class="icon icon-moon icon-3x vertical-middle"></i>
+      <p class="vertical-middle">
+        中科云谷
+      </p>
+    </div>
+  </div>
   <p class="help-block text-center">{{t 'userPreferencesPage.theme.autoDetail'}}</p>
 </div>

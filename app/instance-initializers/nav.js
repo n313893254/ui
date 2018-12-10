@@ -19,6 +19,7 @@ const rootNav = [
       'authenticated.project.pipeline.pipelines',
       'authenticated.project.pipeline.repositories',
     ],
+    icon: 'anticon_user anticon-Container',
   },
 
   {
@@ -29,6 +30,7 @@ const rootNav = [
     ctx:            [getProjectId],
     resource:       ['app'],
     resourceScope:  'project',
+    icon: 'anticon_user anticon-apps',
   },
   {
     scope:          'project',
@@ -36,6 +38,7 @@ const rootNav = [
     localizedLabel: 'nav.infra.tab',
     ctx:            [getProjectId],
     route:          'authenticated.project.certificates',
+    icon:           'anticon_user anticon-resource',
     submenu:        [
       {
         id:             'infra-certificates',
@@ -83,6 +86,7 @@ const rootNav = [
     ctx:            [getProjectId],
     resource:       ['namespace'],
     resourceScope:  'cluster',
+    icon: 'anticon_user anticon-approval1',
   },
   {
     scope:          'project',
@@ -102,6 +106,7 @@ const rootNav = [
     resource:       [],
     resourceScope:  'global',
     route:          'authenticated.project.alert',
+    icon:           'anticon_user anticon-tools',
     submenu:        [
       {
         id:             'tools-alerts',
@@ -110,6 +115,7 @@ const rootNav = [
         resource:       [],
         ctx:            [getProjectId],
         resourceScope:  'global',
+        icon: 'icon icon-alert',
       },
       {
         id:             'tools-logging',
@@ -118,6 +124,7 @@ const rootNav = [
         resourceScope:  'global',
         resource:       [],
         ctx:            [getProjectId],
+        icon: 'icon icon-files',
       },
       {
         id:             'tools-monitoring',
@@ -126,6 +133,7 @@ const rootNav = [
         resourceScope:  'global',
         resource:       [],
         ctx:            [getProjectId],
+        // icon: 'anticon_user anticon-pipeline',
         condition() {
           return get(this, 'cluster.enableClusterMonitoring')
         }
@@ -137,6 +145,7 @@ const rootNav = [
         resource:       ['sourcecodeproviderconfig'],
         resourceScope:  'project',
         ctx:            [getProjectId],
+        icon: 'anticon_user anticon-pipeline',
       },
     ]
   },
@@ -149,6 +158,7 @@ const rootNav = [
     ctx:            [getClusterId],
     resource:       ['node'],
     resourceScope:  'global',
+    icon: 'icon icon-cluster',
   },
   {
     scope:          'cluster',
@@ -158,6 +168,7 @@ const rootNav = [
     ctx:            [getClusterId],
     resource:       ['node'],
     resourceScope:  'global',
+    icon: 'anticon_user anticon-node',
   },
   {
     scope:          'cluster',
@@ -167,6 +178,7 @@ const rootNav = [
     resource:       ['clusterroletemplatebinding'],
     resourceScope:  'global',
     route:          'authenticated.cluster.storage',
+    icon: 'anticon_user anticon-storage-setting',
     submenu:        [
       {
         scope:          'cluster',
@@ -176,6 +188,7 @@ const rootNav = [
         ctx:            [getClusterId],
         resource:       ['project'],
         resourceScope:  'global',
+        icon: 'anticon_user anticon-volume',
       },
       {
         scope:          'cluster',
@@ -185,6 +198,7 @@ const rootNav = [
         ctx:            [getClusterId],
         resource:       ['project'],
         resourceScope:  'global',
+        icon: 'anticon_user anticon-disk',
       },
     ]
   },
@@ -196,6 +210,7 @@ const rootNav = [
     ctx:            [getClusterId],
     resource:       ['project'],
     resourceScope:  'global',
+    icon: 'icon icon-folder',
   },
   {
     scope:          'cluster',
@@ -224,6 +239,7 @@ const rootNav = [
     resource:       [],
     resourceScope:  'global',
     route:          'authenticated.cluster.alert',
+    icon:           'anticon_user anticon-tools',
     submenu:        [
       {
         id:             'cluster-tools-alert',
@@ -233,6 +249,7 @@ const rootNav = [
         resourceScope:  'global',
         resource:       [],
         ctx:            [getClusterId],
+        icon: 'icon icon-alert',
       },
       {
         id:             'cluster-tools-notifiers',
@@ -241,6 +258,7 @@ const rootNav = [
         resourceScope:  'global',
         resource:       [],
         ctx:            [getClusterId],
+        icon: 'anticon_user anticon-notifier',
       },
       {
         id:             'cluster-tools-logging',
@@ -249,6 +267,7 @@ const rootNav = [
         resourceScope:  'global',
         resource:       [],
         ctx:            [getClusterId],
+        icon: 'icon icon-files',
       },
       {
         id:             'cluster-tools-monitoring',
@@ -257,6 +276,7 @@ const rootNav = [
         resourceScope:  'global',
         resource:       [],
         ctx:            [getClusterId],
+        icon:           'anticon_user anticon-Monitoringinformati'
       },
     ],
   },
@@ -269,6 +289,7 @@ const rootNav = [
     route:          'global-admin.clusters',
     resource:       ['cluster'],
     resourceScope:  'global',
+    icon: 'icon icon-cluster',
   },
   {
     scope:          'global',
@@ -277,6 +298,7 @@ const rootNav = [
     route:          'nodes.custom-drivers',
     resource:       ['nodedriver', 'kontainerDriver'],
     resourceScope:  'global',
+    icon: 'anticon_user anticon-driver',
   },
   {
     scope:          'global',
@@ -285,6 +307,7 @@ const rootNav = [
     route:          'global-admin.catalog',
     resource:       ['catalog'],
     resourceScope:  'global',
+    icon:           'anticon_user anticon-apps',
   },
   {
     scope:          'global',
@@ -293,6 +316,7 @@ const rootNav = [
     route:          'global-admin.accounts',
     resource:       ['user'],
     resourceScope:  'global',
+    icon: 'anticon_user anticon-user-setting',
   },
   {
     scope:          'global',
@@ -300,12 +324,14 @@ const rootNav = [
     localizedLabel: 'nav.settings.tab',
     route:          'global-admin.settings.advanced',
     resourceScope:  'global',
+    icon: 'anticon_user anticon-tools',
   },
   {
     scope:          'global',
     id:             'global-security',
     localizedLabel: 'nav.admin.security.tab',
     route:          'global-admin.security',
+    icon: 'anticon_user anticon-security',
     submenu:        [
       {
         id:             'global-security-roles',

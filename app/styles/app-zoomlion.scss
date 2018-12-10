@@ -1,0 +1,248 @@
+@import "app/styles/abstracts/variables";
+@import "app/styles/themes/zoomlion";
+@import "app/styles/rancher";
+
+// input[type="checkbox"] { /* change "blue" browser chrome to yellow */
+//   filter: invert(100%) hue-rotate(18deg) brightness(1.7);
+// }
+//
+// input[type=checkbox]:after {
+//   content: " ";
+//   background-color: purple;
+//   display: inline-block;
+//   visibility: visible;
+// }
+// input[type=checkbox]:checked:after {
+//   content: "\2714";
+//   /* this is a checkmark symbol */
+// }
+
+body.container-farm {
+  background: url('images/login-zoomlion.svg') center center fixed;
+}
+
+.login {
+  background-color: #383841;
+  h1 {
+    color: #fff;
+  }
+}
+
+input[type='text'],
+input[type='password'],
+input[type='number'],
+input[type='date'],
+input[type='email'],
+input[type='search'],
+input[type='tel'],
+input[type='url'],
+textarea {
+    display: block;
+    box-sizing: border-box;
+    border-width: 1.25px;
+    border-color: $input-border;
+    border-radius: 0;
+    border-style: solid;
+    background: $input-bg;
+    padding: 5px 10px;
+    font-size: 15px;
+    line-height: 24px;
+    width: 100%;
+
+    &[size] {
+      display: inline-block;
+      width: auto;
+    }
+
+    &::placeholder {
+        color: $input-color-placeholder;
+    }
+
+    &:hover {
+        border-color: $primary;
+        background: #fff;
+        &::placeholder {
+            color: #cfd9db;
+        }
+    }
+    &.disabled, &[disabled], &[disabled]:hover  {
+        @extend .bg-disabled;
+        border-color: $input-bg-disabled;
+        cursor: not-allowed;
+        &::placeholder {
+            color: darken($input-bg-disabled, 5%);
+        }
+    }
+    &:focus {
+        background: #fff;
+        border-color: $input-border-focus;
+        &::placeholder {
+            color: $input-border-focus;
+        }
+    }
+}
+
+TABLE {
+  > THEAD > TR {
+    &.fixed-header {
+      border-bottom: 3px solid $primary;
+      TH {
+        .btn {
+          color: #333;
+        }
+      }
+    }
+  }
+}
+
+.btn,
+button,
+[class^='btn-'] {
+  &.bg-transparent {
+      color: darken($primary, 5);
+  }
+  &.more-actions {
+      background: lighten($primary,25);
+      &.bg-transparent:hover {
+          color: lighten($primary,20);
+      }
+      &:focus {
+          outline: 0;
+      }
+      &:hover {
+        background: lighten($primary,10);
+      }
+  }
+}
+
+.bg-primary {
+  color: #fff;
+}
+
+.has-tabs ul.tab-nav li a.active {
+  color: $primary;
+  border-bottom: solid 2px $primary;
+}
+
+.has-tabs ul.tab-nav li a:hover {
+  color: darken($primary,20);
+  border-bottom: solid 2px darken($primary,20);
+}
+
+.bg-link {
+  background-color: $primary;
+}
+
+.bg-link.btn:hover, .inline-form .bg-link.input-label:hover, .inline-form .bg-link.input-group-addon:hover, .inline-form .bg-link.inline-label:hover, .pagination > li.bg-link:hover {
+  background: darken($primary,20);
+}
+
+.ember-basic-dropdown-content > li > a {
+  color: $primary;
+}
+
+.ember-basic-dropdown-content > li > a:hover, .ember-basic-dropdown-content > li > a:focus {
+  background-color: $primary;
+}
+
+.pipeline-stages .stage-name {
+  background: $primary;
+}
+
+.pipeline-stages .arrow-next .line {
+  border: 2px solid $primary;
+  float: left;
+  border-left-width: 25px;
+}
+
+.pipeline-stages .arrow-next .arrow-right {
+  border-left: 7px solid $primary;
+}
+
+.pipeline-stages .arrow-down {
+  border-top: 7px solid $primary;
+}
+
+.pipeline-stages .new-stage-button:hover {
+  color: $primary;
+  border-color: $primary;
+}
+
+.pipeline-stages .new-stage-button {
+  background: #f5f5f5;
+  color: $primary;
+}
+
+.pipeline-steps .step-button {
+  color: $primary;
+}
+
+.pipeline-steps .step-button:hover {
+  color: $primary;
+  border-color: $primary;
+}
+
+.box > div > table.striped thead tr {
+  color: $primary;
+  border-bottom: solid $primary 3px;
+}
+
+.page-left NAV.sidebar {
+  background-color: #2d2e3c;
+}
+
+.page-left NAV.sidebar ul li > a:not(.active):hover {
+  background-color: darken($primary,20);
+}
+
+.nav-main.nav-list.no-inline-space {
+  margin: 0;
+}
+// .pipeline-stages .new-stage-button {
+//   color: #fff;
+// }
+
+// table {
+//   border-collapse: separate;
+// }
+
+.container-tooltip {
+  background: $primary;
+}
+
+input[type='text']:focus, input[type='password']:focus, input[type='number']:focus, input[type='date']:focus, input[type='email']:focus, input[type='search']:focus, input[type='tel']:focus, input[type='url']:focus, textarea:focus {
+  border-color: $primary;
+  background: #fff;
+}
+
+:focus {
+  outline: $primary auto 5px;
+}
+
+.ember-basic-dropdown-content > .active > a {
+  background-color: $primary;
+}
+.ember-basic-dropdown-content > .active > a:hover {
+  background-color: lighten($primary,30);
+}
+
+option:hover {
+  background-color: $primary;
+}
+
+.container-tooltip.right > .tooltip-caret {
+  border-left: 5px solid $primary;
+}
+.container-tooltip.top > .tooltip-caret {
+  border-top: 5px solid $primary;
+}
+.container-tooltip.bottom > .tooltip-caret {
+  border-bottom: 5px solid $primary;
+}
+.container-tooltip.left > .tooltip-caret {
+  border-right: 5px solid $primary;
+}
+
+.nav-boxes.logging-targets .nav-box-item.active {
+  border-color: $primary;
+}
