@@ -52,7 +52,7 @@ export default Component.extend({
     {
       name:           'name',
       translationKey: 'generic.name',
-      sort:           ['created'],
+      sort:           ['name'],
     },
     {
       name:           'tolerance',
@@ -62,7 +62,7 @@ export default Component.extend({
     {
       name:           'metricsType',
       translationKey: 'hooksPage.NewOrEdit.metricsType.label',
-      sort:           ['created'],
+      sort:           ['metricsType', 'name'],
     },
     {
       name:           'metricsCondition',

@@ -6175,7 +6175,10 @@ eventPage:
   button:
     search: 搜索
     searching: 搜索中
+    loadMore: 加载更多
+    loading: 加载中
   eventLevelContent:
     any: 全部
     normal: 普通
     warning: 告警
+  noMatch: 没有符合条件的事件

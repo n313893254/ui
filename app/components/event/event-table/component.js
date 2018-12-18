@@ -319,5 +319,14 @@ export default Component.extend({
       }
 
     },
+
+    canLoadMore: computed('model.clusterEventLogs', function() {
+
+      const clusterEventLogs = get(this, 'model.clusterEventLogs')
+      const next = clusterEventLogs.pagination && clusterEventLogs.pagination.next
+
+      return next ? true : false
+
+    }),
   },
 });

@@ -166,20 +166,22 @@
       dt=dt
     }}
   {{else if (eq kind "nomatch")}}
-    <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">{{t 'persistentVolumePage.noMatch'}}</td></tr>
+    <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">{{t 'eventPage.noMatch'}}</td></tr>
   {{else if (eq kind "norows")}}
     <tr><td colspan="{{sortable.fullColspan}}" class="text-center text-muted lacsso pt-20 pb-20">No data</td></tr>
   {{/if}}
 {{/sortable-table}}
 
-<section class="mt-20">
-  <div class="text-center">
-    <button class="btn btn-sm bg-primary" {{action "loadMore"}} >
-      {{#if loading}}
-        <i class="icon icon-spinner icon-spin"></i> Loading
-      {{else}}
-        Load More
-      {{/if}}
-    </button>
-  </div>
-</section>
+{{#if canLoadMore}}
+  <section class="mt-20">
+    <div class="text-center">
+      <button class="btn btn-sm bg-primary" {{action "loadMore"}}>
+        {{#if loading}}
+          <i class="icon icon-spinner icon-spin"></i> {{t 'eventPage.button.loading'}}
+        {{else}}
+          {{t 'eventPage.button.loadMore'}}
+        {{/if}}
+      </button>
+    </div>
+  </section>
+{{/if}}
