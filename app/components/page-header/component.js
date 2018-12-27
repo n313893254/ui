@@ -17,16 +17,16 @@ function fnOrValue(val, ctx) {
 }
 
 const USER_MENU = [{
-  route: 'authenticated.apikeys',
-  icon: 'icon-key',
+  route:          'authenticated.apikeys',
+  icon:           'icon-key',
   localizedLabel: 'nav.api.link',
 }, {
-  route: 'nodes.node-templates',
-  icon: 'icon-host',
+  route:          'nodes.node-templates',
+  icon:           'icon-host',
   localizedLabel: 'nav.nodeTemplates.link',
 }, {
-  route: 'authenticated.prefs',
-  icon: 'icon-gear',
+  route:          'authenticated.prefs',
+  icon:           'icon-gear',
   localizedLabel: 'nav.userPreferences.link',
 }];
 
@@ -51,17 +51,16 @@ export default Component.extend({
   stacks:           null,
 
   // This computed property generates the active list of choices to display
-  navTree:       null,
+  navTree:          null,
+  responsiveNav:    true,
+  userMenuExpanded: false,
+  userMenus:        USER_MENU,
+
   clusterId:        alias('scope.currentCluster.id'),
   cluster:          alias('scope.currentCluster'),
   projectId:        alias('scope.currentProject.id'),
   project:          alias('scope.currentProject'),
   accessEnabled:    alias('access.enabled'),
-
-  classNames:       null,
-  responsiveNav:    true,
-  userMenuExpanded: false,
-  userMenus:        USER_MENU,
 
   init() {
     this._super(...arguments);
@@ -113,6 +112,14 @@ export default Component.extend({
     });
   },
 
+  willRender() {
+    if ($('BODY').hasClass('touch') && $('header > nav').hasClass('nav-open')) {// eslint-disable-line
+      run.later(() => {
+        $('header > nav').removeClass('nav-open');// eslint-disable-line
+      });
+    }
+  },
+
   actions: {
     toogleExpand(selected) {
       get(this, 'navTree').forEach((item) => {
@@ -125,7 +132,7 @@ export default Component.extend({
 
       set(this, 'userMenuExpanded', false);
     },
-     toogleUserMenu() {
+    toogleUserMenu() {
       get(this, 'navTree').forEach((item) => {
         set(item, 'expanded', false);
       });
@@ -139,6 +146,7 @@ export default Component.extend({
     get(this, 'navTree').forEach((item) => {
       if ( get(item, 'expanded') ) {
         const submenuActive = (get(item, 'submenu') || []).some((subitem) => currentRouteName.startsWith(get(subitem, 'route')));
+
         if ( !submenuActive ) {
           set(item, 'expanded', false);
         }
@@ -146,19 +154,12 @@ export default Component.extend({
     });
     if ( get(this, 'userMenuExpanded') ) {
       const submenuActive = get(this, 'userMenus').some((subitem) => currentRouteName.startsWith(get(subitem, 'route')));
+
       if ( !submenuActive ) {
         set(this, 'userMenuExpanded', false);
       }
     }
   }),
-
-  willRender() {
-    if ($('BODY').hasClass('touch') && $('header > nav').hasClass('nav-open')) {// eslint-disable-line
-      run.later(() => {
-        $('header > nav').removeClass('nav-open');// eslint-disable-line
-      });
-    }
-  },
 
   shouldUpdateNavTree: observer(
     'pageScope',
@@ -238,6 +239,7 @@ export default Component.extend({
     set(this, 'navTree', out);
 
     const userMenuActive = get(this, 'userMenus').some((subitem) => currentRouteName.startsWith(get(subitem, 'route')));
+
     if ( userMenuActive ) {
       set(this, 'userMenuExpanded', true);
     }

@@ -15,8 +15,8 @@ export default Controller.extend({
 
   isPopup:     alias('application.isPopup'),
   pageScope:   alias('scope.currentPageScope'),
-  sidebar:     equal(`prefs.${C.PREFS.MENU}`, 'left'),
-  hideMenu:    equal(`session.${C.SESSION.HIDE_MENU}`, true),
+  sidebar:     equal(`prefs.${ C.PREFS.MENU }`, 'left'),
+  hideMenu:    equal(`session.${ C.SESSION.HIDE_MENU }`, true),
 
   bootstrap: on('init', function() {
     schedule('afterRender', this, () => {
