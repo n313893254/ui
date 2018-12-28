@@ -45,7 +45,7 @@ export default Component.extend({
 
   // Component options
   tagName:          'header',
-  classNames:       ['page-header'],
+  classNames:       null,
   dropdownSelector: '.navbar .dropdown',
 
   stacks:           null,
