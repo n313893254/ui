@@ -50,6 +50,9 @@ loggingPage:
       helpText: How often buffered logs would be flushed.
     excludeSystemComponent:
       label: Include System Log
+  advanced:
+    file: Edit as File
+    cancel: Edit as a Form
 
   elasticsearch:
     header: Elasticsearch Configuration
