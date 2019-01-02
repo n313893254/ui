@@ -22,6 +22,7 @@ export default Mixin.create({
       'splunk',
       'syslog',
       'fluentForwarder',
+      'customTarget',
     ];
 
     loggingTagets.forEach((key) => {
@@ -49,12 +50,13 @@ export default Mixin.create({
     return this;
   },
 
-  targetType: computed('elasticsearchConfig', 'splunkConfig', 'kafkaConfig', 'syslogConfig', 'fluentForwarderConfig', function() {
+  targetType: computed('elasticsearchConfig', 'splunkConfig', 'kafkaConfig', 'syslogConfig', 'fluentForwarderConfig', 'customTargetConfig', function() {
     const es = get(this, 'elasticsearchConfig');
     const splunk = get(this, 'splunkConfig');
     const kafka = get(this, 'kafkaConfig');
     const syslog = get(this, 'syslogConfig');
     const fluentd = get(this, 'fluentForwarderConfig');
+    const customTarget = get(this, 'customTargetConfig');
 
     if (es) {
       return 'elasticsearch';
@@ -70,6 +72,9 @@ export default Mixin.create({
     }
     if (fluentd) {
       return 'fluentForwarder'
+    }
+    if (customTarget) {
+      return 'customTarget'
     }
 
     return DEFAULT_TARGET_TYPE;

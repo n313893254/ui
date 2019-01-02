@@ -21,3 +21,5 @@
 </div>
 {{yield 'description'}}
 <input type="file" accept="{{actualAccept}}" multiple={{multiple}} class="hide">
+
+{{logging/form-log-format logPreview=logPreview model=model targetType='customTarget'}}
