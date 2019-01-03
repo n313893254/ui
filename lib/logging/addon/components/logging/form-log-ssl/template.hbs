@@ -101,7 +101,8 @@
       </div>
     </div>
   {{/if}}
-  {{#if (eq targetType 'kafka')}}
+
+  {{#if (or (eq targetType 'kafka') (eq targetType 'customTarget'))}}
     <div class="row">
       <div class="col span-6 mt-0">
         <div class="clearfix">

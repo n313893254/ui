@@ -1,4 +1,4 @@
-import { get, set, computed } from '@ember/object'
+import { get, set, computed, setProperties } from '@ember/object'
 import EmberObject from '@ember/object';
 import Mixin from '@ember/object/mixin';
 
@@ -30,6 +30,17 @@ export default Mixin.create({
 
       if (key === 'fluentForwarder') {
         config = store.createRecord({ type: `fluentForwarderConfig`, });
+      } else if (key === 'customTarget') {
+        config = store.createRecord({ type: `customTargetConfig`, });
+        setProperties(config, {
+          clientKey: '',
+          clientCert: '',
+          certificate: '',
+          content: `<match *>
+  @type elastic
+
+</match>`,
+        })
       } else {
         config = store.createRecord({ type: `${ key }Config`, });
       }
