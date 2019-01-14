@@ -1,5 +1,5 @@
 <form {{action "add" on="submit"}}>
-  <div class="input-group">
+  <div class={{if showDropdown 'input-group'}}>
     {{principal-search
         add="add"
         filter=filter

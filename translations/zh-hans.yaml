@@ -6081,6 +6081,11 @@ siteAccess:
   groups: 组
   organizations: 组织
 
+siteAccessZoomlion:
+  restricted: "允许集群成员，项目成员以及授权的{individuals}"
+  required: "仅允许授权的{individuals}"
+  listHeader: "授权的{individuals}"
+
 systemInfoSection:
   title: 系统信息
   detail: 操作系统和kubernetes信息
