@@ -585,6 +585,33 @@ authPage:
       buttonText:
         pre: Enable Local Auth
         post: 'Enabling...'
+  zoomlion:
+    header:
+      disabled:
+        label: Zoomlion is not configured
+    notAuthenticated:
+      form:
+        header: Configure Rancher to use Zoomlion to authentication
+        hostUrl:
+          label: SSO Host
+          placeholder: e.g. zoomlion.com
+        clientId:
+          label: Client Id
+          placeholder: Your Zoomlion Client Id
+        clientSecret:
+          label: Client Secret
+          placeholder: Your Zoomlion Client Secret
+    authenticated:
+      disableAccess:
+        disable: Disable Zoomlion access
+    testAuth:
+      header: 'Test and enable authentication'
+      subtext: 'Check that your application is configured correctly by testing authentication with it:'
+      buttonText:
+        pre: Authenticate with Zoomlion
+        post: Waiting to hear back from Zoomlion
+      authError: 'Zoomlion access was not authorized'
+      popupError: 'Please disable your pop-up blocker and click "Authenticate" again.'
 
 balancerPage:
   noMatch: No balancers match the current search
@@ -4808,6 +4835,9 @@ loginUserPass:
   loginLabel: Log In  with {provider}
   loggingInLabel: Logging In...
   passwordLabel: Password
+
+loginSSO:
+  buttonText: Log In with Zoomlion
 
 machineTemplatesPage:
   title: Add Node

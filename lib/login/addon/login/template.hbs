@@ -63,6 +63,10 @@
         }}
       {{/if}}
 
+      {{#if isSSO}}
+        {{login-sso action="started"}}
+      {{/if}}
+
       {{#if isAdfs}}
         {{login-saml
             action="started"
