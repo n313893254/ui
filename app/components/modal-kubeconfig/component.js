@@ -4,6 +4,7 @@ import { get, set } from '@ember/object';
 import Component from '@ember/component';
 import ModalBase from 'shared/mixins/modal-base';
 import layout from './template';
+import { downloadFile } from 'shared/utils/download-files';
 
 export default Component.extend(ModalBase, {
   globalStore:  service(),
@@ -49,6 +50,12 @@ export default Component.extend(ModalBase, {
   actions: {
     togglePreview() {
       this.toggleProperty('collapsed');
+    },
+    download() {
+
+      let kubeconfig = get(this, 'kubeconfig');
+
+      downloadFile('kubeconfig.yml', kubeconfig);
     },
   }
 });

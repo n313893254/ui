@@ -8,6 +8,7 @@
       <div class="hand no-select poi text-center pb-5"><span {{action "togglePreview"}}>Click to expand inline <i class="icon {{if collapsed 'icon-chevron-down' 'icon-chevron-up'}}"></i></span></div>
     {{/if}}
     {{copy-to-clipboard tooltipText="" buttonText="copyToClipboard.tooltip" clipboardText=kubeconfig class="with-clip"}}
+    <button {{action "download"}} class="btn">Download</button>
     <div class="mt-10 mb-0">
       <span>{{t 'k8sPage.configFile.usage.helpText' htmlSafe=true}}</span>
       <span>{{t 'k8sPage.configFile.usage.downloadText' downloadUrl=downloadUrl htmlSafe=true}}</span>
