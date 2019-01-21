@@ -1251,11 +1251,10 @@ k8sPage:
     detail: Generate a Kubernetes config file to use <code>kubectl</code> on your desktop.
     button: Kubeconfig File
     generating: Generating...
+    helpText: We generated a kubeconfig for you which can be used with kubectl to interact with your cluster or something along the lines.
     usage:
-      helpText: |
-        Put this into <code>~/.kube/config</code>:
       downloadText: |
-        Then <a href="{downloadUrl}" target="_blank">download</a> (if needed) and run <code>kubectl</code>
+        Put this into <code>~/.kube/config</code>. Then <a href="{downloadUrl}" target="_blank">download</a> (if needed) and run <code>kubectl</code>
 
 loginPage:
   greeting: "Howdy!<br><span>Welcome to {appName}</span>"
