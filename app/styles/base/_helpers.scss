@@ -128,6 +128,28 @@
   display: none !important;
 }
 
+.collapsed {
+  height: 150px;
+  min-height: 150px !important;
+  overflow: hidden !important;
+  margin-bottom: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  & > span {
+    font-size           : 13px;
+  }
+}
+
+.poi {
+  border: 1px solid #000;
+  border-top: none;
+  margin: 0 auto;
+  color: #fff;
+  background: #272822;
+  border-bottom-left-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
+}
+
 .block {
   display: block !important;
 }

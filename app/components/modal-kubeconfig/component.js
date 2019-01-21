@@ -21,6 +21,8 @@ export default Component.extend(ModalBase, {
 
   downloadUrl: 'http://kubernetes.io/docs/user-guide/prereqs/',
 
+  collapsed: true,
+
   didReceiveAttrs() {
     get(this, 'scope.currentCluster').doAction('generateKubeconfig')
       .then((obj) => {
@@ -43,4 +45,10 @@ export default Component.extend(ModalBase, {
       }
     });
   },
+
+  actions: {
+    togglePreview() {
+      this.toggleProperty('collapsed');
+    },
+  }
 });
