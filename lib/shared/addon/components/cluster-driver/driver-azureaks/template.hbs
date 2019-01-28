@@ -145,6 +145,48 @@
             }}
           </div>
         </div>
+
+        <div class="row">
+          <div class="col span-6">
+            <label class="acc-label">{{t 'clusterNew.azureaks.addonEnableHTTPApplicationRouting.label'}}</label>
+            <div class="form-control-static">
+              <label class="mr-20">
+                {{radio-button
+                    selection=config.addonEnableHTTPApplicationRouting
+                    value=true
+                }}
+                {{t 'generic.enabled'}}
+              </label>
+              <label class="hand">
+                {{radio-button
+                    selection=config.addonEnableHTTPApplicationRouting
+                    value=false
+                }}
+                {{t 'generic.disabled'}}
+              </label>
+            </div>
+          </div>
+          <div class="col span-6">
+            <label class="acc-label">{{t 'clusterNew.azureaks.addonEnableMonitoring.label'}}</label>
+            <div class="form-control-static">
+              <label class="mr-20">
+                {{radio-button
+                    selection=config.addonEnableMonitoring
+                    value=true
+                }}
+                {{t 'generic.enabled'}}
+              </label>
+              <label class="hand">
+                {{radio-button
+                    selection=config.addonEnableMonitoring
+                    value=false
+                }}
+                {{t 'generic.disabled'}}
+              </label>
+            </div>
+          </div>
+        </div>
+
       {{/accordion-list-item}}
 
       {{#accordion-list-item
@@ -214,13 +256,13 @@
               <label class="acc-label" for="azureaks-os-disk-size">{{t 'clusterNew.azureaks.diskSizeGb.label'}}</label>
               {{#input-or-display
                    editable=isEditable
-                   value=config.osDiskSizeGb
+                   value=config.agentOsdiskSize
               }}
                 <div class="input-group">
                   {{input-number
                       id="azureaks-os-disk-size"
                       min=0
-                      value=config.osDiskSizeGb
+                      value=config.agentOsdiskSize
                   }}
                   <span class="input-group-addon bg-default">{{t 'generic.gigabyte'}}</span>
                 </div>
@@ -251,7 +293,7 @@
           <div class="col span-12">
             {{t "clusterNew.azureaks.networking.label"}}
             <div class="radio">
-              <label class="acc-label">
+              <label class="acc-label mr-20">
                 {{radio-button selection=netMode value="default"}} {{t "clusterNew.azureaks.networking.default"}}
               </label>
               <label class="acc-label">
@@ -333,6 +375,17 @@
               </div>
             </div>
           {{/if}}
+        </div>
+
+        <div class="row">
+          <div class="col span-6">
+            <label class="acc-label">{{t 'clusterNew.azureaks.networkPolicy.label'}}</label>
+            {{input
+                classNames="form-control"
+                type="text"
+                value=config.networkPolicy
+            }}
+          </div>
         </div>
 
         <div class="row">
