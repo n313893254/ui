@@ -31,10 +31,12 @@
       </div>
     {{/if}}
 
-    <div class="row">
-      {{input type="checkbox" classNames="form-control" checked=model.excludeSystemComponent}}
-      {{t 'loggingPage.additional.excludeSystemComponent.label'}}
-    </div>
+    {{#if (eq pageScope 'cluster')}}
+      <div class="row">
+        {{input type="checkbox" classNames="form-control" checked=model.excludeSystemComponent}}
+        {{t 'loggingPage.additional.excludeSystemComponent.label'}}
+      </div>
+    {{/if}}
   </section>
 </div>
 
