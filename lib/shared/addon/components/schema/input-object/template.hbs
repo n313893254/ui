@@ -1,0 +1,8 @@
+{{#each questions as |question|}}
+  {{input-answer-row
+      classNames="col span-6"
+      question=question
+      answer=question.answer
+      namespaceId=namespaceId
+  }}
+{{/each}}

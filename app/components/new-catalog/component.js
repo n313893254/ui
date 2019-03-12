@@ -201,7 +201,7 @@ export default Component.extend(NewOrEdit, CatalogApp, {
       }
 
       var current = get(this, 'catalogApp.answers');
-
+      console.log(current, 'current')
       if ( !current ) {
         current = {};
         set(this, 'catalogApp.answers', current);
@@ -213,6 +213,55 @@ export default Component.extend(NewOrEdit, CatalogApp, {
             const questions = [];
             const customAnswers = {};
 
+            response.questions.pushObjects([{
+              variable: 'mockPorts',
+              description: 'service ports',
+              type: 'array',
+              element_type: 'int',
+              label: 'Service ports',
+              group: 'Service',
+            }, {
+              variable: 'mockService',
+              type: 'object',
+              group: 'Service',
+              fields: [{
+                variable: 'mockType',
+                description: "service type",
+                type: 'string',
+                label: 'Service Type',
+              }, {
+                variable: 'mockNodePort',
+                description: "NodePort port number(to set explicitly, choose port between 30000-32767)",
+                type: 'int',
+                min: 30000,
+                max: 32767,
+                label: 'Service NodePort number'
+              }]
+            }, {
+              variable: 'routes',
+              type: 'array',
+              element_type: 'object',
+              group: 'Routes to services by version',
+              fields: [{
+                variable: 'version',
+                description: "version name",
+                type: 'string',
+                label: 'Version',
+              }, {
+                variable: 'percentage',
+                default: "5.7.14",
+                description: "Traffic in percentage",
+                type: 'int',
+                label: 'Traffic in percentage',
+              }, {
+                variable: 'percentage2',
+                default: "5.7.14",
+                description: "Traffic in percentage",
+                type: 'int',
+                label: 'Traffic in percentage2',
+              }]
+            }])
+
             response.questions.forEach((q) => {
               questions.push(q);
               const subquestions = get(q, 'subquestions');
@@ -222,23 +271,12 @@ export default Component.extend(NewOrEdit, CatalogApp, {
               }
             });
             questions.forEach((item) => {
-            // This will be the component that is rendered to edit this answer
-              item.inputComponent = `schema/input-${ item.type }`;
 
-              // Only types marked supported will show the component, Ember will explode if the component doesn't exist
-              item.supported = C.SUPPORTED_SCHEMA_INPUTS.indexOf(item.type) >= 0;
-
-              if (typeof current[item.variable] !== 'undefined') {
-              // If there's an existing value, use it (for upgrade)
-                item.answer = current[item.variable];
-              } else if (item.type === 'service' || item.type === 'certificate') {
-              // Loaded async and then the component picks the default
-              } else if ( item.type === 'boolean' ) {
-              // Coerce booleans
-                item.answer = (item.default === 'true' || item.default === true);
-              } else {
-              // Everything else
-                item.answer = item.default || null;
+              item = this.questionFormat(item, current)
+              if (item.type === 'object' || item.element_type === 'object') {
+                item.fields.map(f => {
+                  f = this.questionFormat(f, current, 'object', item)
+                })
               }
             });
 
@@ -249,7 +287,7 @@ export default Component.extend(NewOrEdit, CatalogApp, {
                 customAnswers[key] = current[key];
               }
             });
-
+            console.log(customAnswers, 'customAnswers')
             response.customAnswers = customAnswers;
           }
 
@@ -388,5 +426,34 @@ export default Component.extend(NewOrEdit, CatalogApp, {
     const questions = get(this, 'selectedTemplateModel.allQuestions') || [];
 
     return !!questions.some((question) => get(question, 'type') === 'password' && !!isNumeric(get(question, 'answer')));
+  },
+
+  questionFormat(item, current, type='string', parentItem) {
+    // This will be the component that is rendered to edit this answer
+    item.inputComponent = `schema/input-${ item.type }`;
+
+    // Only types marked supported will show the component, Ember will explode if the component doesn't exist
+    item.supported = C.SUPPORTED_SCHEMA_INPUTS.indexOf(item.type) >= 0;
+
+    let key = item.variable
+
+    if (type === 'object') {
+      key = `${parentItem.variable}.${item.variable}`
+    }
+
+    if (typeof current[key] !== 'undefined') {
+    // If there's an existing value, use it (for upgrade)
+      item.answer = current[key];
+    } else if (item.type === 'service' || item.type === 'certificate') {
+    // Loaded async and then the component picks the default
+    } else if ( item.type === 'boolean' ) {
+    // Coerce booleans
+      item.answer = (item.default === 'true' || item.default === true);
+    } else {
+    // Everything else
+      item.answer = item.default || null;
+    }
+
+    return item
   },
 });

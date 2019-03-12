@@ -1,17 +1,36 @@
 <label class="acc-label">
-  {{or question.label question.variable}}
+  {{#if (not-eq question.type "object")}}
+    {{or question.label question.variable}}
+  {{/if}}
   {{#if question.required}}
     {{field-required}}
   {{/if}}
 </label>
 
 {{#if question.supported}}
-  {{component
-    question.inputComponent
-    field=question
-    value=answer
-    namespaceId=namespaceId
-  }}
+  {{#if (eq question.inputComponent "schema/input-array")}}
+    {{component
+      question.inputComponent
+      field=question
+      initialValues=answer
+      changed=(action (mut answer))
+      namespaceId=namespaceId
+    }}
+  {{else if (eq question.inputComponent "schema/input-object")}}
+    {{component
+      question.inputComponent
+      questions=question.fields
+      parentQuestion=question
+      namespaceId=namespaceId
+    }}
+  {{else}}
+    {{component
+      question.inputComponent
+      field=question
+      value=answer
+      namespaceId=namespaceId
+    }}
+  {{/if}}
 {{else}}
   {{input
     type="text"

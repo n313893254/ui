@@ -20,6 +20,12 @@ $GUTTER: 1.5%;
   }
 }
 
+.row-half {
+  .col:nth-child(even) {
+    margin-right: 0;
+  }
+}
+
 /* ROWS */
 .row:before,
 .row:after {
