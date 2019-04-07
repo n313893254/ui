@@ -205,6 +205,28 @@ const App = Application.extend({
         externalRoutes: {}
       }
     },
+    istio: {
+      dependencies: {
+        services: [
+          'app',
+          'clusterStore',
+          'globalStore',
+          'resource-actions',
+          'intl',
+          'modal',
+          'router',
+          'scope',
+          'session',
+          'store',
+          'tooltip',
+        ],
+        externalRoutes: {
+          notifier:                                           'authenticated.cluster.notifier',
+          'authenticated.cluster.monitoring.cluster-setting': 'authenticated.cluster.monitoring.cluster-setting',
+          'authenticated.project.monitoring.project-setting': 'authenticated.project.monitoring.project-setting',
+        }
+      }
+    },
   }
 });
 

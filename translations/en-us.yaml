@@ -7075,6 +7075,9 @@ nav:
   project:
     none: Grouped Projects/Namespaces
     namespaces: Namespaces
+  istio:
+    label: Istio
+    trafficMonitoring: Traffic Monitoring
 
 
 ##############################

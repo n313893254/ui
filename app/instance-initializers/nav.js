@@ -140,6 +140,25 @@ const rootNav = [
       },
     ]
   },
+  {
+    scope:          'project',
+    id:             'project-istio',
+    localizedLabel: 'nav.istio.label',
+    route:          'authenticated.project.istio.index',
+    resource:       [],
+    resourceScope:  'project',
+    ctx:            [getProjectId],
+    submenu:        [
+      {
+        id:             'istio-traffic',
+        localizedLabel: 'nav.istio.trafficMonitoring',
+        route:          'authenticated.project.istio.index',
+        resource:       [],
+        resourceScope:  'project',
+        ctx:            [getProjectId],
+      },
+    ]
+  },
   // Cluster
   {
     scope:          'cluster',

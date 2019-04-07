@@ -1,0 +1,29 @@
+<div id="cytoscape-container">
+  <div id="cy" class="cytoscape-graph">
+  </div>
+</div>
+
+{{#if (and elements.nodes (gt elements.nodes.length 0))}}
+  {{graph-toolbar cy=cy
+  }}
+{{else}}
+  <div class="empty-grah">
+    <h3>Empty Graph</h3>
+  </div>
+{{/if}}
+
+<hr/>
+<div class="row">
+  <div class="col span-6">
+    {{istio-chart
+      series=chartOption.series
+      loading=graphLoading
+    }}
+  </div>
+  <div class="col span-6">
+    {{istio-chart
+      series=chartOption.series
+      loading=graphLoading
+    }}
+  </div>
+</div>
