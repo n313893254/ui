@@ -103,8 +103,9 @@
     "yamljs": "^0.3.0"
   },
   "dependencies": {
-    "cytoscape": "^3.5.0",
+    "cytoscape": "3.3.2",
     "cytoscape-cola": "^2.3.0",
+    "cytoscape-dagre": "2.2.2",
     "mysql": "^2.15.0",
     "request": "^2.83.0",
     "sendgrid": "^4.7.1",

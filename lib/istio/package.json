@@ -11,7 +11,8 @@
     "ember-cli-htmlbars": "*",
     "ember-cli-babel": "*",
     "cytoscape": "*",
-    "cytoscape-cola": "*"
+    "cytoscape-cola": "*",
+    "cytoscape-dagre": "*"
   },
   "ember-addon": {
     "paths": [
