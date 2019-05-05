@@ -137,6 +137,15 @@
     expandFn=expandFn
   }}
 
+    {{#metrics-summary
+       expandAll=al.expandAll
+       expandFn=expandFn
+       grafanaUrl=service.grafanaUrl
+       title="test"
+    }}
+      {{project-traffic-metrics}}
+    {{/metrics-summary}}
+
   {{#if scope.currentCluster.isMonitoringReady}}
     {{#metrics-summary
        expandAll=al.expandAll
