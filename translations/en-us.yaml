@@ -5189,6 +5189,9 @@ formVersions:
   experimental: "(experimental)"
   unsupported: "(unsupported)"
 
+formIstioHost:
+  prompt: Select a host...
+
 formVolumeRow:
   prompt: Select a Persistent Volume Claim...
   name:
