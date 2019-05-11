@@ -66,6 +66,16 @@
         changed=(action "updateContainerDefault")
       }}
     {{/accordion-list-item}}
+
+    {{form-labels-annotations
+      classNames="accordion-wrapper"
+      expandAll=al.expandAll
+      expandFn=expandFn
+      initialLabels=primaryResource.labels
+      model=primaryResource
+      editing=(or editing isNew)
+      setLabels=(action "setLabels")
+    }}
   {{/accordion-list}}
 </div>
 

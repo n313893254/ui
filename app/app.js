@@ -218,7 +218,7 @@ const App = Application.extend({
           'clusterStore',
           'tooltip',
         ],
-        externalRoutes: {}
+        externalRoutes: { 'authenticated.cluster.istio.cluster-setting': 'authenticated.cluster.istio.cluster-setting', }
       }
     },
   }

@@ -35,7 +35,17 @@ export default Controller.extend(NewOrEdit, {
 
     updateContainerDefault(limit) {
       set(this, 'primaryResource.containerDefaultResourceLimit', limit);
-    }
+    },
+
+    setLabels(labels) {
+      let out = {};
+
+      labels.forEach((row) => {
+        out[row.key] = row.value;
+      });
+
+      set(this, 'primaryResource.labels', out);
+    },
   },
 
   projectDidChange: observer('primaryResource.project.id', function() {

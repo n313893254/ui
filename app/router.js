@@ -126,6 +126,7 @@ Router.map(function() {
 
       this.mount('pipeline');
       this.mount('monitoring');
+      this.mount('istio');
 
       // Workload
       this.route('containers', {
