@@ -9,6 +9,8 @@ import {
 } from '@ember/object';
 import { next } from '@ember/runloop';
 
+const ISTIO_APP_NAME = 'cluster-istio'
+
 export default Component.extend(ModalBase, NewOrEdit, {
   scope: service(),
 
@@ -16,6 +18,7 @@ export default Component.extend(ModalBase, NewOrEdit, {
   classNames:    ['large-modal'],
   editing:       true,
   model:         null,
+  istioEnabled:  null,
 
   allNamespaces:     null,
   allProjects:       null,
@@ -38,6 +41,30 @@ export default Component.extend(ModalBase, NewOrEdit, {
       allProjects:   get(this, 'globalStore').all('project')
         .filterBy('clusterId', get(this, 'scope.currentCluster.id')),
     })
+
+    const cluster = get(this, 'scope.currentCluster')
+    const systemProject = get(cluster, 'systemProject')
+
+    if (systemProject) {
+      get(this, 'globalStore').rawRequest({
+        url:    get(systemProject, 'links.apps'),
+        method: 'GET',
+      }).then(({ body = {} }) => {
+        const apps = body.data
+
+        set(this, 'istioEnabled', !!(apps || []).findBy('name', ISTIO_APP_NAME))
+      });
+    } else {
+      set(this, 'istioEnabled', false)
+    }
+
+    const labels = get(this, 'primaryResource.labels')
+
+    if (labels && labels['istio-injection'] === 'enabled') {
+      set(this, 'istioInjection', true)
+    } else {
+      set(this, 'istioInjection', false)
+    }
   },
 
   actions: {
@@ -69,6 +96,19 @@ export default Component.extend(ModalBase, NewOrEdit, {
       });
 
       set(this, 'primaryResource.labels', out);
+    },
+
+    toggleAutoInject() {
+      const newSelection = !get(this, 'istioInjection')
+      const labels = {
+        ...get(this, 'primaryResource.labels'),
+        'istio-injection': newSelection ? 'enabled' : 'disabled'
+      }
+
+      setProperties(this, {
+        istioInjection:           newSelection,
+        'primaryResource.labels': labels,
+      })
     },
   },
 

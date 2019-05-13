@@ -34,6 +34,24 @@
     localizedPrompt=true
   }}
 
+  {{#if istioEnabled}}
+    <label class="pt-20 pb-5">
+      {{t "editStack.autoInject.label"}}
+    </label>
+    <div>
+      {{#if istioInjection}}
+        <div class="btn-group no-inline-space">
+          <div class="btn btn-link btn-sm bg-success" style="width: 80px;">{{t 'generic.enable'}}</div>
+          <div class="btn btn-link btn-sm bg-default" style="width: 80px;" {{action "toggleAutoInject"}}>{{t 'generic.disabled'}}</div>
+        </div>
+      {{else}}
+        <div class="btn-group no-inline-space">
+          <div class="btn btn-link btn-sm bg-default" style="width: 80px;" {{action "toggleAutoInject"}}>{{t 'generic.enable'}}</div>
+          <div class="btn btn-link btn-sm bg-primary" style="width: 80px;">{{t 'generic.disabled'}}</div>
+        </div>
+      {{/if}}
+    </div>
+  {{/if}}
 
   <div class="row mt-20">
     {{#accordion-list showExpandAll=false as | al expandFn | }}
