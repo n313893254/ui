@@ -4,9 +4,13 @@ import ViewNewEdit from 'shared/mixins/view-new-edit';
 import OptionallyNamespaced from 'shared/mixins/optionally-namespaced';
 import layout from './template';
 import  { PRESETS_BY_NAME } from  'ui/models/dockercredential';
+import { inject as service } from '@ember/service'
 
 export default Component.extend(ViewNewEdit, OptionallyNamespaced, {
   layout,
+
+  globalStore: service(),
+
   model: null,
 
   titleKey: 'cruRegistry.title',
@@ -18,7 +22,7 @@ export default Component.extend(ViewNewEdit, OptionallyNamespaced, {
   projectType:    'dockerCredential',
   namespacedType: 'namespacedDockerCredential',
 
-  hostName:  window.location.host,
+  hostname:  window.location.host,
 
   init() {
     this._super(...arguments);
@@ -28,6 +32,8 @@ export default Component.extend(ViewNewEdit, OptionallyNamespaced, {
     if (get(this, 'model.type') === 'namespacedDockerCredential') {
       set(this, 'scope', 'namespace');
     }
+    const globalRegistryEnabled = get(this, 'globalStore').all('setting').findBy('id', 'global-registry-enabled')
+    set(this, 'globalRegistryEnabled', globalRegistryEnabled)
   },
 
   arrayChanged: observer('asArray.@each.{preset,address,username,password,auth}', function() {
