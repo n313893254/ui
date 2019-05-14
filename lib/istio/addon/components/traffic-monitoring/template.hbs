@@ -33,7 +33,14 @@
   </div>
 </div>
 
-{{#if elements.nodes.length}}
+{{#if loading}}
+  <div class="mt-20">
+    <div class="text-center text-muted">
+      <i class="icon icon-spinner icon-spin"></i>
+      {{t "generic.loading"}}
+    </div>
+  </div>
+{{else if elements.nodes.length}}
   {{traffic-graph
     elements=graphData
     edgeLabelMode="none"

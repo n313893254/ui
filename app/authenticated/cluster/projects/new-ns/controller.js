@@ -6,12 +6,16 @@ import { inject as service } from '@ember/service';
 import { next } from '@ember/runloop';
 import C from 'ui/utils/constants';
 
+const ISTIO_INJECTION = 'istio-injection'
+const ENABLED = 'enabled';
+
 export default Controller.extend(NewOrEdit, {
   scope: service(),
 
   queryParams:     ['addTo', 'from'],
   addTo:           null,
   from:            null,
+  istioInjection:  false,
 
   primaryResource: alias('model.namespace'),
   actions:         {
@@ -35,6 +39,10 @@ export default Controller.extend(NewOrEdit, {
 
     updateContainerDefault(limit) {
       set(this, 'primaryResource.containerDefaultResourceLimit', limit);
+    },
+
+    toggleAutoInject() {
+      set(this, 'istioInjection', !get(this, 'istioInjection'));
     },
 
     setLabels(labels) {
@@ -95,6 +103,19 @@ export default Controller.extend(NewOrEdit, {
 
     return false;
   }),
+
+  willSave() {
+    const isEnabled = get(this, 'istioInjection');
+    const labels = { ...get(this, 'primaryResource.labels') };
+
+    if ( isEnabled ) {
+      labels[ISTIO_INJECTION] = ENABLED;
+    }
+
+    set(this, 'primaryResource.labels', labels);
+
+    return this._super(...arguments);
+  },
 
   validate() {
     this._super();

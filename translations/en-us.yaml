@@ -4124,7 +4124,7 @@ editStack:
     placeholder: e.g. frontend, production
     help: Comma-separated list of tags for the new Stack.  The workload lists can be filtered by individual tags.
   autoInject:
-    label: Istio automatic sidecar injection
+    label: Istio sidecar auto injection
 
 editUser:
   title: Edit User

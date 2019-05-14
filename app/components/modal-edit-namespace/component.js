@@ -9,7 +9,8 @@ import {
 } from '@ember/object';
 import { next } from '@ember/runloop';
 
-const ISTIO_APP_NAME = 'cluster-istio'
+const ISTIO_INJECTION = 'istio-injection'
+const ENABLED = 'enabled';
 
 export default Component.extend(ModalBase, NewOrEdit, {
   scope: service(),
@@ -18,7 +19,6 @@ export default Component.extend(ModalBase, NewOrEdit, {
   classNames:    ['large-modal'],
   editing:       true,
   model:         null,
-  istioEnabled:  null,
 
   allNamespaces:     null,
   allProjects:       null,
@@ -42,25 +42,9 @@ export default Component.extend(ModalBase, NewOrEdit, {
         .filterBy('clusterId', get(this, 'scope.currentCluster.id')),
     })
 
-    const cluster = get(this, 'scope.currentCluster')
-    const systemProject = get(cluster, 'systemProject')
-
-    if (systemProject) {
-      get(this, 'globalStore').rawRequest({
-        url:    get(systemProject, 'links.apps'),
-        method: 'GET',
-      }).then(({ body = {} }) => {
-        const apps = body.data
-
-        set(this, 'istioEnabled', !!(apps || []).findBy('name', ISTIO_APP_NAME))
-      });
-    } else {
-      set(this, 'istioEnabled', false)
-    }
-
     const labels = get(this, 'primaryResource.labels')
 
-    if (labels && labels['istio-injection'] === 'enabled') {
+    if (labels && labels[ISTIO_INJECTION] === ENABLED) {
       set(this, 'istioInjection', true)
     } else {
       set(this, 'istioInjection', false)
@@ -97,18 +81,8 @@ export default Component.extend(ModalBase, NewOrEdit, {
 
       set(this, 'primaryResource.labels', out);
     },
-
     toggleAutoInject() {
-      const newSelection = !get(this, 'istioInjection')
-      const labels = {
-        ...get(this, 'primaryResource.labels'),
-        'istio-injection': newSelection ? 'enabled' : 'disabled'
-      }
-
-      setProperties(this, {
-        istioInjection:           newSelection,
-        'primaryResource.labels': labels,
-      })
+      set(this, 'istioInjection', !get(this, 'istioInjection'));
     },
   },
 
@@ -163,7 +137,19 @@ export default Component.extend(ModalBase, NewOrEdit, {
   },
 
   willSave() {
-    set(this, 'beforeSaveModel', get(this, 'originalModel').clone());
+    const isEnabled = get(this, 'istioInjection');
+    const labels = { ...get(this, 'primaryResource.labels') };
+
+    if ( isEnabled ) {
+      labels[ISTIO_INJECTION] = ENABLED;
+    } else {
+      delete labels[ISTIO_INJECTION];
+    }
+
+    setProperties(this, {
+      'beforeSaveModel':        get(this, 'originalModel').clone(),
+      'primaryResource.labels': labels
+    });
 
     return this._super(...arguments);
   },
