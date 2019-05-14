@@ -3286,7 +3286,6 @@ cruRegistry:
     dockerhub: DockerHub
     quay: Quay.io
     custom: Custom
-    globalRegistry: Global Registry
     placeholder: e.g. registry.example.com
   multiple: Multiple
   auth:

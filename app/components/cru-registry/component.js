@@ -18,6 +18,8 @@ export default Component.extend(ViewNewEdit, OptionallyNamespaced, {
   projectType:    'dockerCredential',
   namespacedType: 'namespacedDockerCredential',
 
+  hostName:  window.location.host,
+
   init() {
     this._super(...arguments);
 
