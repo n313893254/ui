@@ -1238,7 +1238,7 @@ globalRegistryPage:
         placeholder: e.g. us-west-2
       bucket:
         label: S3 Bucket Name
-        placeholder: backups
+        placeholder: Your Bucket Name
       accesskey:
         label: S3 Access Key
         placeholder: Your S3 Access Key
@@ -1280,6 +1280,8 @@ globalRegistryPage:
         label: Existing Claim for PostgreSQL
     exposeIngressHost:
       error: '"{hostName}" is a host name. Require domain name for expose.ingress.host'
+  globalRegistryEnabled:
+    error: Error saving global-registry-enabled
 
 globalDnsPage:
   header: Global DNS Entries
