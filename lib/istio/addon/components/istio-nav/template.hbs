@@ -1,31 +1,10 @@
-{{!-- <div class="row">
-  {{istio-component-status
-    label="clusterIstioPage.links.kiali.label"
-    url=kialiUrl
-    logo="kiali"
-  }}
-  {{istio-component-status
-    label="clusterIstioPage.links.jaeger.label"
-    url=jaegerUrl
-    logo="jaeger"
-  }}
-  {{istio-component-status
-    label="clusterIstioPage.links.grafana.label"
-    url=grafanaUrl
-    logo="grafana"
-  }}
-  {{istio-component-status
-    label="clusterIstioPage.links.prometheus.label"
-    url=prometheusUrl
-    logo="prometheus-icon"
-  }}
-</div> --}}
-
 <section class="header has-tabs clearfix p-0">
   <ul class="tab-nav">
-    <li>
-      {{#link-to "index"}}{{t "istio.nav.graph"}}{{/link-to}}
-    </li>
+    {{#if owner}}
+      <li>
+        {{#link-to "index"}}{{t "istio.nav.graph"}}{{/link-to}}
+      </li>
+    {{/if}}
     <li>
       {{#link-to "metrics"}}{{t "istio.nav.metrics"}}{{/link-to}}
     </li>
