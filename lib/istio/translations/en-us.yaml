@@ -28,13 +28,13 @@ clusterIstioPage:
       prometheus: PROMETHEUS
       mixer: MIXER
     tracingEnabled:
-      label: Enabled the Tracing Component
+      label: Enabled Tracing
     kialiEnabled:
       label: Enable Istio Kiali
     prometheusEnabled:
       label: Enable the prometheus Server
     grafanaEnabled:
-      label: Enabled the Grafana Component
+      label: Enabled Grafana
     grafanaPersistenceEnabled:
       label: Enable Persistent Storage for Grafana
     grafanaPersistenceSize:
@@ -43,12 +43,10 @@ clusterIstioPage:
       label: Default StorageClass for Grafana
     certmanagerEnabled:
       label: Enabled Certmanager
-    galleyEnabled:
-      label: Enabled Galley
     autoInject:
       label: Enabled automatic Istio Sidecar injection
     mtlsEnabled:
-      label: Enabled mTLS
+      label: Service to service mutual TLS
     pilotCpu:
       label: Pilot CPU Reservation
       placeholder: e.g. 500
@@ -145,6 +143,6 @@ metrics:
 
 projectIstioPage:
   info:
-    noApp: You do not have enbable cluster Istio. Go here to
+    noApp: Cluster Istio is not enabled yet. Go here to
     enable: enable it.
-    notOwner: You have no access to view istio page.
+    notOwner: Only users who have System project access can view this page.

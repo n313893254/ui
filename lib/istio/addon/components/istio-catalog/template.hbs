@@ -9,7 +9,6 @@
           <i class="icon icon-alert"></i> {{t "clusterIstioPage.confirmDisable"}}
         </button>
       {{else}}
-        {{badge-state model=app}}
         <button class="btn bg-error" {{action "promptDisable"}}>
           <i class="icon icon-umbrella"></i> {{t "clusterIstioPage.disable"}}
         </button>
@@ -259,116 +258,102 @@
   <div class="row">
     <div class="col span-6">
       <label class="acc-label">
-        {{t "clusterIstioPage.config.prometheusEnabled.label"}}
+        {{t "clusterIstioPage.config.prometheusLimitCPU.label"}}
       </label>
-      {{schema/input-boolean
-        value=config.prometheusEnabled
-        classNames="form-control"
-      }}
+      <div class="input-group">
+        {{input-integer
+          min="4"
+          step="1"
+          value=config.prometheusLimitCPU
+          classNames="form-control"
+          placeholder=(t "clusterIstioPage.config.prometheusLimitCPU.placeholder")
+        }}
+        <div class="input-group-addon bg-default">
+          {{t "units.cpu"}}
+        </div>
+      </div>
+    </div>
+    <div class="col span-6">
+      <label class="acc-label">
+        {{t "clusterIstioPage.config.prometheusLimitMemory.label"}}
+      </label>
+      <div class="input-group">
+        {{input-integer
+          min="4"
+          step="1"
+          value=config.prometheusLimitMemory
+          classNames="form-control"
+          placeholder=(t "clusterIstioPage.config.prometheusLimitMemory.placeholder")
+        }}
+        <div class="input-group-addon bg-default">
+          {{t "generic.mibibyte"}}
+        </div>
+      </div>
     </div>
   </div>
 
-  {{#if config.prometheusEnabled}}
-    <div class="row">
-      <div class="col span-6">
-        <label class="acc-label">
-          {{t "clusterIstioPage.config.prometheusLimitCPU.label"}}
-        </label>
-        <div class="input-group">
-          {{input-integer
-            min="4"
-            step="1"
-            value=config.prometheusLimitCPU
-            classNames="form-control"
-            placeholder=(t "clusterIstioPage.config.prometheusLimitCPU.placeholder")
-          }}
-          <div class="input-group-addon bg-default">
-            {{t "units.cpu"}}
-          </div>
-        </div>
-      </div>
-      <div class="col span-6">
-        <label class="acc-label">
-          {{t "clusterIstioPage.config.prometheusLimitMemory.label"}}
-        </label>
-        <div class="input-group">
-          {{input-integer
-            min="4"
-            step="1"
-            value=config.prometheusLimitMemory
-            classNames="form-control"
-            placeholder=(t "clusterIstioPage.config.prometheusLimitMemory.placeholder")
-          }}
-          <div class="input-group-addon bg-default">
-            {{t "generic.mibibyte"}}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col span-6">
-        <label class="acc-label">
-          {{t "clusterIstioPage.config.prometheusRequestCPU.label"}}
-        </label>
-        <div class="input-group">
-          {{input-integer
-            min="4"
-            step="1"
-            value=config.prometheusRequestCPU
-            classNames="form-control"
-            placeholder=(t "clusterIstioPage.config.prometheusRequestCPU.placeholder")
-          }}
-          <div class="input-group-addon bg-default">
-            {{t "units.cpu"}}
-          </div>
-        </div>
-      </div>
-      <div class="col span-6">
-        <label class="acc-label">
-          {{t "clusterIstioPage.config.prometheusRequestMemory.label"}}
-        </label>
-        <div class="input-group">
-          {{input-integer
-            min="4"
-            step="1"
-            value=config.prometheusRequestMemory
-            classNames="form-control"
-            placeholder=(t "clusterIstioPage.config.prometheusRequestMemory.placeholder")
-          }}
-          <div class="input-group-addon bg-default">
-            {{t "generic.mibibyte"}}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col span-6">
-        <label class="acc-label">
-          {{t "clusterIstioPage.config.prometheusRetention.label"}}
-        </label>
-        <div class="input-group">
-          {{input-integer min=0 value=config.prometheusRetention}}
-          <span class="input-group-addon bg-default">{{t "generic.hours"}}</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col span-12">
-        <label class="acc-label">
-          {{t "clusterIstioPage.nodeSelector.helpText"}}
-        </label>
-        {{form-key-value
-          changedArray=(action (mut prometheusNodeSelectors))
-          initialMap=nodeSelector
-          allowEmptyValue=true
-          addActionLabel="clusterIstioPage.nodeSelector.addSelectorLabel"
+  <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">
+        {{t "clusterIstioPage.config.prometheusRequestCPU.label"}}
+      </label>
+      <div class="input-group">
+        {{input-integer
+          min="4"
+          step="1"
+          value=config.prometheusRequestCPU
+          classNames="form-control"
+          placeholder=(t "clusterIstioPage.config.prometheusRequestCPU.placeholder")
         }}
+        <div class="input-group-addon bg-default">
+          {{t "units.cpu"}}
+        </div>
       </div>
     </div>
-  {{/if}}
+    <div class="col span-6">
+      <label class="acc-label">
+        {{t "clusterIstioPage.config.prometheusRequestMemory.label"}}
+      </label>
+      <div class="input-group">
+        {{input-integer
+          min="4"
+          step="1"
+          value=config.prometheusRequestMemory
+          classNames="form-control"
+          placeholder=(t "clusterIstioPage.config.prometheusRequestMemory.placeholder")
+        }}
+        <div class="input-group-addon bg-default">
+          {{t "generic.mibibyte"}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col span-6">
+      <label class="acc-label">
+        {{t "clusterIstioPage.config.prometheusRetention.label"}}
+      </label>
+      <div class="input-group">
+        {{input-integer min=0 value=config.prometheusRetention}}
+        <span class="input-group-addon bg-default">{{t "generic.hours"}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col span-12">
+      <label class="acc-label">
+        {{t "clusterIstioPage.nodeSelector.helpText"}}
+      </label>
+      {{form-key-value
+        changedArray=(action (mut prometheusNodeSelectors))
+        initialMap=nodeSelector
+        allowEmptyValue=true
+        addActionLabel="clusterIstioPage.nodeSelector.addSelectorLabel"
+      }}
+    </div>
+  </div>
 
   <div class="over-hr"><span>{{t "clusterIstioPage.config.header.grafana"}}</span></div>
   <div class="row">
@@ -494,22 +479,10 @@
     </div>
     <div class="col span-6">
       <label class="acc-label">
-        {{t "clusterIstioPage.config.galleyEnabled.label"}}
+        {{t "clusterIstioPage.config.mtlsEnabled.label"}}
       </label>
       {{schema/input-boolean
-        value=config.galleyEnabled
-        classNames="form-control"
-      }}
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col span-6">
-      <label class="acc-label">
-        {{t "clusterIstioPage.config.certmanagerEnabled.label"}}
-      </label>
-      {{schema/input-boolean
-        value=config.certmanagerEnabled
+        value=config.mtlsEnabled
         classNames="form-control"
       }}
     </div>
