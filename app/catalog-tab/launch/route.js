@@ -61,6 +61,10 @@ export default Route.extend({
       return this.catalog.fetchByUrl(catalogTemplateUrl).then((catalogTemplate) => {
         let { requiredNamespace } = catalogTemplate;
         let namespaceName         = requiredNamespace ? requiredNamespace : results.tpl.get('displayName');
+
+        if ( params.namespaceId ) {
+          namespaceName = params.namespaceId;
+        }
         let existingNamespace     = results.namespaces.findBy('id', namespaceName);
         let kind                  = 'helm';
         let neuApp                = null;
@@ -106,6 +110,10 @@ export default Route.extend({
             })
         }
 
+        if ( !params.namespaceId && params.istio === 'true' ) {
+          namespace = null;
+        }
+
         return EmberObject.create({
           catalogTemplate,
           namespace,
@@ -133,6 +141,7 @@ export default Route.extend({
         namespaceId: null,
         template:    null,
         upgrade:     null,
+        istio:       null,
       });
     }
   },

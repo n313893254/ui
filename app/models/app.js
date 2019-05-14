@@ -23,6 +23,10 @@ const App = Resource.extend(StateCounts, EndpointPorts, {
     this.defineStateCounts('pods', 'podStates', 'podCountSort');
   },
 
+  isIstio: computed('catalogTemplate.isIstio', function() {
+    return get(this, 'catalogTemplate.isIstio')
+  }),
+
   pods:      computed('namespace.pods.@each.workloadId', 'workloads.@each.workloadLabels', function() {
     return (get(this, 'namespace.pods') || []).filter((item) => {
       if ( item['labels'] ) {
