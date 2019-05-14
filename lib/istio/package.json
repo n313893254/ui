@@ -9,7 +9,8 @@
     "ember-href-to": "*",
     "ember-auto-import": "*",
     "ember-cli-htmlbars": "*",
-    "ember-cli-babel": "*"
+    "ember-cli-babel": "*",
+    "cytoscape": "*"
   },
   "ember-addon": {
     "paths": [

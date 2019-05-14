@@ -1,7 +1,19 @@
 {{#if model.owner}}
   {{#if model.app}}
     {{istio-nav}}
-    {{traffic-monitoring}}
+    {{#accordion-list showExpandAll=false  as |al expandFn|}}
+      {{#accordion-list-item
+          expand=(action expandFn)
+          expandAll=al.expandAll
+          expandOnInit=true
+          expanded=true
+          title=(t "istio.serviceGraph.title")
+          detail=(t "istio.serviceGraph.detail")
+          showExpand=false
+      }}
+        {{traffic-monitoring}}
+      {{/accordion-list-item}}
+    {{/accordion-list}}
   {{else}}
     {{#banner-message color="bg-info"}}
       <p>
