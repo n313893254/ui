@@ -506,11 +506,12 @@
   {{/advanced-section}}
 </div>
 
-{{#if (or prometheusWarning mixerWarning istioWarning)}}
+{{#if (or prometheusWarning mixerWarning istioWarning pilotWarning)}}
   {{#banner-message color="bg-warning"}}
     {{#if istioWarning}}
       <p>{{istioWarning}}</p>
     {{else}}
+      <p>{{pilotWarning}}</p>
       <p>{{mixerWarning}}</p>
       <p>{{prometheusWarning}}</p>
     {{/if}}
