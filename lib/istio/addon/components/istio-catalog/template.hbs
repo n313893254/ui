@@ -611,7 +611,7 @@
   {{/advanced-section}}
 </div>
 
-{{#if saveDisabled}}
+{{#if (or istioWarning pilotWarning mixerWarning prometheusWarning tracingWarning grafanaWarning gatewayWarning)}}
   {{#banner-message color="bg-warning"}}
     {{#if istioWarning}}
       <p>{{istioWarning}}</p>
