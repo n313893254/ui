@@ -1,13 +1,20 @@
-<div id="cytoscape-container">
+{{!-- <div id="cytoscape-container">
   <div id="cy" class="cytoscape-graph">
   </div>
-</div>
-{{graph-toolbar cy=cy}}
-<div class="powered-by-kiali">
+</div> --}}
+{{!-- {{graph-toolbar cy=cy}} --}}
+{{!-- <iframe src="https://47.88.6.75/k8s/clusters/c-q86zq/api/v1/namespaces/istio-system/services/http:kiali-http:80/proxy/console/graph/namespaces?namespaces=default&edges=noEdgeLabels&graphType=versionedApp&injectServiceNodes=true&duration=60&pi=15000&layout=dagre"
+        width="100%" height="800" frameborder="0"
+        allowfullscreen> --}}
+<iframe scrolling="no" src="https://47.88.6.75/k8s/clusters/c-q86zq/api/v1/namespaces/istio-system/services/http:kiali-http:80/proxy/console/graph/namespaces?namespaces=default&edges=noEdgeLabels&graphType=versionedApp&injectServiceNodes=true&duration=60&pi=15000&layout=dagre"
+        style="border: 0px none; margin-left: 0px; height: 859px; margin-top: -53px; width: 926px;">
+</iframe>
+
+{{!-- <div class="powered-by-kiali">
   {{t "istio.kiali"}}
   <span class="pl-5 pull-right" role="button">
     <a href="https://www.kiali.io/" target="_blank" rel="nofollow noopener noreferrer">
       <div class="kiali"></div>
     </a>
   </span>
-</div>
+</div> --}}
