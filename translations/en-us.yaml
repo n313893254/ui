@@ -2517,6 +2517,7 @@ clusterNew:
       label: Node Count
       prompt: Choose a Type...
       outsideError: "The specified number of nodes in the node pool is outside the specified autoscaling limits"
+      required: '"Node Count" is required'
     diskSizeGb:
       label: Root Disk Size
     masterVersion:
