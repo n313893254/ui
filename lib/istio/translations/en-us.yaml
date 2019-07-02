@@ -71,6 +71,7 @@ clusterIstioPage:
   telemetryAndPolicy: Telemetry And Policy
   existingClaim:
     label: 'Existing Claim for {component}'
+  goToMonitoring: 'Before enable Istio, you need to enable cluster monitoring first. Go <a href="/c/{clusterId}/monitoring/cluster-setting">here</a> to enable cluster monitoring.'
 istio:
   noData: Not enough data for graph
   period: Period
