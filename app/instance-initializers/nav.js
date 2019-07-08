@@ -45,6 +45,9 @@ const rootNav = [
       'authenticated.project.istio.metrics',
       'authenticated.project.istio.rules',
     ],
+    condition() {
+      return !get(this, 'cluster.isWindows');
+    },
   },
   {
     scope:          'project',
@@ -287,6 +290,9 @@ const rootNav = [
         disableIfClusterNotReady: true,
         resource:                 [],
         ctx:                      [getClusterId],
+        condition() {
+          return !get(this, 'cluster.isWindows');
+        },
       },
     ],
   },
