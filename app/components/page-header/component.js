@@ -170,6 +170,19 @@ export default Component.extend({
       return true;
     });
 
+    const extraMenus = get(this, 'settings.extra-project-menus') || '';
+
+    extraMenus.split(';').forEach((menu) => {
+      const [menuScope, menuLabel, menuUrl] = menu.split(',');
+
+      if ( menuScope === currentScope ) {
+        out.push({
+          url:   menuUrl,
+          label: menuLabel,
+        })
+      }
+    })
+
     set(this, 'navTree', out);
   },
 

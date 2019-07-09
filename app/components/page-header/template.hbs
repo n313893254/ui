@@ -92,6 +92,10 @@
           </li>
         {{/if}}
 
+      {{else if item.url}}
+        <li class="nav-item">
+          <a href="{{item.url}}" target="_blank">{{maybe-t item.localizedLabel item.label}}</a>
+        </li>
       {{else}}
 
         {{! Just a label }}
