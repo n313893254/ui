@@ -3513,6 +3513,7 @@ confirmDelete:
   confirmAction: Delete
   cancelAction: Cancel
   largeDeleteText: '{key} and {othersCount} others'
+  systemChartNote: 'You are removing an app which is a system chart. It might cause the harmful effects to the cluster if it is removed.'
 
 containerLogs:
   download: Download Logs
