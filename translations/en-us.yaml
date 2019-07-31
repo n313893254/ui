@@ -7815,6 +7815,8 @@ action:
   viewInGrafana: Go to Grafana
   viewInstance: View Instance
   viewYaml: View YAML
+  autoInject: Istio auto inject
+  disableAutoInject: Disable Istio auto inject
 
 ##############################
 # Resource Actions
