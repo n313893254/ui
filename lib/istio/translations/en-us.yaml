@@ -444,3 +444,9 @@ validationsList:
 generic:
   host: Host
   istioHostPlaceholder: Select or input a host
+modalDeleteIstio:
+  title: 'Are you sure you want to disable:'
+  onlyIstio:
+    true: Only Istio
+    false: Both Istio and Monitoring
+  disable: Disable

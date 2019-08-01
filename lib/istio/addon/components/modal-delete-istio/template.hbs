@@ -1,0 +1,37 @@
+<h2>
+  {{t "modalDeleteIstio.title"}}
+</h2>
+
+<ul class="list-unstyled pl-30">
+  <li>
+    <label>
+      {{radio-button
+        selection=onlyIstio
+        value=true
+      }}
+      <span>
+        {{t "modalDeleteIstio.onlyIstio.true"}}
+      </span>
+    </label>
+  </li>
+  <li>
+    <label>
+      {{radio-button
+        selection=onlyIstio
+        value=false
+      }}
+      <span>
+        {{t "modalDeleteIstio.onlyIstio.false"}}
+      </span>
+    </label>
+  </li>
+</ul>
+
+<div class="footer-actions">
+  <button {{action "confirm"}} class="btn bg-error">
+    {{t "modalDeleteIstio.disable"}}
+  </button>
+  <button {{action "cancel"}} class="btn bg-transparent">
+    {{t "confirmDelete.cancelAction"}}
+  </button>
+</div>
