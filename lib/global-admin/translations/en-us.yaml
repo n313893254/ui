@@ -1,0 +1,14 @@
+customMenus:
+  index:
+    header: Extra Menus
+    globalMenu: Global level Menu
+    clusterMenu: Cluster level Menu
+    projectMenu: Project level Menu
+
+formMenu:
+  menu:
+    add: Add Menus
+  name:
+    label: Menu Name
+  link:
+    label: Menu Link

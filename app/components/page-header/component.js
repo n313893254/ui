@@ -170,7 +170,7 @@ export default Component.extend({
       return true;
     });
 
-    const extraMenus = get(this, 'settings.extra-project-menus') || '';
+    const extraMenus = get(this, 'settings.extra-menus') || '';
 
     extraMenus.split(';').forEach((menu) => {
       const [menuScope, menuLabel, menuUrl] = menu.split(',');
